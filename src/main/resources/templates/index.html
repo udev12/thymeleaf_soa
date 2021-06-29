@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+ <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf</title>
+</head>
+<body>
+<h1>Hello <span th:text="${nom}">World</span> !</h1>
+<p th:utext="${htmlText}"></p>
+<p data-th-text="${otherText}"></p>
+</body>
+</html>

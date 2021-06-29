@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+ <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des employés</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
+    <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.bundle.min.js" type="application/javascript"></script>
+</head>
+<body>
+
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Gestion des Communes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary" th:text="${nbCommunes}" >25000</span></a></li>
+                <li></li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">
+                <div class="form-group">
+                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">
+                </div>
+                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>
+            </form>
+            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>
+
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+    <h2>Liste des communes </h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="btn-group">
+                <a href="/communes/new" class="btn btn-primary">Nouvelle commune</a>
+            </div>
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">
+                        <div>
+
+                            <span>
+                                Code Insee <a href="/?page=&amp;search=&amp;size=&amp;sortDirection=DESC&amp;sortProperty=codeInsee"><i class="fa fa-chevron-up"></i></a>
+                            </span>
+                        </div>
+
+                    </th>
+                    <th scope="col">
+
+                        <div>
+                            <a href="/?page=&amp;search=&amp;size=&amp;sortDirection=ASC&amp;sortProperty=codePostal">Code Postal</a>
+                        </div>
+                    </th>
+                    <th scope="col">
+
+                        <div>
+                            <a href="/?page=&amp;search=&amp;size=&amp;sortDirection=ASC&amp;sortProperty=nom">Nom</a>
+                        </div>
+                    </th>
+                    <th scope="col">
+
+                        <div>
+                            <a href="/?page=&amp;search=&amp;size=&amp;sortDirection=ASC&amp;sortProperty=latitude">Latitude</a>
+                        </div>
+                    </th>
+                    <th scope="col">
+
+                        <div>
+                            <a href="/?page=&amp;search=&amp;size=&amp;sortDirection=ASC&amp;sortProperty=longitude">Longitude</a>
+                        </div>
+                    </th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <th scope="row">01009</th>
+                    <td>01300</td>
+                    <td>Andert Et Condon</td>
+                    <td>45.7873565333</td>
+                    <td>5.65788307924</td>
+                    <td><a href="/communes/01009">Détail</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">01011</th>
+                    <td>01100</td>
+                    <td>Apremont</td>
+                    <td>46.2054981558</td>
+                    <td>5.65781475272</td>
+                    <td><a href="/communes/01011">Détail</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">01012</th>
+                    <td>01110</td>
+                    <td>Aranc</td>
+                    <td>46.0015344029</td>
+                    <td>5.51130637511</td>
+                    <td><a href="/communes/01012">Détail</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">01021</th>
+                    <td>01480</td>
+                    <td>Ars Sur Formans</td>
+                    <td>45.9934611</td>
+                    <td>4.82199649494</td>
+                    <td><a href="/communes/01021">Détail</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">01023</th>
+                    <td>01570</td>
+                    <td>Asnieres Sur Saone</td>
+                    <td>46.3857281418</td>
+                    <td>4.88387478623</td>
+                    <td><a href="/communes/01023">Détail</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">01028</th>
+                    <td>01990</td>
+                    <td>Baneins</td>
+                    <td>46.1141214445</td>
+                    <td>4.90146475101</td>
+                    <td><a href="/communes/01028">Détail</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">01029</th>
+                    <td>01270</td>
+                    <td>Beaupont</td>
+                    <td>46.4288360203</td>
+                    <td>5.26003405676</td>
+                    <td><a href="/communes/01029">Détail</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">01031</th>
+                    <td>01100</td>
+                    <td>Bellignat</td>
+                    <td>46.2373497134</td>
+                    <td>5.6360052884</td>
+                    <td><a href="/communes/01031">Détail</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">01032</th>
+                    <td>01360</td>
+                    <td>Beligneux</td>
+                    <td>45.8591464826</td>
+                    <td>5.13989505865</td>
+                    <td><a href="/communes/01032">Détail</a></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">01033</th>
+                    <td>01200</td>
+                    <td>Valserhone</td>
+                    <td>46.1067901755</td>
+                    <td>5.83202736464</td>
+                    <td><a href="/communes/01033">Détail</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-lg-5">
+                    <form action="/" method="get" class="form-inline">
+                        <label for="pageSizePicker">Taille des pages&nbsp;</label>
+                        <select name="size" id="pageSizePicker" class="custom-select"
+                                onchange="javascript:this.form.submit()">
+                            <option value="5">5</option>
+                            <option value="10"
+                                    selected="selected">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <input type="hidden" name="sortDirection" value="">
+                        <input type="hidden" name="sortProperty" value="">
+                        <input type="hidden" name="search" value="">
+                        <input type="hidden" name="page" value="0">
+                    </form>
+                </div>
+                <div class="col-lg-2 text-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+
+                            <li class="page-item">
+                                <a class="page-link" href="/?page=-1&amp;search=&amp;size=&amp;sortDirection=&amp;sortProperty="
+                                >
+                                    &laquo;
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <!--                                <a href="#" class="page-link">Page <span th:text="${pageNumber}"></span></a>-->
+                                <form action="/" method="get">
+                                    <select name="page" id="pagePicker" class="custom-select"
+                                            onchange="javascript:this.form.submit()">
+                                        <option value="0" selected="selected">Page 1</option>
+                                        <option value="1">Page 2</option>
+                                        <option value="2">Page 3</option>
+                                        <option value="3">Page 4</option>
+                                        <option value="4">Page 5</option>
+                                        <option value="5">Page 6</option>
+                                        <option value="6">Page 7</option>
+                                        <option value="7">Page 8</option>
+                                        <option value="8">Page 9</option>
+                                        <option value="9">Page 10</option>
+                                        <option value="10">Page 11</option>
+                                        <option value="11">Page 12</option>
+                                        <option value="12">Page 13</option>
+                                        <option value="13">Page 14</option>
+                                        <option value="14">Page 15</option>
+                                        <option value="15">Page 16</option>
+                                        <option value="16">Page 17</option>
+                                        <option value="17">Page 18</option>
+                                        <option value="18">Page 19</option>
+                                        <option value="19">Page 20</option>
+                                        <option value="20">Page 21</option>
+                                        <option value="21">Page 22</option>
+                                        <option value="22">Page 23</option>
+                                    </select>
+                                    <input type="hidden" name="sortDirection" value="">
+                                    <input type="hidden" name="sortProperty" value="">
+                                    <input type="hidden" name="size" value="">
+                                    <input type="hidden" name="search" value="">
+                                </form>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="/?page=1&amp;search=&amp;size=&amp;sortDirection=&amp;sortProperty=">
+                                    &raquo;
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-5 text-right mt-2">
+                    <p>
+                        <!--Affichage des communes <span>1</span> à <span>10</span> sur un total de <span th:text="${nbCommunes}" >29997<span/>-->
+                        Affichage des communes <span th:text="${start}">1</span> à [[${end}]] sur un total de <span th:text="${nbCommunes}">29997</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
