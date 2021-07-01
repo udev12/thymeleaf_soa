@@ -1,12 +1,15 @@
 package com.ipiecoles.communes.web.repository;
 import com.ipiecoles.communes.web.model.Commune;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
+
 /**
- * Dans notre repository, on définit entre-autres, les méthodes "countDistinctCodePostal()" et "countDistinctNom".
+ * Dans notre repository, on définit entre-autres, les méthodes "countDistinctCodePostal()" et "countDistinctNom()".
  * On doit hériter de la classe "PagingAndSortingRepository" (au lieu de la classe "JpaRepository"),
  * si on veut lire avec la classe "RepositoryItemReader".
  */
@@ -21,6 +24,10 @@ public interface CommuneRepository extends PagingAndSortingRepository<Commune, S
     Page<Commune> findAll(Pageable pageable);
 
     Page<Commune> findAllByNomLike(String nom, Pageable pageable);
+
+    List<Commune> findByLatitudeBetweenAndLongitudeBetween(Double latMin, Double latMax, Double longMin, Double longMax);
+
+    Page<Commune> findByNomContainingIgnoreCase(String search, PageRequest pageRequest);
 
 //    @Override
 //    default List<Commune> findAll() {

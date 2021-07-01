@@ -39,13 +39,18 @@
 
 <div>
     <div class="container">
-        <h2>Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>
+
+<!--        <h2>Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
+        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>
+        <h2 th:if="${newCommune}">Création d'une nouvelle commune</h2>
 
         <div class="row">
             <div class="col-sm-12 col-lg-6">
 
+                <!-- new commune -->
 <!--                <form id="saveForm" action="/communes/01009" method="post"><input type="hidden" name="_csrf" value="5652b6a4-4c3c-405d-a516-3666dd4b2de2"/>-->
-                <form id="saveForm" action="/communes" method="post">
+<!--                <form id="saveForm" action="/communes" method="post">-->
+                <form id="saveForm" th:action="${newCommune} ? '/communes' : ('/communes/' + ${commune.codeInsee})" method="post">
                 <div class="mt-2">
                         <div>
                             <div class="form-group">
@@ -99,21 +104,23 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-6">
-                <iframe width="650" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=5.557883079240001%2C45.2873565333%2C5.75788307924%2C46.2873565333&amp;layer=mapnik&amp;marker=45.7873565333%2C5.65788307924" style="border: 1px solid black"></iframe>
+            <!-- on n'affiche la carte que si on est en mode création -->
+            <div th:if="${update}" class="col-lg-6">
+<!--            <div class="col-lg-6">-->
+                <iframe width="650" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=5.557883079240001%2C45.2873565333%2C5.75788307924%2C46.2873565333&amp;layer=mapnik&amp;marker=45.7873565333%2C5.65788307924" style="border: 1px solid black"></iframe>
             </div>
 
             <div class="col-sm-12 mt-2 text-center">
                 <input form="saveForm" class="btn btn-primary" type="submit" value="Enregistrer"/>
-                <a href="/communes/01009/delete" class="btn btn-danger">Supprimer</a>
+<!--                <a href="/communes/01009/delete" class="btn btn-danger">Supprimer</a>-->
+                <a  th:if="${update}" href="/communes/CODEINSEE/delete" class="btn btn-danger">Supprimer</a>
             </div>
-
-            <div class="col-sm-12 text-center mt-2">
-
-                <form action="/communes/01009" method="get" class="form-inline mb-2">
+            <div class="col-sm-12 text-center mt-2" th:unless="${newCommune}">
+                <form th:action="|/communes/${commune.codeInsee}|" method="get" class="form-inline mb-2">
                     <label for="perimetre">Communes dans un périmètre de&nbsp;</label>
                     <div class="input-group input-group-sm">
-                        <input type="number" name="perimetre" id="perimetre" class="form-control" value="10">
+                        <input type="number" name="perimetre" id="perimetre" class="form-control" th:value="${perimetre}">
                         <div class="input-group-append">
                             <span class="input-group-text">km</span>
                         </div>
@@ -121,38 +128,66 @@
                     <input class="btn btn-outline-primary btn-sm float-right" type="submit" value="Rechercher"/>
                 </form>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6" th:unless="${newCommune}">
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01098">Chazey Bons (01510) <span class="badge badge-primary float-right">2 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01141">Cuzieu (01300) <span class="badge badge-primary float-right">4 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01227">Magnieu (01300) <span class="badge badge-primary float-right">5 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01234">Marignieu (01300) <span class="badge badge-primary float-right">5 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01162">Flaxieu (01350) <span class="badge badge-primary float-right">7 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01372">Saint Martin De Bavel (01510) <span class="badge badge-primary float-right">7 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01117">Conzieu (01300) <span class="badge badge-primary float-right">8 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01286">Parves Et Nattages (01300) <span class="badge badge-primary float-right">8 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01208">Lavours (01350) <span class="badge badge-primary float-right">9 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01233">Marchamp (01680) <span class="badge badge-primary float-right">9 km</span></a></li>
+                    <li class="list-group-item" th:each="communeProche : ${communesProches}">
+                        <a th:href="|/communes/${communeProche.codeInsee}|">
+                            [[${communeProche.nom}]] ([[${communeProche.codePostal}]])
+                            <span class="badge badge-primary float-right">
+                                [[${communeProche.getDistance(commune.latitude, commune.longitude)}]] km
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
+<!--            <div class="col-sm-12 text-center mt-2">-->
+<!--                    &lt;!&ndash; modifier périmètre &ndash;&gt;-->
+<!--&lt;!&ndash;                    <form action="/communes/01009" method="get" class="form-inline mb-2">&ndash;&gt;-->
+<!--                    <form th:action="|/communes/${commune.codeInsee}|" method="get" class="form-inline mb-2">-->
+<!--                    <label for="perimetre">Communes dans un périmètre de&nbsp;</label>-->
+<!--                    <div class="input-group input-group-sm">-->
+<!--&lt;!&ndash;                        <input type="number" name="perimetre" id="perimetre" class="form-control" value="10">&ndash;&gt;-->
+<!--                        <input type="number" name="perimetre" id="perimetre" class="form-control" th:value="${perimetre}">-->
+<!--                        <div class="input-group-append">-->
+<!--                            <span class="input-group-text">km</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <input class="btn btn-outline-primary btn-sm float-right" type="submit" value="Rechercher"/>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="col-sm-6">-->
+
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01098">Chazey Bons (01510) <span class="badge badge-primary float-right">2 km</span></a></li>-->
+<!--                </ul>-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01141">Cuzieu (01300) <span class="badge badge-primary float-right">4 km</span></a></li>-->
+<!--                </ul>-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01227">Magnieu (01300) <span class="badge badge-primary float-right">5 km</span></a></li>-->
+<!--                </ul>-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01234">Marignieu (01300) <span class="badge badge-primary float-right">5 km</span></a></li>-->
+<!--                </ul>-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01162">Flaxieu (01350) <span class="badge badge-primary float-right">7 km</span></a></li>-->
+<!--                </ul>-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01372">Saint Martin De Bavel (01510) <span class="badge badge-primary float-right">7 km</span></a></li>-->
+<!--                </ul>-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01117">Conzieu (01300) <span class="badge badge-primary float-right">8 km</span></a></li>-->
+<!--                </ul>-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01286">Parves Et Nattages (01300) <span class="badge badge-primary float-right">8 km</span></a></li>-->
+<!--                </ul>-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01208">Lavours (01350) <span class="badge badge-primary float-right">9 km</span></a></li>-->
+<!--                </ul>-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item"><a href="/communes/01233">Marchamp (01680) <span class="badge badge-primary float-right">9 km</span></a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
 
         </div>
     </div>
