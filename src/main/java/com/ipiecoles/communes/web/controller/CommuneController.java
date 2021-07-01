@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 //import java.awt.*;
+import javax.persistence.EntityNotFoundException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +31,29 @@ public class CommuneController {
             @PathVariable String codeInsee,
             @RequestParam(defaultValue = "10") Integer perimetre,
             final ModelMap model) {
+//        Optional<Commune> commune = communeRepository.findById(codeInsee);
+//        if (commune.isEmpty()) {
+//            //Gère une exception
+//            throw  new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + codeInsee);
+//        }
+
+//        Optional<Commune> commune = communeRepository.findById(codeInsee);
+//        if(commune.isEmpty()){
+//            //Gère une exception
+//            //throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + codeInsee);
+//            model.put("message", "Impossible de trouver la commune de code INSEE " + codeInsee);
+//            return "error";//template error qui affiche un message d'erreur
+//        }
+
+        // Erreur si on recherche un code INSEE inexistant
         Optional<Commune> commune = communeRepository.findById(codeInsee);
-        if (commune.isEmpty()) {
+        if(commune.isEmpty()){
             //Gère une exception
+            throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + codeInsee);
+            //model.put("message", "Impossible de trouver la commune de code INSEE " + codeInsee);
+//            return "error";//template error qui affiche un message d'erreur
         }
+
         //Récupérer les communes proches de celle-ci
         model.put("commune", commune.get());
         model.put("communesProches", this.findCommunesProches(commune.get(), perimetre));
@@ -43,6 +63,7 @@ public class CommuneController {
         model.put("perimetre", perimetre);
 
         return "detail";
+
     }
 //    @GetMapping("/communes/{codeInsee}")
 //    public String getCommune(
@@ -60,6 +81,16 @@ public class CommuneController {
     public String saveNewCommune(Commune commune, final ModelMap model) {
         //Ajouter un certain nombre de contrôles...
         commune = communeRepository.save(commune);
+
+        // Erreur si on essayer d'enregistrer, alors que les cellules sont vides
+//        Optional<Commune> commune = communeRepository.findById(codeInsee);
+        if(commune.getCodeInsee().isEmpty()){
+            //Gère une exception
+            throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + commune.getCodeInsee());
+            //model.put("message", "Impossible de trouver la commune de code INSEE " + codeInsee);
+//            return "error";//template error qui affiche un message d'erreur
+        }
+
         model.put("commune", commune);
         return "detail";
     }

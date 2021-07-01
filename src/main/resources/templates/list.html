@@ -1,42 +1,55 @@
+<!--Pour changer l'archi-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<body>-->
+<!--<div class="container" th:fragment="listCommunes">-->
+<!--    <h2>Liste des communes </h2>-->
+<!--    <div class="row">-->
+<!--        ...-->
+
+
 <!DOCTYPE html>
 <!--<html lang="en">-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestion des employés</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
-    <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>
-    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.bundle.min.js" type="application/javascript"></script>
-</head>
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Gestion des communes</title>-->
+<!--    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>-->
+<!--    <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>-->
+<!--    <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>-->
+<!--    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.bundle.min.js" type="application/javascript"></script>-->
+<!--</head>-->
+<!--<head th:replace="fragments/header :: head(${title})"></head>-->
+<head th:replace="fragments/header :: head('Gestion des communes')"></head>
 <body>
+<!--<div th:insert="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>-->
+<div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>
+<!--<div>-->
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--        <a class="navbar-brand" href="/">Gestion des Communes</a>-->
+<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
+<!--                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
 
-<div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Gestion des Communes</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--            <ul class="navbar-nav mr-auto">-->
+<!--                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary"-->
+<!--                                                                          th:text="${nbCommunes}">25000</span></a></li>-->
+<!--                <li></li>-->
+<!--            </ul>-->
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary"
-                                                                          th:text="${nbCommunes}">25000</span></a></li>
-                <li></li>
-            </ul>
+<!--            <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">-->
+<!--                <div class="form-group">-->
+<!--                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
+<!--            </form>-->
+<!--            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>-->
 
-            <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">
-                <div class="form-group">
-                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">
-                </div>
-                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>
-            </form>
-            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>
-
-        </div>
-    </nav>
-</div>
+<!--        </div>-->
+<!--    </nav>-->
+<!--</div>-->
 
 
 <div class="container">

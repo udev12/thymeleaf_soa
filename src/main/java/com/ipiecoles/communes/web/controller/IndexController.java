@@ -74,6 +74,11 @@ public class IndexController {
         Integer pageDown = page - 1;
         Integer pageInc = page;
         pageInc = pageInc + 1;
+
+
+//        String title = "Gestion des communes";
+
+
         model.put("start", 1);//A remplacer par la valeur dynamique
         model.put("end", 10);//A remplacer par la valeur dynamique
         model.put("page", page);
@@ -81,9 +86,17 @@ public class IndexController {
         model.put("pageDown", pageDown);
         model.put("pageInc", pageInc);
         model.put("size", size);
+//        model.put("title", title);
 //        model.put("page", Arrays.asList("Page 1", "Page 2", "Page 3"));
 //        model.put("pageSizes", Arrays.asList("5", "10", "20", "50", "100"));
         model.put("pageSizes", Arrays.asList(5, 10, 20, 50, 100));
+
+
+//        pour modifier l'archi
+//        model.put("template", "list");
+//        model.put("fragment", "listCommunes");
+//        return "main";
+
 //        model.put("pages", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
         return "list";//Chemin du template (sans .html) à partir du dossier templates
     }
