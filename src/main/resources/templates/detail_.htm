@@ -41,22 +41,24 @@
 <div>
     <div class="container">
         <!-- <h2>Détail de la commune 01009, Andert Et Condon</h2> -->
-        <h2>Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>
-
+<!--        <h2>Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
+<!--        [[${commune.codeInsee}]], [[${commune.nom}]]-->
         <div class="row">
             <div class="col-sm-12 col-lg-6">
 
-                <form id="saveForm" action="/communes/01009" method="post"><input type="hidden" name="_csrf"
-                                                                                  value="5652b6a4-4c3c-405d-a516-3666dd4b2de2"/>
-                    <div class="mt-2">
+                <form id="saveForm" action="/communes/01032" method="post"><input type="hidden" name="_csrf" value="5652b6a4-4c3c-405d-a516-3666dd4b2de2"/>
+<!--                    <form id="saveForm" action="/communes/01009" method="post"><input type="hidden" name="_csrf" value="5652b6a4-4c3c-405d-a516-3666dd4b2de2"/>-->
+
+                        <div class="mt-2">
                         <div>
                             <div class="form-group">
                                 <label for="codeInsee">Code INSEE</label>
 
                                 <!-- <input type="text" value="01009" class="form-control is-valid" name="codeInsee"
                                        id="codeInsee"> -->
-                                <input type="text" th:value="${commune.codeInsee}" name="codeInsee"
+                                <input type="text" value="02050" name="codeInsee"
                                 id="codeInsee">
+                                <p>[[${commune.nom}]]</p>
 
                             </div>
                         </div>
@@ -64,7 +66,9 @@
                             <div class="form-group">
                                 <label for="nom">Nom</label>
 
-                                <input type="text" value="Andert Et Condon" class="form-control is-valid" name="nom"
+<!--                                <input type="text" value="Andert Et Condon" class="form-control is-valid" name="nom"-->
+<!--                                       id="nom">-->
+                                <input type="text" th:value="${nom}" class="form-control is-valid" name="nom"
                                        id="nom">
 
                             </div>
@@ -105,7 +109,8 @@
             </div>
             <div class="col-lg-6">
                 <iframe width="650" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                        src="https://www.openstreetmap.org/export/embed.html?bbox=5.557883079240001%2C45.2873565333%2C5.75788307924%2C46.2873565333&amp;layer=mapnik&amp;marker=45.7873565333%2C5.65788307924"
+                        th:src="@{|https://www.openstreetmap.org/export/embed.html?bbox=${longitude-0.10}%2C${latitude-0.5}%2C${longitude+0.10}%2C${latitude+0.5}&layer=mapnik&marker=${latitude}%2C${longitude}|}"></iframe>
+                <!--                        src="https://www.openstreetmap.org/export/embed.html?bbox=5.557883079240001%2C45.2873565333%2C5.75788307924%2C46.2873565333&amp;layer=mapnik&amp;marker=45.7873565333%2C5.65788307924"-->
                         style="border: 1px solid black"></iframe>
             </div>
 

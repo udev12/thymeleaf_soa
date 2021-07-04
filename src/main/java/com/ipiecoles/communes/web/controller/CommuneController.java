@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 //import java.awt.*;
@@ -47,12 +48,20 @@ public class CommuneController {
 
         // Erreur si on recherche un code INSEE inexistant
         Optional<Commune> commune = communeRepository.findById(codeInsee);
-        if(commune.isEmpty()){
+        if (commune.isEmpty()) {
+
             //Gère une exception
             throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + codeInsee);
+
             //model.put("message", "Impossible de trouver la commune de code INSEE " + codeInsee);
 //            return "error";//template error qui affiche un message d'erreur
         }
+
+        // Récupérer la latitude et la longitude à partir du code INSEE
+//        Double latitude = commune.get().getLatitude();
+//        Double longitude = commune.get().getLongitude();
+//        model.put("latitude", latitude);
+//        model.put("longitude", longitude);
 
         //Récupérer les communes proches de celle-ci
         model.put("commune", commune.get());
@@ -61,6 +70,13 @@ public class CommuneController {
         model.put("update", true); // affichage de la carte : false
 //        model.put("delete_creation", false); // affichage de la carte : false
         model.put("perimetre", perimetre);
+        model.put("codeInsee", codeInsee);
+
+//        String codeInsee1 = commune.get().getCodeInsee();
+//        String nom = commune.get().getNom();
+
+//        model.put("codeInsee1", codeInsee1);
+//        model.put("nom", nom);
 
         return "detail";
 
@@ -78,13 +94,13 @@ public class CommuneController {
 //    }
 
     @PostMapping(value = "/communes", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveNewCommune(Commune commune, final ModelMap model) {
+    public String saveNewCommune(Commune commune, final ModelMap model, RedirectAttributes attributes) {
         //Ajouter un certain nombre de contrôles...
         commune = communeRepository.save(commune);
 
         // Erreur si on essayer d'enregistrer, alors que les cellules sont vides
 //        Optional<Commune> commune = communeRepository.findById(codeInsee);
-        if(commune.getCodeInsee().isEmpty()){
+        if (commune.getCodeInsee().isEmpty()) {
             //Gère une exception
             throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + commune.getCodeInsee());
             //model.put("message", "Impossible de trouver la commune de code INSEE " + codeInsee);
@@ -92,7 +108,17 @@ public class CommuneController {
         }
 
         model.put("commune", commune);
+
+        if (commune.getCodeInsee() != null) {
+            return "redirect:/communes/" + commune.getCodeInsee();
+        }
+//        else{
+//            return "redirect:/communes/" + commune.getCodeInsee();
+//        }
+//        attributes.addFlashAttribute("type", "success");
+//        attributes.addFlashAttribute("message", "Enregistrement de la commune effectué !");
         return "detail";
+//        return "redirect:/";
     }
 
 //    @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -106,15 +132,33 @@ public class CommuneController {
 //        return "detail";
 //    }
 
+//    @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//    public String saveExistingCommune(
+//            Commune commune,
+//            @PathVariable String codeInsee,
+//            final ModelMap model) {
+//        //Ajouter un certain nombre de contrôles...
+//        commune = communeRepository.save(commune);
+//        return "redirect:/communes/" + commune.getCodeInsee();
+//    }
+
     @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveExistingCommune(
             Commune commune,
             @PathVariable String codeInsee,
-            final ModelMap model) {
+            final ModelMap model,
+            RedirectAttributes attributes) {
         //Ajouter un certain nombre de contrôles...
+        //communeRepository.findById() => model.put(error)  return "error";
         commune = communeRepository.save(commune);
-        return "redirect:/communes/" + commune.getCodeInsee();
+        //model.put...
+        //model.put("successMessage", "Commune sauvegardée !");//Côté template l'affichage du message
+        attributes.addFlashAttribute("type", "success");
+        attributes.addFlashAttribute("message", "Enregistrement de la commune effectué !");
+//        return "redirect:/communes/" + commune.getCodeInsee();
+        return "detail";
     }
+
 
     // Création commune
 //    @GetMapping("/communes/new")
@@ -125,8 +169,24 @@ public class CommuneController {
 //        return "detail";
 //    }
 //    Optional<Commune> commune
+//    @GetMapping("/communes/new")
+//    public String newCommune(Commune commune, final ModelMap model) {
+//        model.put("commune", new Commune());
+//        model.put("newCommune", true);
+//        model.put("update", false); // affichage de la carte : false
+////        model.put("delete_creation", true); // affichage de la carte : true
+////        Optional<Commune> commune1 = communeRepository.findById(commune.getCodeInsee());
+////        Optional <Commune> toto = communeRepository.findById(commune.getCodeInsee());
+////        commune = communeRepository.save(commune);
+////        return "redirect:/communes/new/" + commune.getCodeInsee();
+//        if (commune.getCodeInsee() != null) {
+//            return "redirect:/communes/" + commune.getCodeInsee();
+//        }
+//
+//        return "detail";
+//    }
     @GetMapping("/communes/new")
-    public String newCommune(Commune commune, final ModelMap model) {
+    public String newCommune(Commune commune, final ModelMap model, RedirectAttributes attributes) {
         model.put("commune", new Commune());
         model.put("newCommune", true);
         model.put("update", false); // affichage de la carte : false
@@ -135,9 +195,11 @@ public class CommuneController {
 //        Optional <Commune> toto = communeRepository.findById(commune.getCodeInsee());
 //        commune = communeRepository.save(commune);
 //        return "redirect:/communes/new/" + commune.getCodeInsee();
-        if (commune.getCodeInsee() != null) {
-            return "redirect:/communes/" + commune.getCodeInsee();
-        }
+//        if (commune.getCodeInsee() != null) {
+//            return "redirect:/communes/" + commune.getCodeInsee();
+//        }
+        attributes.addFlashAttribute("type", "success");
+        attributes.addFlashAttribute("message", "Création de la commune effectuée avec succès !");
         return "detail";
     }
 
@@ -177,14 +239,20 @@ public class CommuneController {
     @GetMapping("/communes/{codeInsee}/delete")
     public String deleteCommune(
             Commune commune,
-            @PathVariable String codeInsee) {
+            @PathVariable String codeInsee,
+            final ModelMap model) {
         communeRepository.deleteById(codeInsee);
+//        commune = communeRepository.save(commune);
+
+//        model.put("codeInsee", codeInsee);
 //        return "REDIRECTION A GERER";
 //        return "redirect:/communes/" + commune.getCodeInsee();
+
+        return "redirect:" + "/";
 //        return "list";
-//        String url = "/communes/" + commune.getCodeInsee() + "/delete";
+//        String url = "/communes/" + codeInsee + "/delete";
 //        return new RedirectView(url).toString();
-        return "list";
+//        return "list";
     }
 
 

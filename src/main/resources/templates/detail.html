@@ -44,6 +44,13 @@
 <div>
     <div class="container">
 
+        <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">
+            <span th:utext="${message}"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
 <!--        <h2>Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
 <!--        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
         <h2 th:replace="fragments/header :: h2_detail"></h2>
@@ -62,16 +69,17 @@
                             <div class="form-group">
                                 <label for="codeInsee">Code INSEE</label>
 
-                                <input type="text" value="01009" class="form-control is-valid" name="codeInsee"
+                                <input type="text" th:value="${commune.codeInsee}" class="form-control is-valid" name="codeInsee"
                                        id="codeInsee">
-
+<!--                                <input th:unless="update" type="text" th:value="" class="form-control is-valid" name="codeInsee"-->
+<!--                                       id="codeInsee1">-->
                             </div>
                         </div>
                         <div>
                             <div class="form-group">
                                 <label for="nom">Nom</label>
 
-                                <input type="text" th:value="${commune.codeInsee}" class="form-control is-valid" name="nom"
+                                <input type="text" th:value="${commune.nom}" class="form-control is-valid" name="nom"
                                        id="nom">
 
                             </div>
@@ -80,7 +88,7 @@
                             <div class="form-group">
                                 <label for="codePostal">Code Postal</label>
 
-                                <input type="text" value="01300" class="form-control is-valid" name="codePostal"
+                                <input type="text" th:value="${commune.codePostal}" class="form-control is-valid" name="codePostal"
                                        id="codePostal">
 
                             </div>
@@ -89,7 +97,7 @@
                             <div class="form-group">
                                 <label for="latitude">Latitude</label>
 
-                                <input type="text" value="45.7873565333" class="form-control is-valid" name="latitude"
+                                <input type="text" th:value="${commune.latitude}" class="form-control is-valid" name="latitude"
                                        id="latitude">
 
                             </div>
@@ -98,7 +106,7 @@
                             <div class="form-group">
                                 <label for="longitude">Longitude</label>
 
-                                <input type="text" value="5.65788307924" class="form-control is-valid" name="longitude"
+                                <input type="text" th:value="${commune.longitude}" class="form-control is-valid" name="longitude"
                                        id="longitude">
 
                             </div>
@@ -106,22 +114,25 @@
                     </div>
                     <div class="col-sm-12 mt-2 text-center">
 
-
                     </div>
 
                     <div class="col-sm-12 mt-2 text-center">
                         <input form="saveForm" class="btn btn-primary" type="submit" value="Enregistrer"/>
                         <!--                <a href="/communes/01009/delete" class="btn btn-danger">Supprimer</a>-->
-                        <a  th:if="${update}" href="/communes/CODEINSEE/delete" class="btn btn-danger">Supprimer</a>
+<!--                        <a  th:if="${update}" href="/communes/CODEINSEE/delete" class="btn btn-danger">Supprimer</a>-->
+                        <a  th:if="${update}" th:href="@{|/communes/${codeInsee}/delete|}" class="btn btn-danger">Supprimer</a>
+<!--                        <a  th:if="${update}" th:href="@{|/communes/${codeInsee}/delete" class="btn btn-danger|}">Supprimer</a>-->
                     </div>
-
+<!--                    th:href="@{|/?page=${pageDown}&;search=&;size=&;sortDirection=&;sortProperty=|}">-->
                 </form>
             </div>
             <!-- on n'affiche la carte que si on est en mode création -->
             <div th:if="${update}" class="col-lg-6">
 <!--            <div class="col-lg-6">-->
                 <iframe width="650" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                        src="https://www.openstreetmap.org/export/embed.html?bbox=5.557883079240001%2C45.2873565333%2C5.75788307924%2C46.2873565333&amp;layer=mapnik&amp;marker=45.7873565333%2C5.65788307924" style="border: 1px solid black"></iframe>
+                        th:src="@{|https://www.openstreetmap.org/export/embed.html?bbox=${commune.longitude-0.10}%2C${commune.latitude-0.5}%2C${commune.longitude+0.10}%2C${commune.latitude+0.5}&layer=mapnik&marker=${commune.latitude}%2C${commune.longitude}|}"></iframe>
+<!--                th:src="@{|https://www.openstreetmap.org/export/embed.html?bbox=${longitude-0.10}%2C${latitude-0.5}%2C${longitude+0.10}%2C${latitude+0.5}&layer=mapnik&marker=${latitude}%2C${longitude}|}"></iframe>-->
+<!--                                        src="https://www.openstreetmap.org/export/embed.html?bbox=5.557883079240001%2C45.2873565333%2C5.75788307924%2C46.2873565333&amp;layer=mapnik&amp;marker=45.7873565333%2C5.65788307924" style="border: 1px solid black"></iframe>-->
             </div>
 
 

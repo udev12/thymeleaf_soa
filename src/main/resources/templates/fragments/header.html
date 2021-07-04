@@ -30,13 +30,29 @@
                 <li></li>
             </ul>
 
+<!--            <div class="form-group">-->
+<!--                <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
+<!--            </div>-->
+<!--            <input href="/" type="button" th:if="${nomSearch}" class="btn btn-outline-success ml-2 my-2 my-sm-0" value="Rechercher">-->
+<!--            <input th:href="@{|/communes/${commune.codeInsee}|}" type="button" th:unless="${nomSearch}" class="btn btn-outline-success ml-2 my-2 my-sm-0" value="Rechercher">-->
+            <!-- Si on recherche une commune ç partir de son nom -->
             <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">
                 <div class="form-group">
                     <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">
                 </div>
                 <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>
+<!--                <button th:unless="${nomSearch}" type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
             </form>
+            <!-- Si on recherche une commune ç partir de son code INSEE -->
+<!--            <form th:unless="${nomSearch}" role="search" th:action="@{|/communes/${codeInsee}|}" method="GET">-->
+<!--                <div class="form-group">-->
+<!--                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
+<!--            </form>-->
             <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>
+
+<!--            <a th:href="|/communes/${commune.codeInsee}|">Détail</a>-->
 
         </div>
     </nav>
@@ -45,7 +61,7 @@
 <div th:fragment="div_h2(title1, title2)">
 
     <div class="container">
-        <h2 th:fragment="h2_detail" th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>
+        <h2 th:fragment="h2_detail" th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], [[${commune.nom}]]</h2>
 <!--        <h2 th:if="${newCommune}">Création d'une nouvelle commune</h2>-->
 <!--        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
         <h2 th:fragment="h2_crea" th:if="${newCommune}" >Création d'une nouvelle commune</h2>

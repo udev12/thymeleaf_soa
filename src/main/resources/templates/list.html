@@ -63,61 +63,116 @@
                 <thead>
                 <tr>
                     <th scope="col">
-                        <div>
-
-                            <span>
-<!--                                Code Insee <a href="/?page=&;search=&;size=&;sortDirection=DESC&;sortProperty=codeInsee">-->
-<!--                                    <i class="fa fa-chevron-up"></i>-->
-<!--                                </a>-->
-
-                                <!-- ajouter condition, puis faire ça pour le reste -->
-                                <!-- tri par code Insee ascendant  -->
-                                Code Insee <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=codeInsee">
+                        <div th:switch="${sortDirection}">
+                            <!-- Tri par code Insee ascendant  -->
+                            <span th:case="DESC">
+                                Code Insee <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|}">
                                     <i class="fa fa-chevron-down"></i>
                                 </a>
-
-                                <!-- tri par code Insee descendant -->
-                                <a href="/?page=&search=&size=&sortDirection=DESC&sortProperty=codeInsee">
+                            </span>
+                            <!-- Tri par code Insee descendant -->
+                            <span th:case="ASC">
+                                Code Insee <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codeInsee|}">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-
-<!--                                &lt;!&ndash; tri par autre chose que le code Insee &ndash;&gt;-->
-                                <a href="/?page=&search=&size=&sortDirection=ASC&sortProperty=codeInsee"></a>
-<!---->
+                            </span>
+                            <!-- Tri par autre chose que le code Insee -->
+                            <span th:case="*">
+                                Code Insee <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|}"></a>
                             </span>
                         </div>
-
                     </th>
-                    <th scope="col">
 
-                        <div>
-                            <a href="/?page=&;search=&;size=&;sortDirection=ASC&;sortProperty=codePostal">Code
-                                Postal</a>
+                    <th scope="col">
+                        <div th:switch="${sortDirection}">
+                            <!-- Tri par code postal ascendant  -->
+                            <span th:case="DESC">
+                                Code postal <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|}">
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                            </span>
+                            <!-- Tri par code postal descendant -->
+                            <span th:case="ASC">
+                                Code postal <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codePostal|}">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </span>
+                            <!-- Tri par autre chose que le code postal -->
+                            <span th:case="*">
+                                Code postal <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|}"></a>
+                            </span>
                         </div>
                     </th>
-                    <th scope="col">
 
-                        <div>
-                            <a href="/?page=&;search=&;size=&;sortDirection=ASC&;sortProperty=nom">Nom</a>
+                    <th scope="col">
+                        <div th:switch="${sortDirection}">
+                            <!-- Tri par nom ascendant  -->
+                            <span th:case="DESC">
+                                Nom <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|}">
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                            </span>
+                            <!-- Tri par nom descendant  -->
+                            <span th:case="ASC">
+                                Nom <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=nom|}">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </span>
+                            <!-- Tri par autre chose que le nom -->
+                            <span th:case="*">
+                                Nom <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|}"></a>
+                            </span>
                         </div>
                     </th>
-                    <th scope="col">
 
-                        <div>
-                            <a href="/?page=&;search=&;size=&;sortDirection=ASC&;sortProperty=latitude">Latitude</a>
+                    <th scope="col">
+                        <div th:switch="${sortDirection}">
+                            <!-- Tri par latitude ascendante  -->
+                            <span th:case="DESC">
+                                Latitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|}">
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                            </span>
+                            <!-- Tri par latitude descendante  -->
+                            <span th:case="ASC">
+                                Latitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=latitude|}">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </span>
+                            <!-- Tri par autre chose que la latitude  -->
+                            <span th:case="*">
+                                Latitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|}"></a>
+                            </span>
                         </div>
                     </th>
-                    <th scope="col">
 
-                        <div>
-                            <a href="/?page=&;search=&;size=&;sortDirection=ASC&;sortProperty=longitude">Longitude</a>
+                    <th scope="col">
+                        <div th:switch="${sortDirection}">
+                            <!-- Tri par longitude ascendante  -->
+                            <span th:case="DESC">
+                                Longitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|}">
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                            </span>
+                            <!-- Tri par longitude descendante  -->
+                            <span th:case="ASC">
+                                Longitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=longitude|}">
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                            </span>
+                            <!-- Tri par autre chose que la longitude  -->
+                            <span th:case="*">
+                                Longitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|}"></a>
+                            </span>
                         </div>
                     </th>
+
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
 
+                <!-- Liste des communes-->
 
                 <tr th:each="commune : ${communes}">
                     <th scope="row" th:text="${commune.codeInsee}">01009</th>
@@ -126,7 +181,9 @@
                     <td th:text="${commune.latitude}">45.7873565333</td>
                     <td th:text="${commune.longitude}">5.65788307924</td>
                     <td><a th:href="|/communes/${commune.codeInsee}|">Détail</a></td>
+                    <td><a th:href="@{|/communes/${commune.codeInsee}/delete|}" class="btn btn-danger">Supprimer</a></td>
                 </tr>
+
 
                 <!--                <tr>-->
                 <!--                    <th scope="row">01011</th>-->
@@ -210,7 +267,21 @@
                 <!--                </tr>-->
                 </tbody>
             </table>
+
+
             <div class="row">
+
+                <!-- Combobox des sizes -->
+
+                <!-- modif page-->
+                <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
+
+                <!-- modif size-->
+                <!-- http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 -->
+
+                <!-- bouton suivant/précédent -->
+                <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
+
                 <div class="col-lg-5">
                     <form action="/" method="get" class="form-inline">
                         <label for="pageSizePicker">Taille des pages&nbsp;</label>
@@ -229,7 +300,7 @@
                         <input type="hidden" name="sortDirection" value="">
                         <input type="hidden" name="sortProperty" value="">
                         <input type="hidden" name="search" value="">
-                        <input type="hidden" name="page" value="0">
+                        <input type="hidden" name="page" th:value="${page}">
                     </form>
                 </div>
                 <div class="col-lg-2 text-center">
@@ -250,23 +321,55 @@
                             <!--                            </li>-->
 
 
-                            <li class="page-item disabled" th:if="${page == 0}">
-                                <a class="page-link" href="#"
-                                >
-                                    &laquo;
-                                </a>
-                            </li>
-                            <!-- attention au "&" que Discord a crée -->
-                            <!-- remplacer le "1" de "page=1&" par la variable dynamique "page" -->
-                            <li class="page-item" th:unless="${page == 0}">
-                                <a class="page-link"
-                                   th:href="@{|/?page=${pageDown}&;search=&;size=&;sortDirection=&;sortProperty=|}">
-                                    <!--                                   href="/?page=-1&;search=&;size=&;sortDirection=&;sortProperty="-->
+                            <!-- modif page depuis combo -->
+                            <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
 
-                                    &laquo;
-                                </a>
-                            </li>
+                            <!-- modif size depuis combo -->
+                            <!-- http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 -->
 
+                            <!-- bouton suivant/précédent -->
+                            <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
+                            <form action="/" method="get">
+
+                                <li class="page-item disabled" th:if="${page == 0}">
+                                    <a class="page-link" href="#"
+                                    >
+                                        &laquo;
+                                    </a>
+                                </li>
+                                <!-- attention au "&" que Discord a crée -->
+                                <!-- remplacer le "1" de "page=1&" par la variable dynamique "page" -->
+                                <input type="hidden" name="size" th:value="${size}">
+                                <li class="page-item" th:unless="${page == 0}">
+                                    <a class="page-link"
+                                       th:href="@{|/?page=${pageUp}&sortDirection=&sortProperty=&size=${size}&search=${search}|}">
+                                        <!--                                       th:href="@{|/?page=${pageDown}&;search=&;size=${size}&;sortDirection=&;sortProperty=|}">-->
+                                        <!--                                    th:href="@{|/?page=${pageDown}&sortDirection=&sortProperty=&size=${size}&search=|}">-->
+                                        <!--                                   href="/?page=-1&;search=&;size=&;sortDirection=&;sortProperty="-->
+
+                                        &laquo;
+                                    </a>
+                                </li>
+                                <input type="hidden" name="search" th:value="${search}">
+                                <input type="hidden" name="size" th:value="${size}">
+                                <input type="hidden" name="sortDirection" value="">
+                                <input type="hidden" name="sortProperty" value="">
+                            </form>
+                            <!--                            <select name="size" id="pageSizePicker1" class="custom-select"-->
+                            <!--                                    onchange="javascript:this.form.submit()">-->
+                            <!--                                <option th:each="nbPages : ${pageSizes}" th:value="${nbPages}" th:text="${nbPages}"-->
+                            <!--                                        th:selected="${size}"></option>-->
+
+                            <!-- Combobox des pages -->
+
+                            <!-- modif page-->
+                            <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
+
+                            <!-- modif size-->
+                            <!-- http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 -->
+
+                            <!-- bouton suivant/précédent -->
+                            <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
 
                             <li class="page-item">
                                 <!--                                <a href="#" class="page-link">Page <span th:text="${pageNumber}"></span></a>-->
@@ -330,8 +433,8 @@
                                     </select>
                                     <input type="hidden" name="sortDirection" value="">
                                     <input type="hidden" name="sortProperty" value="">
-                                    <input type="hidden" name="size" value="">
-                                    <input type="hidden" name="search" value="">
+                                    <input type="hidden" name="size" th:value="${size}">
+                                    <input type="hidden" name="search" th:value="${search}">
                                 </form>
                             </li>
                             <!--                            <li class="page-item">-->
@@ -362,34 +465,51 @@
                             <!--                                </a>-->
                             <!--                            </li>-->
                             <!--                            <li class="page-item disabled" th:if="${page == 22}">-->
-                            <li class="page-item">
-                                <!--                                <a class="page-link"-->
-                                <!--                                   href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">-->
-                                <!--                                    &raquo;-->
-                                <!--                                </a>-->
-                                <!-- attention au "&" que Discord a crée -->
-                                <!-- remplacer le "1" de "page=1&" par la variable dynamique "page" -->
-                                <a class="page-link"
-                                   th:href="@{|/?page=${pageUp}&;search=&;size=&;sortDirection=&;sortProperty=|}">
-                                    <!--                                    href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">-->
-                                    &raquo;
-                                </a>
-                            </li>
-
-
-                            <!--                            <li class="page-item disabled" th:if="${page == 23}">-->
-                            <!--                                <a class="page-link" href="#"-->
-                            <!--                                >-->
-                            <!--                                    &raquo;-->
-                            <!--                                </a>-->
-                            <!--                            </li>-->
-                            <!--                            <li class="page-item" th:unless="${page == 23}">-->
+                            <!--                            <li class="page-item">-->
+                            <!--                                &lt;!&ndash;                                <a class="page-link"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                                   href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                                    &raquo;&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;                                </a>&ndash;&gt;-->
+                            <!--                                &lt;!&ndash; attention au "&" que Discord a crée &ndash;&gt;-->
+                            <!--                                &lt;!&ndash; remplacer le "1" de "page=1&" par la variable dynamique "page" &ndash;&gt;-->
                             <!--                                <a class="page-link"-->
-                            <!--                                   href="/?page=-1&;search=&;size=&;sortDirection=&;sortProperty="-->
-                            <!--                                >-->
+                            <!--                                   th:href="@{|/?page=${pageUp}&;search=&;size=${size}&;sortDirection=&;sortProperty=|}">-->
+                            <!--                                    &lt;!&ndash;                                    href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">&ndash;&gt;-->
                             <!--                                    &raquo;-->
                             <!--                                </a>-->
                             <!--                            </li>-->
+
+
+                            <!-- modif page-->
+                            <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
+
+                            <!-- modif size-->
+                            <!-- http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 -->
+
+                            <!-- bouton suivant/précédent -->
+                            <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
+                            <form action="/" method="get">
+                                <li class="page-item disabled" th:if="${page == 100}">
+                                    <a class="page-link" href="#"
+                                    >
+                                        &raquo;
+                                    </a>
+                                </li>
+                                <li class="page-item" th:unless="${page == 100}">
+                                    <a class="page-link"
+                                       th:href="@{|/?page=${pageUp}&sortDirection=&sortProperty=&size=${size}&search=${search}|}">
+                                        <!--                                       th:href="@{|/?page=${pageUp}&;search=&;size=${size}&;sortDirection=&;sortProperty=|}">-->
+
+                                        &raquo;
+                                    </a>
+                                </li>
+
+                                <input type="hidden" name="search" value="${search}">
+                                <input type="hidden" name="size" th:value="${size}">
+                                <input type="hidden" name="sortDirection" value="">
+                                <input type="hidden" name="sortProperty" value="">
+
+                            </form>
 
                         </ul>
                     </nav>

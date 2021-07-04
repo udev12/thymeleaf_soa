@@ -27,7 +27,13 @@ public interface CommuneRepository extends PagingAndSortingRepository<Commune, S
 
     List<Commune> findByLatitudeBetweenAndLongitudeBetween(Double latMin, Double latMax, Double longMin, Double longMax);
 
-    Page<Commune> findByNomContainingIgnoreCase(String search, PageRequest pageRequest);
+//    Page<Commune> findByNomContainingIgnoreCase(String search, PageRequest pageRequest);
+    Page<Commune> findByNomContainingIgnoreCase(String search, Pageable pageable);
+
+    Page<Commune> findByNomIgnoreCase(String search, Pageable pageable);
+
+    @Query("SELECT c FROM Commune c WHERE c.nom = ?1")
+    Commune findCommuneByNom(String search);
 
 //    @Override
 //    default List<Commune> findAll() {
