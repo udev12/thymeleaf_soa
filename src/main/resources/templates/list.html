@@ -10,7 +10,7 @@
 
 <!DOCTYPE html>
 <!--<html lang="en">-->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!--<head>-->
 <!--    <meta charset="UTF-8">-->
 <!--    <title>Gestion des communes</title>-->
@@ -24,6 +24,10 @@
 <body>
 <!--<div th:insert="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>-->
 <div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>
+
+<!--Logged user: <span sec:authentication="name">Bob</span>-->
+<!--Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
+
 <!--<div>-->
 <!--    <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
 <!--        <a class="navbar-brand" href="/">Gestion des Communes</a>-->
@@ -53,12 +57,32 @@
 
 
 <div class="container">
+<!--        <span th:text="${messageDeleteCommune}"></span>-->
+<!--    <span th:if="${creationCommune}">Commune supprimée avec succès</span>-->
+
+<!--    <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">-->
+<!--        <span th:utext="${message}"></span>-->
+<!--        <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--            <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--    </div>-->
+
+    <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">
+        <span th:utext="${message}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <h2>Liste des communes </h2>
     <div class="row">
         <div class="col-lg-12">
-            <div class="btn-group">
+            <div sec:authorize="hasRole('ADMIN')" class="btn-group">
                 <a href="/communes/new" class="btn btn-primary">Nouvelle commune</a>
             </div>
+<!--            <div class="btn-group">-->
+<!--                <a href="/register" class="btn btn-primary">Nouvel utilisateur</a>-->
+<!--            </div>-->
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
@@ -66,19 +90,22 @@
                         <div th:switch="${sortDirection}">
                             <!-- Tri par code Insee ascendant  -->
                             <span th:case="DESC">
-                                Code Insee <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|}">
+                                Code Insee <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|}">
                                     <i class="fa fa-chevron-down"></i>
                                 </a>
                             </span>
                             <!-- Tri par code Insee descendant -->
                             <span th:case="ASC">
-                                Code Insee <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codeInsee|}">
+                                Code Insee <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codeInsee|}">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
                             </span>
                             <!-- Tri par autre chose que le code Insee -->
                             <span th:case="*">
-                                Code Insee <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|}"></a>
+                                Code Insee <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|}"></a>
                             </span>
                         </div>
                     </th>
@@ -87,19 +114,22 @@
                         <div th:switch="${sortDirection}">
                             <!-- Tri par code postal ascendant  -->
                             <span th:case="DESC">
-                                Code postal <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|}">
+                                Code postal <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|}">
                                     <i class="fa fa-chevron-down"></i>
                                 </a>
                             </span>
                             <!-- Tri par code postal descendant -->
                             <span th:case="ASC">
-                                Code postal <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codePostal|}">
+                                Code postal <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codePostal|}">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
                             </span>
                             <!-- Tri par autre chose que le code postal -->
                             <span th:case="*">
-                                Code postal <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|}"></a>
+                                Code postal <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|}"></a>
                             </span>
                         </div>
                     </th>
@@ -108,19 +138,22 @@
                         <div th:switch="${sortDirection}">
                             <!-- Tri par nom ascendant  -->
                             <span th:case="DESC">
-                                Nom <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|}">
+                                Nom <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|}">
                                     <i class="fa fa-chevron-down"></i>
                                 </a>
                             </span>
                             <!-- Tri par nom descendant  -->
                             <span th:case="ASC">
-                                Nom <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=nom|}">
+                                Nom <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=nom|}">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
                             </span>
                             <!-- Tri par autre chose que le nom -->
                             <span th:case="*">
-                                Nom <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|}"></a>
+                                Nom <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|}"></a>
                             </span>
                         </div>
                     </th>
@@ -129,19 +162,22 @@
                         <div th:switch="${sortDirection}">
                             <!-- Tri par latitude ascendante  -->
                             <span th:case="DESC">
-                                Latitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|}">
+                                Latitude <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|}">
                                     <i class="fa fa-chevron-down"></i>
                                 </a>
                             </span>
                             <!-- Tri par latitude descendante  -->
                             <span th:case="ASC">
-                                Latitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=latitude|}">
+                                Latitude <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=latitude|}">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
                             </span>
                             <!-- Tri par autre chose que la latitude  -->
                             <span th:case="*">
-                                Latitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|}"></a>
+                                Latitude <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|}"></a>
                             </span>
                         </div>
                     </th>
@@ -150,19 +186,22 @@
                         <div th:switch="${sortDirection}">
                             <!-- Tri par longitude ascendante  -->
                             <span th:case="DESC">
-                                Longitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|}">
+                                Longitude <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|}">
                                     <i class="fa fa-chevron-down"></i>
                                 </a>
                             </span>
                             <!-- Tri par longitude descendante  -->
                             <span th:case="ASC">
-                                Longitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=longitude|}">
+                                Longitude <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=longitude|}">
                                     <i class="fa fa-chevron-down"></i>
                                 </a>
                             </span>
                             <!-- Tri par autre chose que la longitude  -->
                             <span th:case="*">
-                                Longitude <a th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|}"></a>
+                                Longitude <a
+                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|}"></a>
                             </span>
                         </div>
                     </th>
@@ -181,7 +220,8 @@
                     <td th:text="${commune.latitude}">45.7873565333</td>
                     <td th:text="${commune.longitude}">5.65788307924</td>
                     <td><a th:href="|/communes/${commune.codeInsee}|">Détail</a></td>
-                    <td><a th:href="@{|/communes/${commune.codeInsee}/delete|}" class="btn btn-danger">Supprimer</a></td>
+                    <td><a sec:authorize="hasRole('ADMIN')" th:href="@{|/communes/${commune.codeInsee}/delete|}" class="btn btn-danger">Supprimer</a>
+                    </td>
                 </tr>
 
 

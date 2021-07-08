@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +41,7 @@ public class IndexController {
             @RequestParam(defaultValue = "ASC") String sortDirection,
 //            @RequestParam(required = false) String search, // il faut mettre required=false
             @RequestParam(defaultValue = "") String search,
-//            @RequestParam(defaultValue = "") String codeInsee,
+            RedirectAttributes attributes,
             final ModelMap model) {
 
         // Consttituer un PageRequest
@@ -48,42 +49,20 @@ public class IndexController {
 
         Page<Commune> communes;
 
-//        if (search == null || search.isEmpty()){
-//            input = false;
-//        } else{
-//            input = true;
-//        }
-//
-//        if(!input){
-//            communes = communeRepository.findAll(pageRequest);
-//        }
-//        else {
-//            communes = communeRepository.findByNomContainingIgnoreCase(search, pageRequest);
-//        }
-
         if (search == null || search.isEmpty()) {
             communes = communeRepository.findAll(pageRequest);
         } else {
             communes = communeRepository.findByNomContainingIgnoreCase(search, pageRequest);
-//            communes = communeRepository.findByNomIgnoreCase(search, pageRequest);
         }
 
-        Boolean nomSearch = true;
         String regexFiveNumbers = "\\d{5}";
         if (search.matches(regexFiveNumbers)) {
-//            nomSearch = false;
             return "redirect:/communes/" + search;
         }
-//        else{
-//            nomSearch = true;
-//        }
-//        model.put("nomSearch", nomSearch);
-//        model.put("codeInsee", codeInsee);
 
         if (page == 0) {
             model.put("isSelected", "true");
         }
-
 
 //        Page<Commune> communes;
 //        if(search == null){
@@ -93,7 +72,6 @@ public class IndexController {
 //            //Appeler findByNomContainingIgnoreCase si search n'est pas null
 //            communes = communeRepository.findByNomContainingIgnoreCase(search, pageRequest);
 //        }
-
 
 //        Page<Commune> communes = communeRepository.findAll(pageRequest);
 //        model.put("commune", communes);
@@ -196,7 +174,7 @@ public class IndexController {
 //        model.put("page", Arrays.asList("Page 1", "Page 2", "Page 3"));
 //        model.put("pageSizes", Arrays.asList("5", "10", "20", "50", "100"));
 
-
+//        model.put("creationCommune", true);
 //        pour modifier l'archi
 //        model.put("template", "list");
 //        model.put("fragment", "listCommunes");
@@ -204,6 +182,8 @@ public class IndexController {
 
 //        model.put("pages", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
 
+//        attributes.addFlashAttribute("type", "success");
+//        attributes.addFlashAttribute("message", "Suppression de la commune effectuée avec succès !");
         return "list";//Chemin du template (sans .html) à partir du dossier templates
     }
 

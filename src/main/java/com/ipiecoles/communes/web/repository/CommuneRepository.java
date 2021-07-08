@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * On doit hériter de la classe "PagingAndSortingRepository" (au lieu de la classe "JpaRepository"),
  * si on veut lire avec la classe "RepositoryItemReader".
  */
+@Repository
 public interface CommuneRepository extends PagingAndSortingRepository<Commune, String> {
     @Query("Select count(distinct c.codePostal) from Commune c")
     long countDistinctCodePostal();

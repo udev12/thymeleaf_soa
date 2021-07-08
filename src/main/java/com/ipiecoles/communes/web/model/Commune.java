@@ -3,20 +3,59 @@ package com.ipiecoles.communes.web.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class Commune {
+//    @Id
+//    @Column(length = 5)
+//    private String codeInsee;
+//
+//    private String nom;
+//
+//    @Column(length = 5)
+//    private String codePostal;
+//
+//    private Double latitude;
+//
+//    private Double longitude;
+
+    public static final String REGEX_CODE_INSEE = "^[0-9]{1}[0-9AB]{1}[0-9]{3}$";
+    public static final String REGEX_CODE_POSTAL = "^[0-9]{5}$";
+    public static final String REGEX_NOM_COMMUNE = "^[A-Za-z-' ]+[0-9]{0,2}$";
+    public static final String REGEX_LATITUDE = "^[0-9]{0,3}[.]{1}[0-9]{0,11}$";
+
+    //5 chiffres (le deuxième caractère peut être A ou B)
+    //Obligatoire
     @Id
     @Column(length = 5)
+    @Pattern(regexp=REGEX_CODE_INSEE,message="Le code INSEE doit contenir 5 chiffres (Le deuxième caractère peut être A ou B pour les communes de Corse)")
+    @NotBlank
     private String codeInsee;
 
+    //Taille max 50
+    //Obligatoire
+    //Lettres majuscules minuscules, tirets, apostrophes, espaces et éventuellement terminé par 1 ou 2 chiffres (arrondissements)
+    @Pattern(regexp=REGEX_NOM_COMMUNE,message="Le nom de la commune ne peut contenir que des lettres, des tirets, des espaces et éventuellement le numéro d'arrondissement")
     private String nom;
 
     @Column(length = 5)
+    //5 chiffres
+    //Obligatoire
+    @Pattern(regexp=REGEX_CODE_POSTAL,message="Le code postal doit contenir 5 chiffres")
     private String codePostal;
 
+    //Intervalle pour la latitude ?
+    // Facultatif
+//    @Pattern(regexp=REGEX_LATITUDE,message="La latitude doit contenir 5 chiffres")
+    @Min(value=-28, message="La latitude ne peut être inférieure à -28")
+    @Max(value=67, message="La latitude ne peut être supérieure à 67")
     private Double latitude;
 
+    //Intervalle pour la longitude ?
+    // Facultatif
+    @Min(value=-179, message="La longitude ne peut être inférieure à -179")
+    @Max(value=168, message="La longitude ne peut être supérieure à 168")
     private Double longitude;
 
     public String getCodeInsee() {

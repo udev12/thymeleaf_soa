@@ -40,9 +40,9 @@
 - [ ] Bonus : Gérer d'autres erreurs à travers votre application
 
 # Flash attributes
-- [ ] Afficher un message de succès lors de la sauvegarde d'une commune
-- [ ] Afficher un message de succès suite à la suppression d'une commune
-- [ ] Afficher un message de succès suite à la création d'une commune
+- [X] Afficher un message de succès lors de la sauvegarde d'une commune
+- [X] Afficher un message de succès suite à la suppression d'une commune
+- [X] Afficher un message de succès suite à la création d'une commune
 - [ ] Afficher un message d'erreur si on souhaite afficher les villes dans un périmètre supérieur à 20 km (cela n'utilise pas forcément les flash attributes)
 
 # Validation

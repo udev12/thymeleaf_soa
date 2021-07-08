@@ -4,14 +4,19 @@ import com.ipiecoles.communes.web.model.Commune;
 import com.ipiecoles.communes.web.repository.CommuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 //import java.awt.*;
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -22,76 +27,53 @@ public class CommuneController {
 
     public static final Double DEGRE_LAT_KM = 111d;
     public static final Double DEGRE_LONG_KM = 77d;
+    private Boolean creationCommune = true;
 
     @Autowired
     private CommuneRepository communeRepository;
 
+// Deuxième façon de configurer l'authentification
+//    //Accessible uniquement aux utilisateurs connectés
+//    @PreAuthorize("isAuthenticated()")
+//    //Accessible uniquement à un rôle particulier
+//    //@Secured("ROLE_ADMIN")
+//    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+//    @GetMapping("/communes/{codeInsee}")
+//
+//    // Accessible uniquement aux utilisateurs connectés
+//    @PreAuthorize("isAuthenticated()")
+//    // Accessible uniquement à un rôle en particulier
+////    @Secured("ROLE_ADMIN")
+//    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     // Modification commune / gestion périmètre
     @GetMapping("/communes/{codeInsee}")
     public String getCommune(
             @PathVariable String codeInsee,
             @RequestParam(defaultValue = "10") Integer perimetre,
             final ModelMap model) {
-//        Optional<Commune> commune = communeRepository.findById(codeInsee);
-//        if (commune.isEmpty()) {
-//            //Gère une exception
-//            throw  new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + codeInsee);
-//        }
-
-//        Optional<Commune> commune = communeRepository.findById(codeInsee);
-//        if(commune.isEmpty()){
-//            //Gère une exception
-//            //throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + codeInsee);
-//            model.put("message", "Impossible de trouver la commune de code INSEE " + codeInsee);
-//            return "error";//template error qui affiche un message d'erreur
-//        }
 
         // Erreur si on recherche un code INSEE inexistant
         Optional<Commune> commune = communeRepository.findById(codeInsee);
         if (commune.isEmpty()) {
-
             //Gère une exception
             throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + codeInsee);
-
             //model.put("message", "Impossible de trouver la commune de code INSEE " + codeInsee);
 //            return "error";//template error qui affiche un message d'erreur
         }
-
-        // Récupérer la latitude et la longitude à partir du code INSEE
-//        Double latitude = commune.get().getLatitude();
-//        Double longitude = commune.get().getLongitude();
-//        model.put("latitude", latitude);
-//        model.put("longitude", longitude);
+//        creationCommune = true;
+//        model.put("creationCommune", true);
 
         //Récupérer les communes proches de celle-ci
         model.put("commune", commune.get());
         model.put("communesProches", this.findCommunesProches(commune.get(), perimetre));
         model.put("newCommune", false);
         model.put("update", true); // affichage de la carte : false
-//        model.put("delete_creation", false); // affichage de la carte : false
         model.put("perimetre", perimetre);
         model.put("codeInsee", codeInsee);
-
-//        String codeInsee1 = commune.get().getCodeInsee();
-//        String nom = commune.get().getNom();
-
-//        model.put("codeInsee1", codeInsee1);
-//        model.put("nom", nom);
 
         return "detail";
 
     }
-//    @GetMapping("/communes/{codeInsee}")
-//    public String getCommune(
-//            @PathVariable String codeInsee,
-//            final ModelMap model)
-//    {
-//        Optional<Commune> commune = communeRepository.findById(codeInsee);
-//        model.put("commune", commune.get());
-//        model.put("newCommune", false);
-//        model.put("update", true); // affichage de la carte : false
-//        return "detail";
-//    }
 
     @PostMapping(value = "/communes", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveNewCommune(Commune commune, final ModelMap model, RedirectAttributes attributes) {
@@ -109,16 +91,35 @@ public class CommuneController {
 
         model.put("commune", commune);
 
+        // Suppr
+//        if (!creationCommune){
+//            String messageDeleteCommune = "Suppression de la commune effectuée avec succès !";
+//            model.put("messageDeleteCommune", messageDeleteCommune);
+//            creationCommune = true;
+//        }
+//        creationCommune = false;
+
         if (commune.getCodeInsee() != null) {
+////            creationCommune = true;
+////            model.put("creationCommune", true);
+            attributes.addFlashAttribute("type", "success");
+            attributes.addFlashAttribute("message", "Création de la commune effectuée avec succès !");
+////                attributes.addFlashAttribute("type", "success");
+////                attributes.addFlashAttribute("message", "Suppression de la commune effectuée avec succès !");
+//
             return "redirect:/communes/" + commune.getCodeInsee();
+//            return "redirect:/";
+//
         }
 //        else{
 //            return "redirect:/communes/" + commune.getCodeInsee();
 //        }
 //        attributes.addFlashAttribute("type", "success");
 //        attributes.addFlashAttribute("message", "Enregistrement de la commune effectué !");
-        return "detail";
-//        return "redirect:/";
+        attributes.addFlashAttribute("type", "success");
+        attributes.addFlashAttribute("message", "Suppression de la commune effectuée avec succès !");
+//        return "detail";
+        return "redirect:/";
     }
 
 //    @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -132,74 +133,130 @@ public class CommuneController {
 //        return "detail";
 //    }
 
-//    @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-//    public String saveExistingCommune(
-//            Commune commune,
-//            @PathVariable String codeInsee,
-//            final ModelMap model) {
-//        //Ajouter un certain nombre de contrôles...
-//        commune = communeRepository.save(commune);
-//        return "redirect:/communes/" + commune.getCodeInsee();
-//    }
-
+    // ON A RAJOUTE @Valid pour la validation
     @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveExistingCommune(
-            Commune commune,
+            @Valid Commune commune,
+            //Juste après le paramètre marqué @Valid
+            final BindingResult result,
             @PathVariable String codeInsee,
             final ModelMap model,
             RedirectAttributes attributes) {
-        //Ajouter un certain nombre de contrôles...
-        //communeRepository.findById() => model.put(error)  return "error";
-        commune = communeRepository.save(commune);
-        //model.put...
-        //model.put("successMessage", "Commune sauvegardée !");//Côté template l'affichage du message
-        attributes.addFlashAttribute("type", "success");
-        attributes.addFlashAttribute("message", "Enregistrement de la commune effectué !");
-//        return "redirect:/communes/" + commune.getCodeInsee();
+
+        //S'il n'y a pas d'erreurs de validation sur le paramètre commune
+        if (!result.hasErrors()) {
+//            creationCommune = true;
+//            model.put("creationCommune", true);
+            commune = communeRepository.save(commune);
+            attributes.addFlashAttribute("type", "success");
+            attributes.addFlashAttribute("message", "Enregistrement de la commune effectué!");
+            return "redirect:/communes/" + commune.getCodeInsee();
+        }
+        //S'il y a des erreurs...
+        //Possibilité 1 : Rediriger l'utilisateur vers la page générique d'erreur
+        //Possibilité 2 : Laisse sur la même page en affichant les erreurs pour chaque champ
+        model.addAttribute("type", "danger");
+        model.addAttribute("message", "Erreur lors de la sauvegarde de la commune");
         return "detail";
     }
 
+    @GetMapping("/communes/old")
+    public String toto(RedirectAttributes attributes, final ModelMap model) {
+//        attributes.addFlashAttribute("type", "success");
+//        attributes.addFlashAttribute("message", "Suppression de la commune effectuée avec succès !");
+        model.addAttribute("type", "success");
+        model.addAttribute("message", "Suppression de la commune effectuée avec succès !");
+        return "list";
+    }
+//    @GetMapping(value = "/" /*, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE*/)
+//    public String saveDeleteCommune(/*Commune commune, final ModelMap model,*/
+//            RedirectAttributes attributes) {
+//        //Ajouter un certain nombre de contrôles...
+////        commune = communeRepository.save(commune);
+////
+////        model.put("commune", commune);
+//
+//
+//        attributes.addFlashAttribute("type", "success");
+//        attributes.addFlashAttribute("message", "Suppression de la commune effectuée avec succès !");
+////        attributes.addFlashAttribute("type", "success");
+////        attributes.addFlashAttribute("message", "Enregistrement de la commune effectué !");
+//        return "list";
+////        return "redirect:/";
+//    }
 
     // Création commune
-//    @GetMapping("/communes/new")
-//    public String newCommune(final ModelMap model) {
-//        model.put("commune", new Commune());
-//        model.put("newCommune", true);
-//        model.put("update", false); // affichage de la carte : false
-//        return "detail";
+    @GetMapping("/communes/new")
+    public String newCommune(
+            @Valid Commune commune,
+            final BindingResult result,
+            RedirectAttributes attributes,
+            final ModelMap model
+    ) {
+        model.put("commune", new Commune());
+        model.put("newCommune", true);
+        model.put("update", false); // affichage de la carte : false
+        if (!result.hasErrors()) {
+//            creationCommune = true;
+//            model.put("creationCommune", true);
+            return "redirect:/communes/" + commune.getCodeInsee();
+//        }
+        }
+        return "detail";
+//        return "redirect:/communes/" + commune.getCodeInsee();
+    }
+
+//    @GetMapping("/communes/{codeInsee}/delete")
+//    public String deleteCommune(
+//            @PathVariable String codeInsee) {
+//        communeRepository.deleteById(codeInsee);
+//        return "REDIRECTION A GERER";
 //    }
-//    Optional<Commune> commune
-//    @GetMapping("/communes/new")
-//    public String newCommune(Commune commune, final ModelMap model) {
-//        model.put("commune", new Commune());
-//        model.put("newCommune", true);
-//        model.put("update", false); // affichage de la carte : false
-////        model.put("delete_creation", true); // affichage de la carte : true
-////        Optional<Commune> commune1 = communeRepository.findById(commune.getCodeInsee());
-////        Optional <Commune> toto = communeRepository.findById(commune.getCodeInsee());
-////        commune = communeRepository.save(commune);
-////        return "redirect:/communes/new/" + commune.getCodeInsee();
-//        if (commune.getCodeInsee() != null) {
-//            return "redirect:/communes/" + commune.getCodeInsee();
+
+//    @GetMapping("/communes/{codeInsee}/delete")
+//    public String deleteCommune(
+//            @Valid Commune commune,
+//            final BindingResult result,
+//            @PathVariable String codeInsee,
+//            RedirectAttributes attributes,
+//            final ModelMap model) {
+//        if (!result.hasErrors()) {
+//            communeRepository.deleteById(codeInsee);
+////            creationCommune = false;
+////            model.put("creationCommune", false);
+//
+//            attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectAttributes");
+//            attributes.addAttribute("attribute", "redirectWithRedirectAttributes");
+//
+//            return "redirect:" + "/";
+////            return "redirect:/list.html";
+//
+////        return "list";
+////        String url = "/communes/" + codeInsee + "/delete";
+////        return new RedirectView(url).toString();
+////        return "list";
 //        }
 //
 //        return "detail";
 //    }
-    @GetMapping("/communes/new")
-    public String newCommune(Commune commune, final ModelMap model, RedirectAttributes attributes) {
-        model.put("commune", new Commune());
-        model.put("newCommune", true);
-        model.put("update", false); // affichage de la carte : false
-//        model.put("delete_creation", true); // affichage de la carte : true
-//        Optional<Commune> commune1 = communeRepository.findById(commune.getCodeInsee());
-//        Optional <Commune> toto = communeRepository.findById(commune.getCodeInsee());
-//        commune = communeRepository.save(commune);
-//        return "redirect:/communes/new/" + commune.getCodeInsee();
-//        if (commune.getCodeInsee() != null) {
-//            return "redirect:/communes/" + commune.getCodeInsee();
-//        }
-        attributes.addFlashAttribute("type", "success");
-        attributes.addFlashAttribute("message", "Création de la commune effectuée avec succès !");
+
+    @GetMapping("/communes/{codeInsee}/delete")
+//    @RequestMapping(value = "/communes/{codeInsee}/delete", method = RequestMethod.DELETE)
+    public String deleteCommune(
+            @Valid Commune commune,
+            final BindingResult result,
+            @PathVariable String codeInsee,
+            RedirectAttributes attributes,
+            final ModelMap model) {
+        if (!result.hasErrors()) {
+            communeRepository.deleteById(codeInsee);
+            attributes.addFlashAttribute("type", "success");
+            attributes.addFlashAttribute("message", "Suppression de la commune effectuée avec succès !");
+//            model.put("messageDeleteCommune", "Suppression de la commune effectuée avec succès !");
+            return "redirect:" + "/";
+        }
+        model.addAttribute("type", "danger");
+        model.addAttribute("message", "Erreur lors de la suppression de la commune");
         return "detail";
     }
 
@@ -229,103 +286,5 @@ public class CommuneController {
                 collect(Collectors.toList());
     }
 
-//    @GetMapping("/communes/{codeInsee}/delete")
-//    public String deleteCommune(
-//            @PathVariable String codeInsee) {
-//        communeRepository.deleteById(codeInsee);
-//        return "REDIRECTION A GERER";
-//    }
-
-    @GetMapping("/communes/{codeInsee}/delete")
-    public String deleteCommune(
-            Commune commune,
-            @PathVariable String codeInsee,
-            final ModelMap model) {
-        communeRepository.deleteById(codeInsee);
-//        commune = communeRepository.save(commune);
-
-//        model.put("codeInsee", codeInsee);
-//        return "REDIRECTION A GERER";
-//        return "redirect:/communes/" + commune.getCodeInsee();
-
-        return "redirect:" + "/";
-//        return "list";
-//        String url = "/communes/" + codeInsee + "/delete";
-//        return new RedirectView(url).toString();
-//        return "list";
-    }
-
-
-//    @GetMapping("/communes/new")
-//    public String getCommune(
-//            @PathVariable String commune,
-//            final ModelMap model)
-//    {
-//        Optional<Commune> commune = communeRepository.(codeInsee);
-//        model.put("commune", commune.get());
-//        return "detail";
-//    }
-
-//    @PostMapping(value = "/communes", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-//    public  String saveNewCommune(Commune commune, final ModelMap model){
-//
-//        // Ajouter un certain nombre de contrôles
-//
-//        commune = communeRepository.save(commune);
-//        model
-//    }
-//
-//    @RequestMapping("/communes/new")
-//    public String addCommmune(final ModelMap m){
-//        m.addAttribute("commune", new Commune());
-//        return "detail";
-//    }
-
-
 }
 
-// controller Commune : affichage, suppression, modif
-//@Controller
-//public class CommuneController {
-//
-//    @Autowired
-//    CommuneRepository communeRepository;
-//
-//    // http://localhost:8080/communes/01009
-////    @RequestMapping(value = "/communes/{id}", method = RequestMethod.GET)
-////    public String findById(
-////            @PathVariable(value = "id") Integer id, final ModelMap m)
-////    {
-////        // 01009, Andert Et Condon
-////        m.put("codePostal", 7600);
-////        m.put("nomCommune", "Andert Et Condon");
-////        m.put("latitude", 45.7873565333);
-////        m.put("longitude", 5.65788307924);
-////        return "The id=" + id;
-////    }
-//
-//    @GetMapping("/communes/{codeInsee}")
-//    public String getCommune(
-//            @PathVariable String codeInsee,
-//            final ModelMap model
-//    ){
-//        Optional<Commune> commune = communeRepository.findById(codeInsee);
-//        model.put("commune", commune.get());
-//        return "detail";
-//    }
-//
-//
-//}
-
-//@Controller
-//public class IndexController {
-//    @GetMapping(value = "/say")
-//    public String index(final ModelMap m) {
-//        m.put("now", LocalDate.now());
-//        m.put("codePostal", 7600);
-//        m.put("prix", 1500);
-//        m.put("reduction", 0.1012);
-//        m.put("liste", Arrays.asList(5,3,9,6));
-//        return "index";
-//    }
-//}

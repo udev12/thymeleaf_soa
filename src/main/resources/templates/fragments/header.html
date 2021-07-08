@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!--Fragment head-->
 <head th:fragment="head(title)">
-<!--    <head th:fragment="head">-->
+    <!--    <head th:fragment="head">-->
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
-<!--        <title>Gestion des communes</title>-->
+    <!--        <title>Gestion des communes</title>-->
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
     <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>
@@ -15,44 +15,87 @@
 <!--    Fragment navbar-->
 <div th:fragment="navbar(link1, link2)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<!--        <a class="navbar-brand" href="/">Gestion des Communes</a>-->
+        <!--        <a class="navbar-brand" href="/">Gestion des Communes</a>-->
         <a class="navbar-brand" href="/" th:text="${link1}"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-<!--                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary">29997</span></a></li>-->
+                <!--                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary">29997</span></a></li>-->
 
-<!--                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary" th:text="${@communeRepository.count()}"></span></a></li>-->
-                <li><a href="/" class="nav-link" th:text="${link2}"><span class="badge badge-primary" th:text="${@communeRepository.count()}"></span></a></li>
+                <!--                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary" th:text="${@communeRepository.count()}"></span></a></li>-->
+                <li><a href="/" class="nav-link" th:text="${link2}"><span class="badge badge-primary"
+                                                                          th:text="${@communeRepository.count()}"></span></a>
+                </li>
                 <li></li>
             </ul>
 
-<!--            <div class="form-group">-->
-<!--                <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
-<!--            </div>-->
-<!--            <input href="/" type="button" th:if="${nomSearch}" class="btn btn-outline-success ml-2 my-2 my-sm-0" value="Rechercher">-->
-<!--            <input th:href="@{|/communes/${commune.codeInsee}|}" type="button" th:unless="${nomSearch}" class="btn btn-outline-success ml-2 my-2 my-sm-0" value="Rechercher">-->
+            <!--            <div class="form-group">-->
+            <!--                <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
+            <!--            </div>-->
+            <!--            <input href="/" type="button" th:if="${nomSearch}" class="btn btn-outline-success ml-2 my-2 my-sm-0" value="Rechercher">-->
+            <!--            <input th:href="@{|/communes/${commune.codeInsee}|}" type="button" th:unless="${nomSearch}" class="btn btn-outline-success ml-2 my-2 my-sm-0" value="Rechercher">-->
             <!-- Si on recherche une commune ç partir de son nom -->
             <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">
                 <div class="form-group">
                     <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">
                 </div>
                 <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>
-<!--                <button th:unless="${nomSearch}" type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
+                <!--                <button th:unless="${nomSearch}" type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
             </form>
             <!-- Si on recherche une commune ç partir de son code INSEE -->
-<!--            <form th:unless="${nomSearch}" role="search" th:action="@{|/communes/${codeInsee}|}" method="GET">-->
-<!--                <div class="form-group">-->
-<!--                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
-<!--                </div>-->
-<!--                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
-<!--            </form>-->
-            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>
+            <!--            <form th:unless="${nomSearch}" role="search" th:action="@{|/communes/${codeInsee}|}" method="GET">-->
+            <!--                <div class="form-group">-->
+            <!--                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
+            <!--                </div>-->
+            <!--                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
+            <!--            </form>-->
 
-<!--            <a th:href="|/communes/${commune.codeInsee}|">Détail</a>-->
+
+
+<!--            <ul class="navbar-nav mr-auto">-->
+<!--                <li><a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a></li>-->
+<!--                <li><a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se déconnecter</a></li>-->
+<!--                <li></li>-->
+<!--            </ul>-->
+
+<!--            <ul> &lt;!&ndash; REPLACE THE LI ELEMENTS BELOW &ndash;&gt;-->
+<!--                <li th:each="item:${buttonList}" th:text="${item}"></li>-->
+<!--            </ul>-->
+
+<!--            <select >-->
+<!--                <option th:value="'M'" th:text="Male">-->
+<!--&lt;!&ndash;                    <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>&ndash;&gt;-->
+<!--                </option>-->
+<!--                <option th:value="'F'" th:text="Female">-->
+<!--&lt;!&ndash;                    <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se déconnecter</a>&ndash;&gt;-->
+<!--                </option>-->
+<!--            </select>-->
+
+<!--            <label for="pageSizePicker">Taille des pages&nbsp;</label>-->
+
+<!--            <select class="custom-select">-->
+<!--                <option value="5">5</option>-->
+<!--                <option value="6">6</option>-->
+
+<!--                &lt;!&ndash;                <option th:each="nbPages : ${pageSizes}" th:value="${nbPages}" th:text="${nbPages}"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:selected="${nbPages==size}"></option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <option value="5">5</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <option value="10"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                    selected="selected">10&ndash;&gt;-->
+<!--                &lt;!&ndash;                            </option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <option value="20">20</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <option value="50">50</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <option value="100">100</option>&ndash;&gt;-->
+<!--            </select>-->
+
+            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>
+            <a href="/register" class="btn btn-outline-success ml-2 my-2 my-sm-0">S'inscrire</a>
+
+                        <!--            <a th:href="|/communes/${commune.codeInsee}|">Détail</a>-->
 
         </div>
     </nav>
@@ -61,10 +104,11 @@
 <div th:fragment="div_h2(title1, title2)">
 
     <div class="container">
-        <h2 th:fragment="h2_detail" th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], [[${commune.nom}]]</h2>
-<!--        <h2 th:if="${newCommune}">Création d'une nouvelle commune</h2>-->
-<!--        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
-        <h2 th:fragment="h2_crea" th:if="${newCommune}" >Création d'une nouvelle commune</h2>
+        <h2 th:fragment="h2_detail" th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]],
+            [[${commune.nom}]]</h2>
+        <!--        <h2 th:if="${newCommune}">Création d'une nouvelle commune</h2>-->
+        <!--        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
+        <h2 th:fragment="h2_crea" th:if="${newCommune}">Création d'une nouvelle commune</h2>
     </div>
 </div>
 
