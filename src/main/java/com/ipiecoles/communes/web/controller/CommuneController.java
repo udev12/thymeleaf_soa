@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -17,11 +18,13 @@ import org.springframework.web.servlet.view.RedirectView;
 //import java.awt.*;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Validated
 @Controller
 public class CommuneController {
 
@@ -32,7 +35,7 @@ public class CommuneController {
     @Autowired
     private CommuneRepository communeRepository;
 
-// Deuxième façon de configurer l'authentification
+    // Deuxième façon de configurer l'authentification
 //    //Accessible uniquement aux utilisateurs connectés
 //    @PreAuthorize("isAuthenticated()")
 //    //Accessible uniquement à un rôle particulier
@@ -49,7 +52,8 @@ public class CommuneController {
     @GetMapping("/communes/{codeInsee}")
     public String getCommune(
             @PathVariable String codeInsee,
-            @RequestParam(defaultValue = "10") Integer perimetre,
+//            @RequestParam(defaultValue = "10") Integer perimetre,
+            @RequestParam(defaultValue = "10") @Max(value=20, message="Le périmètre ne peut être supérieur à 20") Integer perimetre,
             final ModelMap model) {
 
         // Erreur si on recherche un code INSEE inexistant
@@ -69,7 +73,15 @@ public class CommuneController {
         model.put("newCommune", false);
         model.put("update", true); // affichage de la carte : false
         model.put("perimetre", perimetre);
+        model.put("messagePerimetre", "Périmètre > 20");
         model.put("codeInsee", codeInsee);
+
+//        if (perimetre > 20) {
+//            model.addAttribute("type", "danger");
+//            model.addAttribute("message", "Le périmètre ne peut être supérieur à 20");
+//            perimetre = 10;
+//            model.put("perimetre", perimetre);
+//        }
 
         return "detail";
 
@@ -248,6 +260,14 @@ public class CommuneController {
             @PathVariable String codeInsee,
             RedirectAttributes attributes,
             final ModelMap model) {
+
+        // Erreur si on recherche un code INSEE inexistant
+        Optional<Commune> commune1 = communeRepository.findById(codeInsee);
+        if (commune1.isEmpty()) {
+            //Gère une exception
+            throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + codeInsee);
+        }
+
         if (!result.hasErrors()) {
             communeRepository.deleteById(codeInsee);
             attributes.addFlashAttribute("type", "success");

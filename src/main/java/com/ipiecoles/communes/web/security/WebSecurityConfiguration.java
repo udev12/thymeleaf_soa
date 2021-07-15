@@ -119,12 +119,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                    //... demandent à être authentifié
 //                    .authenticated()
         http
+
                 .authorizeRequests()
                 //La page d'accueil / ...
                 .antMatchers("/", "/register")
                 //... est accessible à tous
                 .permitAll()
-                .antMatchers(HttpMethod.GET, "/communes/*")
+                .antMatchers(HttpMethod.GET, "/communes/*") // url end points accessibles sans authentification
                 .hasRole("ADMIN")
                 //Toutes les autres requêtes...
                 .anyRequest()
@@ -145,12 +146,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .usernameParameter("username")//Défaut : username
                     //Définir le nom du paramètre contenant le password
                     .passwordParameter("password")//Défaut : password
-                //Gestion de la déconnexion
-                .and().logout()
-                    //Où va-t-on lorsque l'on souhaite se déconnecter ?
-                    .logoutUrl("/logout") //Défaut : /logout
-                    //Où va-t-on une fois la déconnexion effectuée
-                    .logoutSuccessUrl("/login?logout=true"); //Défaut /login?logout
+                .and().logout() // déconnexion
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/") // on est redirigé vers la page d'accueil après la déconnexion
+                    .invalidateHttpSession(true) // on invalide la session http
+                    .deleteCookies("JSESSIONID"); // on supprime les cookies
     }
 
     @Override

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="champCodeInsee" class="form-group">
+    <label for="codeInsee">Code INSEE</label>
+    <input type="text" th:value="${commune.codeInsee}"
+           th:class="|form-control ${#fields.hasErrors('commune.codeInsee') ? 'is-invalid' : 'is-valid'}|"
+           name="codeInsee"
+           id="codeInsee">
+    <div class="invalid-feedback">
+        <ul>
+            <li th:errors="${commune.codeInsee}"></li>
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="champNom" class="form-group">
+    <label for="nom">Nom</label>
+    <input type="text" th:value="${commune.nom}"
+           th:class="|form-control ${#fields.hasErrors('commune.nom') ? 'is-invalid' : 'is-valid'}|"
+           name="nom"
+           id="nom">
+    <div class="invalid-feedback">
+        <ul>
+            <li th:errors="${commune.nom}"></li>
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="champCodePostal" class="form-group">
+    <label for="codePostal">Code postal</label>
+    <input type="text" th:value="${commune.codePostal}"
+           th:class="|form-control ${#fields.hasErrors('commune.codePostal') ? 'is-invalid' : 'is-valid'}|"
+           name="codePostal"
+           id="codePostal">
+    <div class="invalid-feedback">
+        <ul>
+            <li th:errors="${commune.codePostal}"></li>
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="champLatitude" class="form-group">
+    <label for="latitude">Latitude</label>
+    <input type="text" th:value="${commune.latitude}"
+           th:class="|form-control ${#fields.hasErrors('commune.latitude') ? 'is-invalid' : 'is-valid'}|"
+           name="latitude"
+           id="latitude">
+    <div class="invalid-feedback">
+        <ul>
+            <li th:errors="${commune.latitude}"></li>
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="champLongitude" class="form-group">
+    <label for="longitude">Longitude</label>
+    <input type="text" th:value="${commune.longitude}"
+           th:class="|form-control ${#fields.hasErrors('commune.longitude') ? 'is-invalid' : 'is-valid'}|"
+           name="longitude"
+           id="longitude">
+    <div class="invalid-feedback">
+        <ul>
+            <li th:errors="${commune.longitude}"></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

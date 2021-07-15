@@ -1,0 +1,3 @@
+INSERT INTO ebdb.user (active, email, last_name, name, password, user_name) VALUES (true, 'admin@email.com', 'Istrator', 'Admin', '$2a$10$Km8FM1WMHHpEOD3/5l0lnOS9VRjeAYiOtZo8mAPznOeG7WxIvM4fy', 'admin');
+INSERT INTO ebdb.user (active, email, last_name, name, password, user_name) VALUES (true, 'john.doe@email.com', 'Doe', 'John', '$2a$10$z6C0V7I2DZutrlTHJjwrtuqZ4le7572Salxff3a4Rkdpgdsmgq1sK', 'johndoe');
+INSERT INTO ebdb.user (active, email, last_name, name, password, user_name) VALUES (true, 'jane.doe@email.com', 'Doe', 'Jane', '$2a$10$IQgOChWHSBnP7NCHHd/sZezQfSijMfDXV57/Us1Dqj5cQ42Y4DI7a', 'janedoe');

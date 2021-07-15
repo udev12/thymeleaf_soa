@@ -13,9 +13,10 @@ import javax.persistence.EntityNotFoundException;
 public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleEntityNotFoundException(EntityNotFoundException e,
+    public String handleEntityNotFoundException(EntityNotFoundException e, IllegalArgumentException e1,
                                                 final ModelMap model){
         model.put("message",e.getMessage());
+        model.put("message",e1.getMessage());
         return "error";
     }
 }

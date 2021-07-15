@@ -33,11 +33,6 @@
                 <li></li>
             </ul>
 
-            <!--            <div class="form-group">-->
-            <!--                <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
-            <!--            </div>-->
-            <!--            <input href="/" type="button" th:if="${nomSearch}" class="btn btn-outline-success ml-2 my-2 my-sm-0" value="Rechercher">-->
-            <!--            <input th:href="@{|/communes/${commune.codeInsee}|}" type="button" th:unless="${nomSearch}" class="btn btn-outline-success ml-2 my-2 my-sm-0" value="Rechercher">-->
             <!-- Si on recherche une commune ç partir de son nom -->
             <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">
                 <div class="form-group">
@@ -46,69 +41,55 @@
                 <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>
                 <!--                <button th:unless="${nomSearch}" type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
             </form>
-            <!-- Si on recherche une commune ç partir de son code INSEE -->
-            <!--            <form th:unless="${nomSearch}" role="search" th:action="@{|/communes/${codeInsee}|}" method="GET">-->
-            <!--                <div class="form-group">-->
-            <!--                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
-            <!--                </div>-->
-            <!--                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
-            <!--            </form>-->
+            <!--            <div sec:authorize="isAuthenticated()">-->
+            <!--                <a th:href="@{/logout}">Logout</a>-->
+            <!--            </div>-->
+            <!--            <a sec:authorize="isAuthenticated" th:href="@{/logout}" class="btn btn-outline-success ml-2 my-2 my-sm-0" >Logout</a>-->
+            <!--            <a sec:authorize="isAuthenticated()" href="login?logout" value="/logout" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se déconnecter</a>-->
 
 
+            <!--            <a sec:authorize="isAnonymous()" href="/login/input" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se-->
+            <!--                connecter</a>-->
+            <div>
+                <a sec:authorize="isAnonymous()" href="/login/input" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se
+                    connecter</a>
+                <a sec:authorize="isAuthenticated()" href="javascript: document.logoutForm.submit()"
+                   class="btn btn-outline-success ml-2 my-2 my-sm-0">Se
+                    déconnecter</a>
+                <!--                <a href="javascript: document.logoutForm.submit()" class="dropdown-toggle">Sign out</a>-->
+                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                    <input hidden type="submit" value="Se déconnecter"/>
+                </form>
 
-<!--            <ul class="navbar-nav mr-auto">-->
-<!--                <li><a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a></li>-->
-<!--                <li><a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se déconnecter</a></li>-->
-<!--                <li></li>-->
-<!--            </ul>-->
-
-<!--            <ul> &lt;!&ndash; REPLACE THE LI ELEMENTS BELOW &ndash;&gt;-->
-<!--                <li th:each="item:${buttonList}" th:text="${item}"></li>-->
-<!--            </ul>-->
-
-<!--            <select >-->
-<!--                <option th:value="'M'" th:text="Male">-->
-<!--&lt;!&ndash;                    <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>&ndash;&gt;-->
-<!--                </option>-->
-<!--                <option th:value="'F'" th:text="Female">-->
-<!--&lt;!&ndash;                    <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se déconnecter</a>&ndash;&gt;-->
-<!--                </option>-->
-<!--            </select>-->
-
-<!--            <label for="pageSizePicker">Taille des pages&nbsp;</label>-->
-
-<!--            <select class="custom-select">-->
-<!--                <option value="5">5</option>-->
-<!--                <option value="6">6</option>-->
-
-<!--                &lt;!&ndash;                <option th:each="nbPages : ${pageSizes}" th:value="${nbPages}" th:text="${nbPages}"&ndash;&gt;-->
-<!--&lt;!&ndash;                        th:selected="${nbPages==size}"></option>&ndash;&gt;-->
-<!--                &lt;!&ndash;                            <option value="5">5</option>&ndash;&gt;-->
-<!--                &lt;!&ndash;                            <option value="10"&ndash;&gt;-->
-<!--                &lt;!&ndash;                                    selected="selected">10&ndash;&gt;-->
-<!--                &lt;!&ndash;                            </option>&ndash;&gt;-->
-<!--                &lt;!&ndash;                            <option value="20">20</option>&ndash;&gt;-->
-<!--                &lt;!&ndash;                            <option value="50">50</option>&ndash;&gt;-->
-<!--                &lt;!&ndash;                            <option value="100">100</option>&ndash;&gt;-->
-<!--            </select>-->
-
-            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>
+            </div>
             <a href="/register" class="btn btn-outline-success ml-2 my-2 my-sm-0">S'inscrire</a>
-
-                        <!--            <a th:href="|/communes/${commune.codeInsee}|">Détail</a>-->
 
         </div>
     </nav>
 </div>
 
-<div th:fragment="div_h2(title1, title2)">
+<div>
+<!--    <div th:fragment="div_h2(title1, title2)">-->
 
+<!--    <div th:fragment="div_message(type_message, contenu_message)" class="container">-->
+<!--        <div th:if="${type_message}" th:class="@{|mt-1 alert alert-dismissible fade show alert-${type_message}|}" role="alert">-->
+<!--            <span th:utext="${contenu_message}"></span>-->
+<!--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                <span aria-hidden="true">&times;</span>-->
+<!--            </button>-->
+<!--        </div>-->
     <div class="container">
-        <h2 th:fragment="h2_detail" th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]],
+<!--        <div th:if="${type}" th:class="@{|mt-1 alert alert-dismissible fade show alert-${message}|}" role="alert">-->
+<!--            <span th:utext="${message}"></span>-->
+<!--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                <span aria-hidden="true">&times;</span>-->
+<!--            </button>-->
+<!--        </div>-->
+        <h2 th:fragment="h2Detail" th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]],
             [[${commune.nom}]]</h2>
         <!--        <h2 th:if="${newCommune}">Création d'une nouvelle commune</h2>-->
         <!--        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
-        <h2 th:fragment="h2_crea" th:if="${newCommune}">Création d'une nouvelle commune</h2>
+        <h2 th:fragment="h2Crea" th:if="${newCommune}">Création d'une nouvelle commune</h2>
     </div>
 </div>
 

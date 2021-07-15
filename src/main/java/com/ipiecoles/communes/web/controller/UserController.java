@@ -1,10 +1,13 @@
 package com.ipiecoles.communes.web.controller;
 
+import com.ipiecoles.communes.web.model.Commune;
 import com.ipiecoles.communes.web.model.Role;
 import com.ipiecoles.communes.web.model.User;
 import com.ipiecoles.communes.web.repository.RoleRepository;
 import com.ipiecoles.communes.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,24 +32,33 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @GetMapping("/login")
-//    public String login(){
-//        return "login";
-//    }
-
     @GetMapping("/login")
     public String login() {
+//        model.addAttribute("user", new User());
+//        attributes.addFlashAttribute("type", "success");
+//        attributes.addFlashAttribute("message", "Connexion réussie !");
+//        return "redirect:/?successfulConnection=true";
         return "login";
     }
 
-//    @GetMapping("/register")
-//    public String register(final ModelMap model) {
-//        model.addAttribute("user", new User());
-//        return "register";
-//    }
+    @GetMapping("/login/input")
+    public String loginInput(/*@Valid User user, */final ModelMap model, RedirectAttributes attributes) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!auth.isAuthenticated()) {
+            attributes.addFlashAttribute("type", "danger");
+            attributes.addFlashAttribute("message", "Echec de la connexion !");
+            return "redirect:/login?error=true";
+        }
+        attributes.addFlashAttribute("type", "success");
+        attributes.addFlashAttribute("message", "Connexion réussie !");
+        return "redirect:/?successfulConnection=true";
+
+    }
 
     @GetMapping("/register")
-    public String register(final ModelMap model){
+    public String register(final ModelMap model) {
         model.addAttribute("user", new User());
         return "register";
     }
@@ -88,79 +100,5 @@ public class UserController {
         attributes.addFlashAttribute("message", "Inscription réussie, vous pouvez vous connecter");
         return "redirect:/login";
     }
-
-//    @PostMapping(value = "/register")
-//    public String createNewUser(User user, BindingResult bindingResult, final ModelMap model) throws Exception {
-//
-//        // Vérifier si user existe déjà avec le même nom
-//        User userExists = userRepository.findByUserName((user.getUserName()));
-//        if (userExists != null){
-//            bindingResult.rejectValue("userName", "error")
-//            throw new Exception("il y a séjà un utilisateur avec le nom " + user.getUserName());
-//        }
-//        // Gérer les erreurs de validation : on reste sur la page
-//    if (bindingResult.hasErrors()){
-//        // Si pas ok, je reste sur la page d'inscription en indiquant les erreurs
-//        model.addAttribute("type", "danger");
-//        model.addAttribute("message", "danger");
-//
-//    }
-//        // Si OK je sauvegarde le User en hâchant son mot de passe
-//
-//        // rediriger vers login avec un message
-//        return null;
-//    }
-
-//    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-//    public String saveNewCommune(User user, RedirectAttributes attributes, final ModelMap model) {
-//
-//        user = userRepository.save(user);
-//
-//        // Erreur si on essayer d'enregistrer, alors que les cellules sont vides
-//        if (user.getUserName().isEmpty()) {
-//            //Gère une exception
-//            throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + user.getUserName());
-//            //model.put("message", "Impossible de trouver la commune de code INSEE " + codeInsee);
-////            return "error";//template error qui affiche un message d'erreur
-//        }
-//
-//        model.put("user", user);
-//
-//        if (user.getUserName() != null) {
-//
-//            attributes.addFlashAttribute("type", "success");
-//            attributes.addFlashAttribute("message", "Création de l'utilisateur effectuée avec succès !");
-//
-//            return "redirect:/register/" + user.getUserName();
-//
-//        }
-//
-//        attributes.addFlashAttribute("type", "success");
-//        attributes.addFlashAttribute("message", "Suppression de la commune effectuée avec succès !");
-////        return "detail";
-//        return "redirect:/";
-//    }
-//
-//    // Création user
-//    @GetMapping("/register/new")
-//    public String newUser(
-//            @Valid Commune commune,
-//            final BindingResult result,
-//            RedirectAttributes attributes,
-//            final ModelMap model
-//    ) {
-//        model.put("user", new Commune());
-////        model.put("newCommune", true);
-////        model.put("update", false); // affichage de la carte : false
-//        if (!result.hasErrors()) {
-////            creationCommune = true;
-////            model.put("creationCommune", true);
-//            return "redirect:/register/" + commune.getCodeInsee();
-////        }
-//        }
-//        return "detail";
-////        return "redirect:/communes/" + commune.getCodeInsee();
-//    }
-
 
 }
