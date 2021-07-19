@@ -11,12 +11,8 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @ManyToMany(mappedBy = "role")
-//    @NotNull
-//    @Column(name = "idRole")
     private int id;
 
-//    @Column
     private String role;
 
     public Role() {

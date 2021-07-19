@@ -2,19 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: head('Inscription')"></head>
 <body>
-<!--<div th:insert="fragments/header :: navbar"></div>-->
+
 <div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>
 
 <div>
     <div class="container">
         <div class="mt-2">
-
-            <!--        <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">-->
-            <!--            <span th:utext="${messageUser}"></span>-->
-            <!--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-            <!--                <span aria-hidden="true">&times;</span>-->
-            <!--            </button>-->
-            <!--        </div>-->
 
             <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">
                 <span th:utext="${message}"></span>
@@ -22,33 +15,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-<!--            <div th:replace="fragments/header :: div_message(${type}, ${message})"></div>-->
 
             <h2>S'inscrire</h2>
-            <!--        Formulaire avec attribut action /register avec méthode post-->
+            <!-- Formulaire avec attribut action /register avec méthode post-->
             <form id="saveUser" th:action="@{/register}" method="post">
-                <!--            &lt;!&ndash;        Champ name&ndash;&gt;-->
-                <!--            <div class="form-group">-->
-                <!--                <label for="name">Prénom</label>-->
-                <!--                <input type="text" id="name" name="name" placeholder="Prénom" class="form-control">-->
-                <!--            </div>-->
 
-                <!-- Champ userName -->
-                <!--            <div class="form-group">-->
-                <!--                <label for="name">Prénom</label>-->
-                <!--                <input type="text"-->
-                <!--                       th:value="${user.name}"-->
-                <!--                       th:class="|form-control ${#fields.hasErrors('user.name') ? 'is-invalid' : 'is-valid'}|" -->
-                <!--                       id="name" -->
-                <!--                       name="name" -->
-                <!--                       placeholder="Prénom" -->
-                <!--                       class="form-control">-->
-                <!--            </div>-->
-                <!--            <div class="invalid-feedback">-->
-                <!--                <ul>-->
-                <!--                    <li th:errors="${user.name}"></li>-->
-                <!--                </ul>-->
-                <!--            </div>-->
+                <!-- Champ fisrtname -->
                 <div class="form-group">
                     <label for="name">Prénom</label>
                     <input type="text"
@@ -65,16 +37,6 @@
                         </ul>
                     </div>
                 </div>
-
-
-                <!--            &lt;!&ndash;        Champ lastname&ndash;&gt;-->
-                <!--            <div class="form-group">-->
-                <!--                <label for="lastName">Nom</label>-->
-                <!--&lt;!&ndash;                <input type="text" id="lastName" name="lastName" placeholder="Nom" &ndash;&gt;-->
-                <!--&lt;!&ndash;                       class="form-control">&ndash;&gt;-->
-                <!--                <input type="text" id="lastName" name="lastName" placeholder="Nom"-->
-                <!--                       th:class="|form-control ${#fields.hasErrors('user.lastName'} ? is-valid|">-->
-                <!--            </div>-->
 
                 <!-- Champ lastName -->
                 <div class="form-group">
@@ -94,13 +56,6 @@
                     </div>
                 </div>
 
-
-                <!--        Champ email-->
-                <!--            <div class="form-group">-->
-                <!--                <label for="email">Email</label>-->
-                <!--                <input type="email" id="email" name="email" placeholder="Email" class="form-control">-->
-                <!--            </div>-->
-
                 <!-- Champ email -->
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -118,14 +73,6 @@
                         </ul>
                     </div>
                 </div>
-
-
-                <!--            &lt;!&ndash;        Champ username&ndash;&gt;-->
-                <!--            <div class="form-group">-->
-                <!--                <label for="username">Nom d'utilisateur</label>-->
-                <!--                <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" class="form-control">-->
-                <!--            </div>-->
-
 
                 <!-- Champ userName -->
                 <div class="form-group">
@@ -145,13 +92,6 @@
                     </div>
                 </div>
 
-
-                <!--            &lt;!&ndash;        Champ password&ndash;&gt;-->
-                <!--            <div class="form-group">-->
-                <!--                <label for="password">Mot de passe</label>-->
-                <!--                <input type="password" placeholder="Mot de passe" id="password" name="password" class="form-control">-->
-                <!--            </div>-->
-
                 <!-- Champ password -->
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
@@ -170,102 +110,13 @@
                     </div>
                 </div>
 
-
-                <!--            <div class="form-group">-->
-                <!--                <label for="password2">Réécrire mot de passe</label>-->
-                <!--                <input type="password" placeholder="Mot de passe" id="password2" name="password2" class="form-control">-->
-                <!--            </div>-->
-                <!--        Bouton submit-->
-
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Inscription</button>
-
-                <!--            <div class="col-sm-12 mt-2 text-center">-->
-                <!--&lt;!&ndash;                <input form="saveUser" class="btn btn-primary" type="submit" value="Inscription"/>&ndash;&gt;-->
-                <!--                <input form="saveUser" class="btn btn-lg btn-primary btn-block" type="submit" value="Inscription"/>-->
-                <!--            </div>-->
 
             </form>
         </div>
     </div>
 </div>
 
-<!--<div>-->
-<!--    <div class="container">-->
-<!--        <h2>S'inscrire</h2>-->
-<!--        &lt;!&ndash;        Formulaire avec attribut action /login avec méthode post&ndash;&gt;-->
-<!--        <form th:action="@{/login}" method="post">-->
-<!--            &lt;!&ndash; Champ username &ndash;&gt;-->
-<!--            <div class="form-group">-->
-<!--                <label for="username">Nom d'utilisateur</label>-->
-<!--                <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" class="form-control">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="email">Email</label>-->
-<!--                <input type="email" id="email" name="username" placeholder="Email" class="form-control">-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Champ password 1 &ndash;&gt;-->
-<!--            <div class="form-group">-->
-<!--                <label for="password1">Mot de passe</label>-->
-<!--                <input type="password" placeholder="Mot de passe" id="password1" name="password1" class="form-control">-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Champ password 2 &ndash;&gt;-->
-<!--            <div class="form-group">-->
-<!--                <label for="password2">Resaisir mot de passe</label>-->
-<!--                <input type="password" placeholder="Mot de passe" id="password2" name="password2" class="form-control">-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Champ prénom &ndash;&gt;-->
-<!--            <div class="form-group">-->
-<!--                <label for="name">Prénom</label>-->
-<!--                <input type="text" id="name" name="name" placeholder="Prénom" class="form-control">-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Champ nom &ndash;&gt;-->
-<!--            <div class="form-group">-->
-<!--                <label for="lastname">Nom</label>-->
-<!--                <input type="text" id="lastname" name="lastname" placeholder="Nom" class="form-control">-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Bouton submit &ndash;&gt;-->
-<!--            <button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>-->
-<!--        </form>-->
-<!--    </div>-->
-
-
-<!--            <div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="username">Username</label>-->
-<!--                    <input type="text" value="" class="form-control is-valid"-->
-<!--                           name="username"-->
-<!--                           id="username">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="password">Password</label>-->
-<!--                    <input type="password" value="" class="form-control is-valid"-->
-<!--                           name="password"-->
-<!--                           id="password">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-sm-12 mt-2 text-center">-->
-<!--                <input form="saveForm" class="btn btn-primary" type="submit" value="Se connecter"/>-->
-<!--                &lt;!&ndash;                <a href="/communes/01009/delete" class="btn btn-danger">Supprimer</a>&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <a  th:if="${update}" href="/communes/CODEINSEE/delete" class="btn btn-danger">Supprimer</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                <a th:if="${update}" th:href="@{|/communes/${codeInsee}/delete|}" class="btn btn-danger">Supprimer</a>&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <a  th:if="${update}" th:href="@{|/communes/${codeInsee}/delete" class="btn btn-danger|}">Supprimer</a>&ndash;&gt;-->
-<!--            </div>-->
-
-<!--            <div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="longitude">Longitude</label>-->
-<!--                    <input type="text" &lt;!&ndash;th:value="${commune.longitude}"&ndash;&gt; value="" class="form-control is-valid"-->
-<!--                    name="longitude"-->
-<!--                    id="longitude">-->
-<!--                </div>-->
-<!--            </div>-->
-
-
-<!--    </form>-->
-
-<!--</div>-->
 </div>
 </body>
 

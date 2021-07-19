@@ -39,15 +39,6 @@ public class MyUserDetailsService implements UserDetailsService {
         return buildSpringUserFromMyUser(user);
     }
 
-    //    private UserDetails buildSpringUserFromMyUser(User user) {
-//
-//    }
-//    private UserDetails buildSpringUserFromMyUser(User user) {
-//        // Initialise la liste des droits de l'utilisateur à partir d la liste
-//        Set<GrantedAuthority> authorities = new HashSet<>();
-////        org.springframework.security.core.userdetails.User()
-//        org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword())
-//    }
     private UserDetails buildSpringUserFromMyUser(User user) {
         //Initialise la liste des droits de l'utilisateur à partir de la liste
         //des rôles présents en BDD pour cet utilisateur

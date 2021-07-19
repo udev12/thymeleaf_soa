@@ -2,10 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!--Fragment head-->
 <head th:fragment="head(title)">
-    <!--    <head th:fragment="head">-->
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
-    <!--        <title>Gestion des communes</title>-->
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
     <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>
@@ -15,7 +13,6 @@
 <!--    Fragment navbar-->
 <div th:fragment="navbar(link1, link2)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!--        <a class="navbar-brand" href="/">Gestion des Communes</a>-->
         <a class="navbar-brand" href="/" th:text="${link1}"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,11 +21,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <!--                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary">29997</span></a></li>-->
-
-                <!--                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary" th:text="${@communeRepository.count()}"></span></a></li>-->
-                <li><a href="/" class="nav-link" th:text="${link2}"><span class="badge badge-primary"
-                                                                          th:text="${@communeRepository.count()}"></span></a>
+                <li><a href="/" class="nav-link" th:text="${link2}"><span class="badge badge-primary" th:text="${@communeRepository.count()}"></span></a>
                 </li>
                 <li></li>
             </ul>
@@ -39,17 +32,8 @@
                     <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">
                 </div>
                 <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>
-                <!--                <button th:unless="${nomSearch}" type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
             </form>
-            <!--            <div sec:authorize="isAuthenticated()">-->
-            <!--                <a th:href="@{/logout}">Logout</a>-->
-            <!--            </div>-->
-            <!--            <a sec:authorize="isAuthenticated" th:href="@{/logout}" class="btn btn-outline-success ml-2 my-2 my-sm-0" >Logout</a>-->
-            <!--            <a sec:authorize="isAuthenticated()" href="login?logout" value="/logout" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se déconnecter</a>-->
 
-
-            <!--            <a sec:authorize="isAnonymous()" href="/login/input" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se-->
-            <!--                connecter</a>-->
             <div>
                 <a sec:authorize="isAnonymous()" href="/login/input" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se
                     connecter</a>
@@ -69,73 +53,14 @@
 </div>
 
 <div>
-<!--    <div th:fragment="div_h2(title1, title2)">-->
 
-<!--    <div th:fragment="div_message(type_message, contenu_message)" class="container">-->
-<!--        <div th:if="${type_message}" th:class="@{|mt-1 alert alert-dismissible fade show alert-${type_message}|}" role="alert">-->
-<!--            <span th:utext="${contenu_message}"></span>-->
-<!--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--            </button>-->
-<!--        </div>-->
     <div class="container">
-<!--        <div th:if="${type}" th:class="@{|mt-1 alert alert-dismissible fade show alert-${message}|}" role="alert">-->
-<!--            <span th:utext="${message}"></span>-->
-<!--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--            </button>-->
-<!--        </div>-->
+
         <h2 th:fragment="h2Detail" th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]],
             [[${commune.nom}]]</h2>
-        <!--        <h2 th:if="${newCommune}">Création d'une nouvelle commune</h2>-->
-        <!--        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], Andert Et Condon</h2>-->
         <h2 th:fragment="h2Crea" th:if="${newCommune}">Création d'une nouvelle commune</h2>
     </div>
 </div>
 
 </body>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--&lt;!&ndash;Fragment head&ndash;&gt;-->
-<!--&lt;!&ndash;<head>&ndash;&gt;-->
-<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
-<!--&lt;!&ndash;    <title>Title</title>&ndash;&gt;-->
-<!--&lt;!&ndash;</head>&ndash;&gt;-->
-<!--<head th:fragment="head">-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Gestion des comunes</title>-->
-<!--    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>-->
-<!--    <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>-->
-<!--    <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>-->
-<!--    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.bundle.min.js" type="application/javascript"></script>-->
-<!--</head>-->
-<!--<body>-->
-<!--&lt;!&ndash;Fragment nav bar&ndash;&gt;-->
-<!--<div th:fragment="navbar">-->
-<!--    <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
-<!--        <a class="navbar-brand" href="/">Gestion des Communes</a>-->
-<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--            <span class="navbar-toggler-icon"></span>-->
-<!--        </button>-->
-
-<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-<!--            <ul class="navbar-nav mr-auto">-->
-<!--                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary">29997</span></a></li>-->
-<!--                <li></li>-->
-<!--            </ul>-->
-
-<!--            <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">-->
-<!--                <div class="form-group">-->
-<!--                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
-<!--                </div>-->
-<!--                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
-<!--            </form>-->
-<!--            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>-->
-
-<!--        </div>-->
-<!--    </nav>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->

@@ -13,13 +13,6 @@
                     onchange="javascript:this.form.submit()">
                 <option th:each="nbPages : ${pageSizes}" th:value="${nbPages}" th:text="${nbPages}"
                         th:selected="${nbPages==size}"></option>
-                <!--                            <option value="5">5</option>-->
-                <!--                            <option value="10"-->
-                <!--                                    selected="selected">10-->
-                <!--                            </option>-->
-                <!--                            <option value="20">20</option>-->
-                <!--                            <option value="50">50</option>-->
-                <!--                            <option value="100">100</option>-->
             </select>
             <input type="hidden" name="sortDirection" value="">
             <input type="hidden" name="sortProperty" value="">
@@ -31,20 +24,6 @@
     <div th:fragment="pageNav" class="col-lg-2 text-center">
         <nav aria-label="Page navigation">
             <ul class="pagination">
-
-                <!--&lt;!&ndash;                            <li class="page-item disabled" th:if="${param.page}">&ndash;&gt;-->
-                <!--                            <li class="page-item disabled" th:if="${page == 0}">-->
-                <!--                                <a href="#" class="page-link">-->
-                <!--                                    &laquo;-->
-                <!--                                </a>-->
-                <!--                            </li>-->
-                <!--                            <li class="page-item" th:unless="${page == 0}">-->
-                <!--                                <a class="page-link" href="/?page=-1&;search=&;size=&;sortDirection=&;sortProperty="-->
-                <!--                                >-->
-                <!--                                    &laquo;-->
-                <!--                                </a>-->
-                <!--                            </li>-->
-
 
                 <!-- modif page depuis combo -->
                 <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
@@ -68,10 +47,6 @@
                     <li class="page-item" th:unless="${page == 0}">
                         <a class="page-link"
                            th:href="@{|/?page=${pageDown}&sortDirection=&sortProperty=&size=${size}&search=${search}|}">
-                            <!--                                       th:href="@{|/?page=${pageDown}&;search=&;size=${size}&;sortDirection=&;sortProperty=|}">-->
-                            <!--                                    th:href="@{|/?page=${pageDown}&sortDirection=&sortProperty=&size=${size}&search=|}">-->
-                            <!--                                   href="/?page=-1&;search=&;size=&;sortDirection=&;sortProperty="-->
-
                             &laquo;
                         </a>
                     </li>
@@ -80,10 +55,6 @@
                     <input type="hidden" name="sortDirection" value="">
                     <input type="hidden" name="sortProperty" value="">
                 </form>
-                <!--                            <select name="size" id="pageSizePicker1" class="custom-select"-->
-                <!--                                    onchange="javascript:this.form.submit()">-->
-                <!--                                <option th:each="nbPages : ${pageSizes}" th:value="${nbPages}" th:text="${nbPages}"-->
-                <!--                                        th:selected="${size}"></option>-->
 
                 <!-- Combobox des pages -->
 
@@ -97,64 +68,16 @@
                 <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
 
                 <li class="page-item">
-                    <!--                                <a href="#" class="page-link">Page <span th:text="${pageNumber}"></span></a>-->
                     <form action="/" method="get">
 
-                        <!--                                    utiliser sequence de number, attention au sort-->
-                        <!--                                    <select th:each="page : ${pages}" name="page" id="pagePicker" class="custom-select"-->
-                        <!--                                    <select th:each="page : ${#numbers.sequence(0, 22)}" name="page" id="pagePicker" class="custom-select"-->
-                        <!--                                            onchange="javascript:this.form.submit()">-->
-                        <!--                                        <option th:if="${isSelected}" value="0" selected="selected">Page 1</option>-->
-                        <!--                                        <option th:unless="${isSelected}" th:value="page">Page th:text="item"</option>-->
-                        <!--                                    </select>-->
-
-
-                        <!-- gérer selected -->
-                        <!--                                    <select name="page" id="pagePicker" class="custom-select"-->
-                        <!--                                            onchange="javascript:this.form.submit()">-->
-                        <!--&lt;!&ndash;                                        <option th:each="i : ${#numbers.sequence(1, #lists.size(pages))}" th:value="${i}"&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                th:text="'Page ' + ${page+1}">Num&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                        </option>&ndash;&gt;-->
-                        <!--                                        <option-->
-                        <!--                                                th:each="i : ${#numbers.sequence(1, #lists.size(pages))}"-->
-                        <!--                                                th:value="${i}"-->
-                        <!--                                                th:text="'Page ' + ${page+1}"-->
-                        <!--                                                th:selected="${i==23}"-->
-                        <!--                                        >                              -->
-                        <!--                                        </option>-->
-                        <!--                                    </select>-->
-                        <select name="page" id="pagePicker" class="custom-select"
+                        <!-- utiliser sequence de number, attention au sort-->
+                         <select name="page" id="pagePicker" class="custom-select"
                                 onchange="javascript:this.form.submit()">
                             <option th:each="i : ${#numbers.sequence(0, 10000)}" th:value="${i}"
                                     th:text="'Page ' + ${i+1}"
                                     th:selected="${i==page}"></option>
                         </select>
 
-                        <!--                                    <select name="page" id="pagePicker" class="custom-select"-->
-                        <!--                                            onchange="javascript:this.form.submit()">-->
-                        <!--                                        <option value="0" selected="selected">Page 1</option>-->
-                        <!--                                        <option value="1">Page 2</option>-->
-                        <!--                                        <option value="2">Page 3</option>-->
-                        <!--                                        <option value="3">Page 4</option>-->
-                        <!--                                        <option value="4">Page 5</option>-->
-                        <!--                                        <option value="5">Page 6</option>-->
-                        <!--                                        <option value="6">Page 7</option>-->
-                        <!--                                        <option value="7">Page 8</option>-->
-                        <!--                                        <option value="8">Page 9</option>-->
-                        <!--                                        <option value="9">Page 10</option>-->
-                        <!--                                        <option value="10">Page 11</option>-->
-                        <!--                                        <option value="11">Page 12</option>-->
-                        <!--                                        <option value="12">Page 13</option>-->
-                        <!--                                        <option value="13">Page 14</option>-->
-                        <!--                                        <option value="14">Page 15</option>-->
-                        <!--                                        <option value="15">Page 16</option>-->
-                        <!--                                        <option value="16">Page 17</option>-->
-                        <!--                                        <option value="17">Page 18</option>-->
-                        <!--                                        <option value="18">Page 19</option>-->
-                        <!--                                        <option value="19">Page 20</option>-->
-                        <!--                                        <option value="20">Page 21</option>-->
-                        <!--                                        <option value="21">Page 22</option>-->
-                        <!--                                        <option value="22">Page 23</option>-->
                         </select>
                         <input type="hidden" name="sortDirection" value="">
                         <input type="hidden" name="sortProperty" value="">
@@ -162,48 +85,6 @@
                         <input type="hidden" name="search" th:value="${search}">
                     </form>
                 </li>
-                <!--                            <li class="page-item">-->
-                <!--                                &lt;!&ndash;                                <a class="page-link"&ndash;&gt;-->
-                <!--                                &lt;!&ndash;                                   href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">&ndash;&gt;-->
-                <!--                                &lt;!&ndash;                                    &raquo;&ndash;&gt;-->
-                <!--                                &lt;!&ndash;                                </a>&ndash;&gt;-->
-                <!--                                &lt;!&ndash; attention au "&" que Discord a crée &ndash;&gt;-->
-                <!--                                &lt;!&ndash; remplacer le "1" de "page=1&" par la variable dynamique "page" &ndash;&gt;-->
-                <!--                                <a class="page-link"-->
-                <!--                                   href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">-->
-                <!--                                    &raquo;-->
-                <!--                                </a>-->
-                <!--                            </li>-->
-
-
-                <!--                            <li class="page-item" >-->
-                <!--                                <a class="page-link" href="#"-->
-                <!--                                >-->
-                <!--                                    &raquo;-->
-                <!--                                </a>-->
-                <!--                            </li>-->
-
-                <!--                            <li class="page-item disabled" th:unless="${page == 22}">-->
-                <!--                                <a class="page-link" href="#"-->
-                <!--                                >-->
-                <!--                                    &raquo;-->
-                <!--                                </a>-->
-                <!--                            </li>-->
-                <!--                            <li class="page-item disabled" th:if="${page == 22}">-->
-                <!--                            <li class="page-item">-->
-                <!--                                &lt;!&ndash;                                <a class="page-link"&ndash;&gt;-->
-                <!--                                &lt;!&ndash;                                   href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">&ndash;&gt;-->
-                <!--                                &lt;!&ndash;                                    &raquo;&ndash;&gt;-->
-                <!--                                &lt;!&ndash;                                </a>&ndash;&gt;-->
-                <!--                                &lt;!&ndash; attention au "&" que Discord a crée &ndash;&gt;-->
-                <!--                                &lt;!&ndash; remplacer le "1" de "page=1&" par la variable dynamique "page" &ndash;&gt;-->
-                <!--                                <a class="page-link"-->
-                <!--                                   th:href="@{|/?page=${pageUp}&;search=&;size=${size}&;sortDirection=&;sortProperty=|}">-->
-                <!--                                    &lt;!&ndash;                                    href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">&ndash;&gt;-->
-                <!--                                    &raquo;-->
-                <!--                                </a>-->
-                <!--                            </li>-->
-
 
                 <!-- modif page-->
                 <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
@@ -223,8 +104,6 @@
                     <li class="page-item" th:unless="${page == 100}">
                         <a class="page-link"
                            th:href="@{|/?page=${pageUp}&sortDirection=&sortProperty=&size=${size}&search=${search}|}">
-                            <!--                                       th:href="@{|/?page=${pageUp}&;search=&;size=${size}&;sortDirection=&;sortProperty=|}">-->
-
                             &raquo;
                         </a>
                     </li>

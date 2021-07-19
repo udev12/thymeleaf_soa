@@ -13,18 +13,6 @@ import javax.validation.constraints.Pattern;
  */
 @Entity
 public class Commune {
-//    @Id
-//    @Column(length = 5)
-//    private String codeInsee;
-//
-//    private String nom;
-//
-//    @Column(length = 5)
-//    private String codePostal;
-//
-//    private Double latitude;
-//
-//    private Double longitude;
 
     public static final String REGEX_CODE_INSEE = "^[0-9]{1}[0-9AB]{1}[0-9]{3}$";
     public static final String REGEX_CODE_POSTAL = "^[0-9]{5}$";
@@ -42,7 +30,6 @@ public class Commune {
     //Taille max 50
     //Obligatoire
     //Lettres majuscules minuscules, tirets, apostrophes, espaces et éventuellement terminé par 1 ou 2 chiffres (arrondissements)
-//    @Size(max = 50)
     @Pattern(regexp = REGEX_NOM_COMMUNE, message = "Le nom de la commune ne peut contenir que des lettres, des tirets, des espaces et éventuellement le numéro d'arrondissement")
     private String nom;
 
@@ -54,17 +41,12 @@ public class Commune {
 
     //Intervalle pour la latitude ?
     // Facultatif
-//    @Pattern(regexp=REGEX_LATITUDE,message="La latitude doit contenir 5 chiffres")
-//    @Min(value=-28, message="La latitude ne peut être inférieure à -28")
-//    @Max(value=67, message="La latitude ne peut être supérieure à 67")
     @Min(value = -90, message = "doit être supérieure ou égale à -90")
     @Max(value = 90, message = "doit être inférieure ou égale à 90")
     private Double latitude;
 
     //Intervalle pour la longitude ?
     // Facultatif
-//    @Min(value=-179, message="La longitude ne peut être inférieure à -179")
-//    @Max(value=168, message="La longitude ne peut être supérieure à 168")
     @Min(value = -179, message = "doit être supérieure ou égale à -180")
     @Max(value = 168, message = "doit être inférieure ou égale à 180")
     private Double longitude;

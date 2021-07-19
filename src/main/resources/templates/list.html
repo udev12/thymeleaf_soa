@@ -1,71 +1,15 @@
 <!--Pour changer l'archi-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<body>-->
-<!--<div class="container" th:fragment="listCommunes">-->
-<!--    <h2>Liste des communes </h2>-->
-<!--    <div class="row">-->
-<!--        ...-->
-
 
 <!DOCTYPE html>
-<!--<html lang="en">-->
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Gestion des communes</title>-->
-<!--    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>-->
-<!--    <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>-->
-<!--    <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>-->
-<!--    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.bundle.min.js" type="application/javascript"></script>-->
-<!--</head>-->
-<!--<head th:replace="fragments/header :: head(${title})"></head>-->
+
 <head th:replace="fragments/header :: head('Gestion des communes')"></head>
 <body>
-<!--<div th:insert="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>-->
+
 <div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>
 
-<!--Logged user: <span sec:authentication="name">Bob</span>-->
-<!--Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
-
-<!--<div>-->
-<!--    <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
-<!--        <a class="navbar-brand" href="/">Gestion des Communes</a>-->
-<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
-<!--                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--            <span class="navbar-toggler-icon"></span>-->
-<!--        </button>-->
-
-<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-<!--            <ul class="navbar-nav mr-auto">-->
-<!--                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary"-->
-<!--                                                                          th:text="${nbCommunes}">25000</span></a></li>-->
-<!--                <li></li>-->
-<!--            </ul>-->
-
-<!--            <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">-->
-<!--                <div class="form-group">-->
-<!--                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">-->
-<!--                </div>-->
-<!--                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>-->
-<!--            </form>-->
-<!--            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>-->
-
-<!--        </div>-->
-<!--    </nav>-->
-<!--</div>-->
-
-
 <div class="container">
-<!--        <span th:text="${messageDeleteCommune}"></span>-->
-<!--    <span th:if="${creationCommune}">Commune supprimée avec succès</span>-->
-
-<!--    <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">-->
-<!--        <span th:utext="${message}"></span>-->
-<!--        <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--            <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--    </div>-->
 
     <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">
         <span th:utext="${message}"></span>
@@ -74,8 +18,6 @@
         </button>
     </div>
 
-<!--    <div th:replace="@{|fragments/header :: div_message(${type}, ${message})|}"></div>-->
-
     <h2>Liste des communes </h2>
     <div class="row">
         <div class="col-lg-12">
@@ -83,142 +25,18 @@
                 <a href="/communes/new" class="btn btn-primary">Nouvelle commune</a>
             </div>
 
-
-
-<!--            <div class="btn-group">-->
-<!--                <a href="/register" class="btn btn-primary">Nouvel utilisateur</a>-->
-<!--            </div>-->
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
                     <th th:replace="fragments/tables :: colCodeInsee"></th>
-<!--                    <th scope="col">-->
-<!--                        <div th:switch="${sortDirection}">-->
-<!--                            &lt;!&ndash; Tri par code Insee ascendant  &ndash;&gt;-->
-<!--                            <span th:case="DESC">-->
-<!--                                Code Insee <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|}">-->
-<!--                                    <i class="fa fa-chevron-down"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par code Insee descendant &ndash;&gt;-->
-<!--                            <span th:case="ASC">-->
-<!--                                Code Insee <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codeInsee|}">-->
-<!--                                    <i class="fa fa-chevron-up"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par autre chose que le code Insee &ndash;&gt;-->
-<!--                            <span th:case="*">-->
-<!--                                Code Insee <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|}"></a>-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </th>-->
 
                     <th th:replace="fragments/tables :: colCodePostal"></th>
 
-<!--                    <th scope="col">-->
-<!--                        <div th:switch="${sortDirection}">-->
-<!--                            &lt;!&ndash; Tri par code postal ascendant  &ndash;&gt;-->
-<!--                            <span th:case="DESC">-->
-<!--                                Code postal <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|}">-->
-<!--                                    <i class="fa fa-chevron-down"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par code postal descendant &ndash;&gt;-->
-<!--                            <span th:case="ASC">-->
-<!--                                Code postal <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codePostal|}">-->
-<!--                                    <i class="fa fa-chevron-up"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par autre chose que le code postal &ndash;&gt;-->
-<!--                            <span th:case="*">-->
-<!--                                Code postal <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|}"></a>-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </th>-->
-
                     <th th:replace="fragments/tables :: colNom"></th>
-
-<!--                    <th scope="col">-->
-<!--                        <div th:switch="${sortDirection}">-->
-<!--                            &lt;!&ndash; Tri par nom ascendant  &ndash;&gt;-->
-<!--                            <span th:case="DESC">-->
-<!--                                Nom <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|}">-->
-<!--                                    <i class="fa fa-chevron-down"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par nom descendant  &ndash;&gt;-->
-<!--                            <span th:case="ASC">-->
-<!--                                Nom <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=nom|}">-->
-<!--                                    <i class="fa fa-chevron-up"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par autre chose que le nom &ndash;&gt;-->
-<!--                            <span th:case="*">-->
-<!--                                Nom <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|}"></a>-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </th>-->
 
                     <th th:replace="fragments/tables :: colLatitude"></th>
 
-<!--                    <th scope="col">-->
-<!--                        <div th:switch="${sortDirection}">-->
-<!--                            &lt;!&ndash; Tri par latitude ascendante  &ndash;&gt;-->
-<!--                            <span th:case="DESC">-->
-<!--                                Latitude <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|}">-->
-<!--                                    <i class="fa fa-chevron-down"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par latitude descendante  &ndash;&gt;-->
-<!--                            <span th:case="ASC">-->
-<!--                                Latitude <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=latitude|}">-->
-<!--                                    <i class="fa fa-chevron-up"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par autre chose que la latitude  &ndash;&gt;-->
-<!--                            <span th:case="*">-->
-<!--                                Latitude <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|}"></a>-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </th>-->
-
                     <th th:replace="fragments/tables :: colLongitude"></th>
-
-<!--                    <th scope="col">-->
-<!--                        <div th:switch="${sortDirection}">-->
-<!--                            &lt;!&ndash; Tri par longitude ascendante  &ndash;&gt;-->
-<!--                            <span th:case="DESC">-->
-<!--                                Longitude <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|}">-->
-<!--                                    <i class="fa fa-chevron-down"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par longitude descendante  &ndash;&gt;-->
-<!--                            <span th:case="ASC">-->
-<!--                                Longitude <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=longitude|}">-->
-<!--                                    <i class="fa fa-chevron-down"></i>-->
-<!--                                </a>-->
-<!--                            </span>-->
-<!--                            &lt;!&ndash; Tri par autre chose que la longitude  &ndash;&gt;-->
-<!--                            <span th:case="*">-->
-<!--                                Longitude <a-->
-<!--                                    th:href="@{|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|}"></a>-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </th>-->
 
                     <th scope="col"></th>
                 </tr>
@@ -229,98 +47,6 @@
 
                 <tr th:replace="fragments/tables :: listeCommunes"></tr>
 
-<!--                <tr th:each="commune : ${communes}">-->
-<!--                    <th scope="row" th:text="${commune.codeInsee}">01009</th>-->
-<!--                    <td th:text="${commune.codePostal}">01300</td>-->
-<!--                    <td th:text="${commune.nom}">Andert Et Condon</td>-->
-<!--                    <td th:text="${commune.latitude}">45.7873565333</td>-->
-<!--                    <td th:text="${commune.longitude}">5.65788307924</td>-->
-<!--                    <td><a th:href="|/communes/${commune.codeInsee}|">Détail</a></td>-->
-<!--                    <td><a sec:authorize="hasRole('ADMIN')" th:href="@{|/communes/${commune.codeInsee}/delete|}" class="btn btn-danger">Supprimer</a>-->
-<!--                    </td>-->
-<!--                </tr>-->
-
-
-                <!--                <tr>-->
-                <!--                    <th scope="row">01011</th>-->
-                <!--                    <td>01100</td>-->
-                <!--                    <td>Apremont</td>-->
-                <!--                    <td>46.2054981558</td>-->
-                <!--                    <td>5.65781475272</td>-->
-                <!--                    <td><a href="/communes/01011">Détail</a></td>-->
-                <!--                </tr>-->
-
-                <!--                <tr>-->
-                <!--                    <th scope="row">01012</th>-->
-                <!--                    <td>01110</td>-->
-                <!--                    <td>Aranc</td>-->
-                <!--                    <td>46.0015344029</td>-->
-                <!--                    <td>5.51130637511</td>-->
-                <!--                    <td><a href="/communes/01012">Détail</a></td>-->
-                <!--                </tr>-->
-
-                <!--                <tr>-->
-                <!--                    <th scope="row">01021</th>-->
-                <!--                    <td>01480</td>-->
-                <!--                    <td>Ars Sur Formans</td>-->
-                <!--                    <td>45.9934611</td>-->
-                <!--                    <td>4.82199649494</td>-->
-                <!--                    <td><a href="/communes/01021">Détail</a></td>-->
-                <!--                </tr>-->
-
-                <!--                <tr>-->
-                <!--                    <th scope="row">01023</th>-->
-                <!--                    <td>01570</td>-->
-                <!--                    <td>Asnieres Sur Saone</td>-->
-                <!--                    <td>46.3857281418</td>-->
-                <!--                    <td>4.88387478623</td>-->
-                <!--                    <td><a href="/communes/01023">Détail</a></td>-->
-                <!--                </tr>-->
-
-                <!--                <tr>-->
-                <!--                    <th scope="row">01028</th>-->
-                <!--                    <td>01990</td>-->
-                <!--                    <td>Baneins</td>-->
-                <!--                    <td>46.1141214445</td>-->
-                <!--                    <td>4.90146475101</td>-->
-                <!--                    <td><a href="/communes/01028">Détail</a></td>-->
-                <!--                </tr>-->
-
-                <!--                <tr>-->
-                <!--                    <th scope="row">01029</th>-->
-                <!--                    <td>01270</td>-->
-                <!--                    <td>Beaupont</td>-->
-                <!--                    <td>46.4288360203</td>-->
-                <!--                    <td>5.26003405676</td>-->
-                <!--                    <td><a href="/communes/01029">Détail</a></td>-->
-                <!--                </tr>-->
-
-                <!--                <tr>-->
-                <!--                    <th scope="row">01031</th>-->
-                <!--                    <td>01100</td>-->
-                <!--                    <td>Bellignat</td>-->
-                <!--                    <td>46.2373497134</td>-->
-                <!--                    <td>5.6360052884</td>-->
-                <!--                    <td><a href="/communes/01031">Détail</a></td>-->
-                <!--                </tr>-->
-
-                <!--                <tr>-->
-                <!--                    <th scope="row">01032</th>-->
-                <!--                    <td>01360</td>-->
-                <!--                    <td>Beligneux</td>-->
-                <!--                    <td>45.8591464826</td>-->
-                <!--                    <td>5.13989505865</td>-->
-                <!--                    <td><a href="/communes/01032">Détail</a></td>-->
-                <!--                </tr>-->
-
-                <!--                <tr>-->
-                <!--                    <th scope="row">01033</th>-->
-                <!--                    <td>01200</td>-->
-                <!--                    <td>Valserhone</td>-->
-                <!--                    <td>46.1067901755</td>-->
-                <!--                    <td>5.83202736464</td>-->
-                <!--                    <td><a href="/communes/01033">Détail</a></td>-->
-                <!--                </tr>-->
                 </tbody>
             </table>
 
@@ -340,251 +66,31 @@
 
                 <div th:replace="fragments/pagination :: pageSize"></div>
 
-<!--                <div class="col-lg-5">-->
-<!--                    <form action="/" method="get" class="form-inline">-->
-<!--                        <label for="pageSizePicker">Taille des pages&nbsp;</label>-->
-<!--                        <select name="size" id="pageSizePicker" class="custom-select"-->
-<!--                                onchange="javascript:this.form.submit()">-->
-<!--                            <option th:each="nbPages : ${pageSizes}" th:value="${nbPages}" th:text="${nbPages}"-->
-<!--                                    th:selected="${nbPages==size}"></option>-->
-<!--                            &lt;!&ndash;                            <option value="5">5</option>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <option value="10"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    selected="selected">10&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </option>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <option value="20">20</option>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <option value="50">50</option>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <option value="100">100</option>&ndash;&gt;-->
-<!--                        </select>-->
-<!--                        <input type="hidden" name="sortDirection" value="">-->
-<!--                        <input type="hidden" name="sortProperty" value="">-->
-<!--                        <input type="hidden" name="search" value="">-->
-<!--                        <input type="hidden" name="page" th:value="${page}">-->
-<!--                    </form>-->
-<!--                </div>-->
-
                 <div th:replace="fragments/pagination :: pageNav"></div>
 
-<!--                <div class="col-lg-2 text-center">-->
-<!--                    <nav aria-label="Page navigation">-->
-<!--                        <ul class="pagination">-->
+                            <!-- modif page depuis combo -->
+                            <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
 
-<!--                            &lt;!&ndash;&lt;!&ndash;                            <li class="page-item disabled" th:if="${param.page}">&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <li class="page-item disabled" th:if="${page == 0}">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <a href="#" class="page-link">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    &laquo;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                </a>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <li class="page-item" th:unless="${page == 0}">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <a class="page-link" href="/?page=-1&;search=&;size=&;sortDirection=&;sortProperty="&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                >&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    &laquo;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                </a>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
+                            <!-- modif size depuis combo -->
+                            <!-- http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 -->
+
+                            <!-- bouton suivant/précédent -->
+                            <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
 
 
-<!--                            &lt;!&ndash; modif page depuis combo &ndash;&gt;-->
-<!--                            &lt;!&ndash; http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= &ndash;&gt;-->
+                            <!-- Combobox des pages -->
 
-<!--                            &lt;!&ndash; modif size depuis combo &ndash;&gt;-->
-<!--                            &lt;!&ndash; http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 &ndash;&gt;-->
+                            <!-- modif page-->
+                            <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
 
-<!--                            &lt;!&ndash; bouton suivant/précédent &ndash;&gt;-->
-<!--                            &lt;!&ndash; http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= &ndash;&gt;-->
-<!--                            <form action="/" method="get">-->
+                            <!-- modif size-->
+                            <!-- http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 -->
 
-<!--                                <li class="page-item disabled" th:if="${page == 0}">-->
-<!--                                    <a class="page-link" href="#"-->
-<!--                                    >-->
-<!--                                        &laquo;-->
-<!--                                    </a>-->
-<!--                                </li>-->
-<!--                                &lt;!&ndash; attention au "&" que Discord a crée &ndash;&gt;-->
-<!--                                &lt;!&ndash; remplacer le "1" de "page=1&" par la variable dynamique "page" &ndash;&gt;-->
-<!--                                <input type="hidden" name="size" th:value="${size}">-->
-<!--                                <li class="page-item" th:unless="${page == 0}">-->
-<!--                                    <a class="page-link"-->
-<!--                                       th:href="@{|/?page=${pageDown}&sortDirection=&sortProperty=&size=${size}&search=${search}|}">-->
-<!--                                        &lt;!&ndash;                                       th:href="@{|/?page=${pageDown}&;search=&;size=${size}&;sortDirection=&;sortProperty=|}">&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                                    th:href="@{|/?page=${pageDown}&sortDirection=&sortProperty=&size=${size}&search=|}">&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                                   href="/?page=-1&;search=&;size=&;sortDirection=&;sortProperty="&ndash;&gt;-->
+                            <!-- bouton suivant/précédent -->
+                            <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
 
-<!--                                        &laquo;-->
-<!--                                    </a>-->
-<!--                                </li>-->
-<!--                                <input type="hidden" name="search" th:value="${search}">-->
-<!--                                <input type="hidden" name="size" th:value="${size}">-->
-<!--                                <input type="hidden" name="sortDirection" value="">-->
-<!--                                <input type="hidden" name="sortProperty" value="">-->
-<!--                            </form>-->
-<!--                            &lt;!&ndash;                            <select name="size" id="pageSizePicker1" class="custom-select"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    onchange="javascript:this.form.submit()">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <option th:each="nbPages : ${pageSizes}" th:value="${nbPages}" th:text="${nbPages}"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                        th:selected="${size}"></option>&ndash;&gt;-->
-
-<!--                            &lt;!&ndash; Combobox des pages &ndash;&gt;-->
-
-<!--                            &lt;!&ndash; modif page&ndash;&gt;-->
-<!--                            &lt;!&ndash; http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= &ndash;&gt;-->
-
-<!--                            &lt;!&ndash; modif size&ndash;&gt;-->
-<!--                            &lt;!&ndash; http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 &ndash;&gt;-->
-
-<!--                            &lt;!&ndash; bouton suivant/précédent &ndash;&gt;-->
-<!--                            &lt;!&ndash; http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= &ndash;&gt;-->
-
-<!--                            <li class="page-item">-->
-<!--                                &lt;!&ndash;                                <a href="#" class="page-link">Page <span th:text="${pageNumber}"></span></a>&ndash;&gt;-->
-<!--                                <form action="/" method="get">-->
-
-<!--                                    &lt;!&ndash;                                    utiliser sequence de number, attention au sort&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                    <select th:each="page : ${pages}" name="page" id="pagePicker" class="custom-select"&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                    <select th:each="page : ${#numbers.sequence(0, 22)}" name="page" id="pagePicker" class="custom-select"&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                            onchange="javascript:this.form.submit()">&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option th:if="${isSelected}" value="0" selected="selected">Page 1</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option th:unless="${isSelected}" th:value="page">Page th:text="item"</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                    </select>&ndash;&gt;-->
-
-
-<!--                                    &lt;!&ndash; gérer selected &ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                    <select name="page" id="pagePicker" class="custom-select"&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                            onchange="javascript:this.form.submit()">&ndash;&gt;-->
-<!--                                    &lt;!&ndash;&lt;!&ndash;                                        <option th:each="i : ${#numbers.sequence(1, #lists.size(pages))}" th:value="${i}"&ndash;&gt;&ndash;&gt;-->
-<!--                                    &lt;!&ndash;&lt;!&ndash;                                                th:text="'Page ' + ${page+1}">Num&ndash;&gt;&ndash;&gt;-->
-<!--                                    &lt;!&ndash;&lt;!&ndash;                                        </option>&ndash;&gt;&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                                th:each="i : ${#numbers.sequence(1, #lists.size(pages))}"&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                                th:value="${i}"&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                                th:text="'Page ' + ${page+1}"&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                                th:selected="${i==23}"&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        >                              &ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        </option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                    </select>&ndash;&gt;-->
-<!--                                    <select name="page" id="pagePicker" class="custom-select"-->
-<!--                                            onchange="javascript:this.form.submit()">-->
-<!--                                        <option th:each="i : ${#numbers.sequence(0, 10000)}" th:value="${i}"-->
-<!--                                                th:text="'Page ' + ${i+1}"-->
-<!--                                                th:selected="${i==page}"></option>-->
-<!--                                    </select>-->
-
-<!--                                    &lt;!&ndash;                                    <select name="page" id="pagePicker" class="custom-select"&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                            onchange="javascript:this.form.submit()">&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="0" selected="selected">Page 1</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="1">Page 2</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="2">Page 3</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="3">Page 4</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="4">Page 5</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="5">Page 6</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="6">Page 7</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="7">Page 8</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="8">Page 9</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="9">Page 10</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="10">Page 11</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="11">Page 12</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="12">Page 13</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="13">Page 14</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="14">Page 15</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="15">Page 16</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="16">Page 17</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="17">Page 18</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="18">Page 19</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="19">Page 20</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="20">Page 21</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="21">Page 22</option>&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                                        <option value="22">Page 23</option>&ndash;&gt;-->
-<!--                                    </select>-->
-<!--                                    <input type="hidden" name="sortDirection" value="">-->
-<!--                                    <input type="hidden" name="sortProperty" value="">-->
-<!--                                    <input type="hidden" name="size" th:value="${size}">-->
-<!--                                    <input type="hidden" name="search" th:value="${search}">-->
-<!--                                </form>-->
-<!--                            </li>-->
-<!--                            &lt;!&ndash;                            <li class="page-item">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash;                                <a class="page-link"&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash;                                   href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash;                                    &raquo;&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash;                                </a>&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash; attention au "&" que Discord a crée &ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash; remplacer le "1" de "page=1&" par la variable dynamique "page" &ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <a class="page-link"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    &raquo;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                </a>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
-
-
-<!--                            &lt;!&ndash;                            <li class="page-item" >&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <a class="page-link" href="#"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                >&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    &raquo;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                </a>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
-
-<!--                            &lt;!&ndash;                            <li class="page-item disabled" th:unless="${page == 22}">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <a class="page-link" href="#"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                >&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    &raquo;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                </a>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <li class="page-item disabled" th:if="${page == 22}">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <li class="page-item">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash;                                <a class="page-link"&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash;                                   href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash;                                    &raquo;&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash;                                </a>&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash; attention au "&" que Discord a crée &ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                &lt;!&ndash; remplacer le "1" de "page=1&" par la variable dynamique "page" &ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <a class="page-link"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   th:href="@{|/?page=${pageUp}&;search=&;size=${size}&;sortDirection=&;sortProperty=|}">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    &lt;!&ndash;                                    href="/?page=1&;search=&;size=&;sortDirection=&;sortProperty=">&ndash;&gt;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    &raquo;&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                </a>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
-
-
-<!--                            &lt;!&ndash; modif page&ndash;&gt;-->
-<!--                            &lt;!&ndash; http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= &ndash;&gt;-->
-
-<!--                            &lt;!&ndash; modif size&ndash;&gt;-->
-<!--                            &lt;!&ndash; http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 &ndash;&gt;-->
-
-<!--                            &lt;!&ndash; bouton suivant/précédent &ndash;&gt;-->
-<!--                            &lt;!&ndash; http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= &ndash;&gt;-->
-<!--                            <form action="/" method="get">-->
-<!--                                <li class="page-item disabled" th:if="${page == 100}">-->
-<!--                                    <a class="page-link" href="#"-->
-<!--                                    >-->
-<!--                                        &raquo;-->
-<!--                                    </a>-->
-<!--                                </li>-->
-<!--                                <li class="page-item" th:unless="${page == 100}">-->
-<!--                                    <a class="page-link"-->
-<!--                                       th:href="@{|/?page=${pageUp}&sortDirection=&sortProperty=&size=${size}&search=${search}|}">-->
-<!--                                        &lt;!&ndash;                                       th:href="@{|/?page=${pageUp}&;search=&;size=${size}&;sortDirection=&;sortProperty=|}">&ndash;&gt;-->
-
-<!--                                        &raquo;-->
-<!--                                    </a>-->
-<!--                                </li>-->
-
-<!--                                <input type="hidden" name="search" value="${search}">-->
-<!--                                <input type="hidden" name="size" th:value="${size}">-->
-<!--                                <input type="hidden" name="sortDirection" value="">-->
-<!--                                <input type="hidden" name="sortProperty" value="">-->
-
-<!--                            </form>-->
-
-<!--                        </ul>-->
-<!--                    </nav>-->
-<!--                </div>-->
 
                 <div th:replace="fragments/pagination :: nbCommunes"></div>
-
-<!--                <div class="col-lg-5 text-right mt-2">-->
-<!--                    <p>-->
-<!--                        &lt;!&ndash;Affichage des communes <span>1</span> à <span>10</span> sur un total de <span th:text="${nbCommunes}" >29997<span/>&ndash;&gt;-->
-<!--                        Affichage des communes <span th:text="${start}">1</span> à [[${end}]] sur un total de <span-->
-<!--                            th:text="${nbCommunes}">29997</span>-->
-<!--                    </p>-->
-<!--                </div>-->
 
             </div>
         </div>

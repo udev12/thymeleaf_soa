@@ -1,6 +1,5 @@
 package com.ipiecoles.communes.web.controller;
 
-import com.ipiecoles.communes.web.model.Commune;
 import com.ipiecoles.communes.web.model.Role;
 import com.ipiecoles.communes.web.model.User;
 import com.ipiecoles.communes.web.repository.RoleRepository;
@@ -21,7 +20,7 @@ import java.util.Collections;
 import java.util.HashSet;
 
 /**
- *
+ * Cette classe gère les utilisateurs : inscription et connexion
  */
 @Controller
 public class UserController {
@@ -35,17 +34,23 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Cet endpoint permet d'afficher la page "login"
+     * @return la vue login
+     */
     @GetMapping("/login")
     public String login() {
-//        model.addAttribute("user", new User());
-//        attributes.addFlashAttribute("type", "success");
-//        attributes.addFlashAttribute("message", "Connexion réussie !");
-//        return "redirect:/?successfulConnection=true";
         return "login";
     }
 
-    @GetMapping("/login/input")
-    public String loginInput(/*@Valid User user, */final ModelMap model, RedirectAttributes attributes) {
+    /**
+     *
+     * @param model
+     * @param attributes
+     * @return
+     */
+    @GetMapping("/login/input") // endpoint saisie login
+    public String loginInput(final ModelMap model, RedirectAttributes attributes) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -60,14 +65,27 @@ public class UserController {
 
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/register")
     public String register(final ModelMap model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
+    /**
+     *
+     * @param user
+     * @param bindingResult
+     * @param model
+     * @param attributes
+     * @return
+     */
     // NB : AddAttribute : return / AddFlashAttribute : redirect
-    @PostMapping("/register")
+    @PostMapping("/register") // endpoint inscription
     public String createNewUser(@Valid User user,
                                 BindingResult bindingResult,
                                 final ModelMap model,

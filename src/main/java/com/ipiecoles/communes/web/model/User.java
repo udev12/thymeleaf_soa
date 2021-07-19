@@ -20,45 +20,28 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //    @Length(max = 50, message = "Le champ 'lastName' ne doit pas contenir plus 50 caractères")
-//    @NotBlank(message = "Le champ 'name' ne peut être vide")
-//    @Length(max = 50)
     @NotBlank
     @Length(max = 50)
     private String name;
 
-
-    //    @Length(max = 50, message = "Le champ 'lastName' ne doit pas contenir plus 50 caractères")
-//    @NotBlank(message = "Le champ 'lastName' ne peut être vide")
     @Length(max = 50)
     @NotBlank
     private String lastName;
 
-    //    @NotBlank(message = "Le champ 'email' ne peut être vide")
     @Email
     @NotBlank
     private String email;
-//
-//    @Length(min = 5, max = 50, message = "Le champs 'userName' doit contenir entre 5 et 50 caractères")
-//    @NotBlank(message = "Le champ 'userName' ne peut être vide")
 
-    //    @Pattern(regexp = "^[A-Za-z-' ]+[0-9]{5,50}$", message = "Le champs 'userName' doit contenir entre 5 et 50 caractères")
     @Column(nullable = false, unique = true)
     @Length(min = 5, max = 50)
     @NotBlank
     private String userName;
 
-    //    @Length(min = 8, message = "Le champ 'lastName' ne doit pas contenir moins de 8 caractères")
-//    @NotBlank(message = "Le champ 'password' ne peut être vide")
     @Length(min = 8)
     @NotBlank
     private String password;
 
     private Boolean active;
-
-//    @ManyToMany(cascade = CascadeType.MERGE)
-//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Role> roles;
 
     // première façon de faire : évite erreur au moment du login
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
