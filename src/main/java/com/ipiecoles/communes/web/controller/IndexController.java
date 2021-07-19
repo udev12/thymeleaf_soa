@@ -4,21 +4,19 @@ import com.ipiecoles.communes.web.model.Commune;
 import com.ipiecoles.communes.web.repository.CommuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
+/**
+ *
+ */
 @Controller
 public class IndexController {
 
@@ -45,7 +43,7 @@ public class IndexController {
 //            @RequestParam(required = false) String search, // il faut mettre required=false
             @RequestParam(defaultValue = "") String search,
             RedirectAttributes attributes,
-            final ModelMap model) /*throws  IllegalArgumentException*/{
+            final ModelMap model) /*throws  IllegalArgumentException*/ {
 
         //        // Erreur si paramètres "page", "size", "sortProperty" et "sortDirection" incorrects
 //        if ((page != null && page != (Integer)page) || (size != null && size != (Integer)size) /*|| (sortProperty != null && !sortProperty.equals("codeInsee"))
@@ -59,7 +57,7 @@ public class IndexController {
 
 //        http://localhost:8080/?page=5&search=&size=10&sortDirection=DESC&sortProperty=nom
 
-        try{
+        try {
 //        if ((sortDirection != null && !sortDirection.equals("ASC")) || (sortDirection != null && !sortDirection.equals("DESC"))
 //                /*|| (sortProperty != null  && !sortProperty.equals("codePostal")) || (sortProperty != null  && !sortProperty.equals("nom"))
 //                || (sortProperty != null  && !sortProperty.equals("latitude")) || (sortProperty != null  && !sortProperty.equals("longitude"))
@@ -70,25 +68,25 @@ public class IndexController {
 //            throw new IllegalArgumentException("Paramètre incorrect");
 //        }
 
-        // Consttituer un PageRequest
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(sortDirection), sortProperty);
+            // Consttituer un PageRequest
+            PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(sortDirection), sortProperty);
 
-        Page<Commune> communes;
+            Page<Commune> communes;
 
-        if (search == null || search.isEmpty()) {
-            communes = communeRepository.findAll(pageRequest);
-        } else {
-            communes = communeRepository.findByNomContainingIgnoreCase(search, pageRequest);
-        }
+            if (search == null || search.isEmpty()) {
+                communes = communeRepository.findAll(pageRequest);
+            } else {
+                communes = communeRepository.findByNomContainingIgnoreCase(search, pageRequest);
+            }
 
-        String regexFiveNumbers = "\\d{5}";
-        if (search.matches(regexFiveNumbers)) {
-            return "redirect:/communes/" + search;
-        }
+            String regexFiveNumbers = "\\d{5}";
+            if (search.matches(regexFiveNumbers)) {
+                return "redirect:/communes/" + search;
+            }
 
-        if (page == 0) {
-            model.put("isSelected", "true");
-        }
+            if (page == 0) {
+                model.put("isSelected", "true");
+            }
 
 //        Page<Commune> communes;
 //        if(search == null){
@@ -101,14 +99,14 @@ public class IndexController {
 
 //        Page<Commune> communes = communeRepository.findAll(pageRequest);
 //        model.put("commune", communes);
-        model.put("communes", communes);
+            model.put("communes", communes);
 //        model.put("nbCommunes", communeRepository.count());
-        model.put("nbCommunes", communes.getTotalElements());
+            model.put("nbCommunes", communes.getTotalElements());
 //        model.put("pageSizes", Arrays.asList("5", "10", "20", "50", "100"));
 //        communeRepository.findAll();
-        //Affichage des communes de 1 à 10 => page = 0 et size = 10
-        //Affichage des communes de 11 à 20 => page = 1 et size = 10
-        //Affichage des communes de 41 à 60 => page = 2 et size = 20
+            //Affichage des communes de 1 à 10 => page = 0 et size = 10
+            //Affichage des communes de 11 à 20 => page = 1 et size = 10
+            //Affichage des communes de 41 à 60 => page = 2 et size = 20
 //        Integer start = page;
 //        Integer end = page + 1;
 //        model.put("start", page);//A remplacer par la valeur dynamique
@@ -197,7 +195,7 @@ public class IndexController {
 //        if (size != null) {
             model.put("search", search);
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
 
         }
 

@@ -20,6 +20,9 @@ import javax.validation.Valid;
 import java.util.Collections;
 import java.util.HashSet;
 
+/**
+ *
+ */
 @Controller
 public class UserController {
 

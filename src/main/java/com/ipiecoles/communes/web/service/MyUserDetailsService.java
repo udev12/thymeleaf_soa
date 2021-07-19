@@ -11,10 +11,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *
+ */
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -50,7 +52,7 @@ public class MyUserDetailsService implements UserDetailsService {
         //Initialise la liste des droits de l'utilisateur à partir de la liste
         //des rôles présents en BDD pour cet utilisateur
         Set<GrantedAuthority> authorities = new HashSet<>();
-        for(Role role : user.getRoles()){
+        for (Role role : user.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(role.getRole()));
         }
         //Instanciation du User Spring à partir des infos du user de la BDD

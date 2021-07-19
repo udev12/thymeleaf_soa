@@ -10,6 +10,9 @@ import java.util.Objects;
 import java.util.Set;
 import javax.validation.constraints.*;
 
+/**
+ *
+ */
 @Entity
 public class User {
 

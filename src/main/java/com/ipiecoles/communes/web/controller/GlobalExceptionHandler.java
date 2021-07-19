@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.persistence.EntityNotFoundException;
 
+/**
+ *
+ */
 @ControllerAdvice// Permet à cette classe de "catcher" les exceptions
 // levées par les contrôleurs
 public class GlobalExceptionHandler {

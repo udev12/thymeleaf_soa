@@ -15,6 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ *
+ */
 // Annotation pour que Spring prnne en compte les éléments de configuration définis
 @Configuration
 // Annotation permettant d'activer la sécu pour notre appli web

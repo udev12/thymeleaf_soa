@@ -3,6 +3,9 @@ package com.ipiecoles.communes.web.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ */
 @Entity
 public class Role {
 
