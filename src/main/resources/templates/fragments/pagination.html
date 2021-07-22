@@ -69,15 +69,15 @@
 
                 <li class="page-item">
                     <form action="/" method="get">
-
+<!--                        ${lastPage}-->
                         <!-- utiliser sequence de number, attention au sort-->
                          <select name="page" id="pagePicker" class="custom-select"
                                 onchange="javascript:this.form.submit()">
-                            <option th:each="i : ${#numbers.sequence(0, 10000)}" th:value="${i}"
+                            <option th:each="i : ${#numbers.sequence(0, lastPage)}" th:value="${i}"
                                     th:text="'Page ' + ${i+1}"
                                     th:selected="${i==page}"></option>
                         </select>
-
+<!--                        th:href="@{|/?page=${pageDown}&sortDirection=&sortProperty=&size=${size}&search=${search}|}">-->
                         </select>
                         <input type="hidden" name="sortDirection" value="">
                         <input type="hidden" name="sortProperty" value="">
@@ -95,13 +95,13 @@
                 <!-- bouton suivant/précédent -->
                 <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
                 <form action="/" method="get">
-                    <li class="page-item disabled" th:if="${page == 100}">
+                    <li class="page-item disabled" th:if="${page} == ${lastPage}">
                         <a class="page-link" href="#"
                         >
                             &raquo;
                         </a>
                     </li>
-                    <li class="page-item" th:unless="${page == 100}">
+                    <li class="page-item" th:unless="${page} == ${lastPage}">
                         <a class="page-link"
                            th:href="@{|/?page=${pageUp}&sortDirection=&sortProperty=&size=${size}&search=${search}|}">
                             &raquo;

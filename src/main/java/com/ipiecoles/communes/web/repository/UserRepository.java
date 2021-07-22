@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * Dans ce repository, on a principalement la méthode "findByUserName"
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {

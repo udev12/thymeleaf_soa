@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * Dans ce repository, on a principalement la méthode "findByRole"
  */
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {

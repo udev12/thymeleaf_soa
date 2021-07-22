@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
+ * Service qui implémente l'interface Spring "UserDetailsService"
  */
 @Service
 public class MyUserDetailsService implements UserDetailsService {
@@ -23,11 +23,17 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Permet de construire un utilisateur Spring à partir de l'utilisateur de type "User"
+     * @param username
+     * @return l'utilisateur Spring construit
+     * @throws UsernameNotFoundException s'il n'y a pas d'utilisateur
+     */
     @Override
     //@Transactional // pour éviter l'erreur au moment du login
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        // Récupérer en base l'utilisateur correpsodndant a unom passé en paramètre
+        // Récupérer en base l'utilisateur correspondant a unom passé en paramètre
         User user = userRepository.findByUserName(username);
 
         // Le ver une exception si l'utilisateur n'est pas trouvé
@@ -35,10 +41,15 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Aucun utilisateur nommé " + username + " n'a pas été trouvé");
         }
 
-// Construire un UserDetails à partir de l'utilisateur récupéré
+        // Construire un UserDetails à partir de l'utilisateur récupéré
         return buildSpringUserFromMyUser(user);
     }
 
+    /**
+     * Méthode qui permet d'instancier un utilisateur Spring
+     * @param user : l'utilisateur
+     * @return l'utilisateur Spring instancié
+     */
     private UserDetails buildSpringUserFromMyUser(User user) {
         //Initialise la liste des droits de l'utilisateur à partir de la liste
         //des rôles présents en BDD pour cet utilisateur

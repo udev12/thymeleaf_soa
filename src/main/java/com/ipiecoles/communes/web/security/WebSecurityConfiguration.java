@@ -16,9 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- *
+ * C'est ici, qu'on va configurer la sécurité de notre application (page d'authentification, pages accessibles avec ou sans authentification, ...).
  */
-// Annotation pour que Spring prnne en compte les éléments de configuration définis
+// Annotation pour que Spring prenne en compte les éléments de configuration définis
 @Configuration
 // Annotation permettant d'activer la sécu pour notre appli web
 @EnableWebSecurity
@@ -33,24 +33,36 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public MyUserDetailsService userDetailsService;
 
-    // On redéfinit AuthenticationManagerBuilder
-
+    /**
+     * On redéfinit AuthenticationManagerBuilder
+     * @param auth : variable de type "AuthenticationManagerBuilder"
+     * @throws Exception en cas d'erreur avec la méthode "userDetailsService"
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        super.configure(auth);
         auth
                 //Service chargé d'effectuer les opérations d'authentification
                 .userDetailsService(userDetailsService)
-                //Définit l'algorithme de hâchage pour les mots de passe
+                //Définit l'algorithme de hachage pour les mots de passe
                 .passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * Méthode qui permet de hacher les mots de passe
+     * @return un objet de type "BCryptPasswordEncoder"
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         // Algo BCrypt
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * C'est dans cette redéfinition, qu'on a les principaux paramètres de sécurité
+     * @param http : variable de type "HttpSecurity"
+     * @throws Exception en cas d'erreur avec la méthode "authorizeRequests"
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -88,12 +100,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .deleteCookies("JSESSIONID"); // on supprime les cookies
     }
 
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
                 .antMatchers("/webjars/**");// * => /webjars/test.js ** => //webjars/test/test/test.js
     }
-
 
 }

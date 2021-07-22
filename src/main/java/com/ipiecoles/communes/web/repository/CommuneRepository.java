@@ -1,7 +1,6 @@
 package com.ipiecoles.communes.web.repository;
 import com.ipiecoles.communes.web.model.Commune;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -35,4 +34,8 @@ public interface CommuneRepository extends PagingAndSortingRepository<Commune, S
 
     @Query("SELECT c FROM Commune c WHERE c.nom = ?1")
     Commune findCommuneByNom(String search);
+
+    @Query("SELECT c FROM Commune c WHERE c.codeInsee = ?1")
+    Commune findCommuneByCodeInsee(String search);
+
 }

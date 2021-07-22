@@ -44,31 +44,32 @@ public class UserController {
     }
 
     /**
-     *
-     * @param model
-     * @param attributes
-     * @return
+     * Méthode qui gère la redirection après la saisie du nom d'utilisateur et du mot de passe
+     * @param model : variable de type "ModelMap"
+     * @param attributes : paramètre qui permet la redirection
+     * @return le template "login.html" ou le template "list.html"
      */
     @GetMapping("/login/input") // endpoint saisie login
     public String loginInput(final ModelMap model, RedirectAttributes attributes) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+        // Si l'authentification échoue, on reste sur la page d'authentification
         if (!auth.isAuthenticated()) {
             attributes.addFlashAttribute("type", "danger");
             attributes.addFlashAttribute("message", "Echec de la connexion !");
             return "redirect:/login?error=true";
         }
+        // En cas de succès, on est redirigé vers la liste des communes
         attributes.addFlashAttribute("type", "success");
         attributes.addFlashAttribute("message", "Connexion réussie !");
         return "redirect:/?successfulConnection=true";
-
     }
 
     /**
-     *
-     * @param model
-     * @return
+     * Méthode pour l'affichage du template d'inscription
+     * @param model : variable de type "ModelMap"
+     * @return le template "register.html"
      */
     @GetMapping("/register")
     public String register(final ModelMap model) {
@@ -77,16 +78,16 @@ public class UserController {
     }
 
     /**
-     *
-     * @param user
-     * @param bindingResult
-     * @param model
-     * @param attributes
-     * @return
+     * Permet de créer un nouvel utilisateur
+     * @param user : l'utilisateur
+     * @param bindingResult : pour la validation
+     * @param model : variable de type "ModelMap"
+     * @param attributes : paramètre pour le return sur le template
+     * @return : le template "register.html"
      */
     // NB : AddAttribute : return / AddFlashAttribute : redirect
     @PostMapping("/register") // endpoint inscription
-    public String createNewUser(@Valid User user,
+    public String createNewUser(@Valid User user, // @Valid est utile pour la validation
                                 BindingResult bindingResult,
                                 final ModelMap model,
                                 RedirectAttributes attributes) {
