@@ -32,8 +32,6 @@ public class CommuneController {
 
     public static final Double DEGRE_LAT_KM = 111d;
     public static final Double DEGRE_LONG_KM = 77d;
-    boolean update = true;
-//    private Boolean newCommune = false;
 
     @Autowired
     private CommuneRepository communeRepository;

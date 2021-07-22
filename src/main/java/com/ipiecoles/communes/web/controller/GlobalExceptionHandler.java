@@ -9,8 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityNotFoundException;
 
+/**
+ * Ici, on va gérer de façon globale, toutes les exceptions "EntityNotFoundException" et "IllegalArgumentException" levées dans notre contrôleur
+ */
 @ControllerAdvice// Permet à cette classe de "catcher" les exceptions
-// levées par les contrôleurs
 public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

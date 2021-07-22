@@ -2,7 +2,6 @@ package com.ipiecoles.communes.web.model;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
@@ -24,17 +23,24 @@ public class Commune {
     @Id
     @Length(max = 5)
     @NotBlank
+    @Pattern(regexp = REGEX_CODE_INSEE, message = "Le code INSEE doit contenir 5 chiffres (Le deuxième caractère peut être A ou B pour les communes de Corse)")
     private String codeInsee;
 
     @NotBlank
+    @Pattern(regexp = REGEX_NOM_COMMUNE, message = "Le nom de la commune ne peut contenir que des lettres, des tirets, des espaces et éventuellement le numéro d'arrondissement")
     private String nom;
 
     @Length(max = 5)
     @NotBlank
+    @Pattern(regexp = REGEX_CODE_POSTAL, message = "Le code postal doit contenir 5 chiffres")
     private String codePostal;
 
+    @Min(value = -90, message = "doit être supérieure ou égale à -90")
+    @Max(value = 90, message = "doit être inférieure ou égale à 90")
     private Double latitude;
 
+    @Min(value = -179, message = "doit être supérieure ou égale à -180")
+    @Max(value = 168, message = "doit être inférieure ou égale à 180")
     private Double longitude;
 
     public Commune() {
