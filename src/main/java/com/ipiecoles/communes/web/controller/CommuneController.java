@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -107,6 +108,7 @@ public class CommuneController {
             logger.info("Redirection vers '/communes/{}", commune.getCodeInsee());
             return "redirect:/communes/" + commune.getCodeInsee();
         }
+        model.put("newCommune", true); // on passe "newCommune" à la vue "detail"
         //S'il y a des erreurs...
         //Possibilité 1 : Rediriger l'utilisateur vers la page générique d'erreur
         //Possibilité 2 : Laisse sur la même page en affichant les erreurs pour chaque champ
@@ -125,7 +127,7 @@ public class CommuneController {
     @GetMapping("communes/new")
     public String newCommune(final ModelMap model) {
         model.addAttribute("commune", new Commune());
-        model.put("newCommune", true);
+        model.put("newCommune", true); // on passe "newCommune" à la vue "detail"
         return "detail";
     }
 

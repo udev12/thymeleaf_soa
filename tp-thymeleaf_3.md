@@ -36,7 +36,7 @@
 - [X] Créer le `GlobalExceptionHandler` permettant la gestion globale des exceptions levées dans vos contrôleurs
 - [X] Pour le GET /communes/CODEINSEE, lever une `EntityNotFoundException` lorsque le code INSEE n'existe pas en base et la gérer dans votre `GlobalExceptionHandler` avec une 404
 - [X] Idem pour le GET /communes/CODEINSEE/delete
-- [ ] Dans l'affichage de la liste des communes, contrôler la valeur des paramètres `page`, `size`, `sortProperty` et `sortDirection`, lever une `IllegalArgumentException` lorqu'un des paramètres est incorrect et la gérer dans votre `GlobalExceptionHandler` avec une 400
+- [X] Dans l'affichage de la liste des communes, contrôler la valeur des paramètres `page`, `size`, `sortProperty` et `sortDirection`, lever une `IllegalArgumentException` lorqu'un des paramètres est incorrect et la gérer dans votre `GlobalExceptionHandler` avec une 400
 - [ ] Bonus : Gérer d'autres erreurs à travers votre application
 
 # Flash attributes

@@ -2,9 +2,11 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
-<head th:replace="fragments/header :: head('Gestion des communes')"></head> <!-- On appelle les fragments du template "header" -->
+<head th:replace="fragments/header :: head('Gestion des communes')"></head>
+<!-- On appelle les fragments du template "header" -->
 <body>
-<div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div> <!-- On appelle les fragments du template "header" -->
+<div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>
+<!-- On appelle les fragments du template "header" -->
 <div>
     <div class="container">
 
@@ -53,10 +55,7 @@
                         type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <label for="perimetre">Communes dans un périmètre de&nbsp;</label>
                     <div class="input-group input-group-sm">
-                        <input type="number" th:value="${perimetre}"
-                               th:class="|form-control ${#fields.hasErrors('perimetre') ? 'is-invalid' : 'is-valid'}|"
-                               name="perimetre"
-                               id="perimetre">
+                        <input type="number" th:value="${perimetre}" name="perimetre" id="perimetre">
                         <div class="input-group-append">
                             <span class="input-group-text">km</span>
                         </div>
@@ -65,7 +64,7 @@
                 </form>
             </div>
 
-            <!-- On affiche les communes proches si on ne crée pas de coummne -->
+            <!-- On affiche les communes proches si on ne crée pas de commune -->
             <div class="col-sm-6" th:unless="${newCommune}">
                 <ul class="list-group">
                     <li class="list-group-item" th:each="communeProche : ${communesProches}">
