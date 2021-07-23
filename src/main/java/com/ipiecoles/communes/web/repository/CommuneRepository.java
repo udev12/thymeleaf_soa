@@ -1,4 +1,5 @@
 package com.ipiecoles.communes.web.repository;
+
 import com.ipiecoles.communes.web.model.Commune;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,8 +11,7 @@ import java.util.List;
 
 /**
  * Dans notre repository, on définit entre-autres, les méthodes "countDistinctCodePostal()" et "countDistinctNom()".
- * On doit hériter de la classe "PagingAndSortingRepository" (au lieu de la classe "JpaRepository"),
- * si on veut lire avec la classe "RepositoryItemReader".
+ * On hérite de la classe "PagingAndSortingRepository"
  */
 @Repository
 public interface CommuneRepository extends PagingAndSortingRepository<Commune, String> {

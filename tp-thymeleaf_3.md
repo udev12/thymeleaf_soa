@@ -25,17 +25,17 @@
 
 # Fragments
 - [X] Créer un fragment pour la balise `head` et pour la `navbar`. Appeler ces fragments dans les différentes pages pour supprimer la duplication.
-- [ ] Créer un fragment pour les colonnes de la liste
+- [X] Créer un fragment pour les colonnes de la liste
 - [ ] Bonus : Créer un fragment pour l'architecture de la page
-- [ ] Bonus : Créer un fragment pour les champs de formulaire
-- [ ] Bonus : Créer un fragment pour les éléments de pagination
+- [X] Bonus : Créer un fragment pour les champs de formulaire
+- [X] Bonus : Créer un fragment pour les éléments de pagination
 - [ ] Bonus : Créer un fragment pour le tableau
 
 # Gestion des erreurs
 - [X] Créer un template `error.html` permettant d'afficher de manière générique les erreurs de votre application
 - [X] Créer le `GlobalExceptionHandler` permettant la gestion globale des exceptions levées dans vos contrôleurs
-- [ ] Pour le GET /communes/CODEINSEE, lever une `EntityNotFoundException` lorsque le code INSEE n'existe pas en base et la gérer dans votre `GlobalExceptionHandler` avec une 404
-- [ ] Idem pour le GET /communes/CODEINSEE/delete
+- [X] Pour le GET /communes/CODEINSEE, lever une `EntityNotFoundException` lorsque le code INSEE n'existe pas en base et la gérer dans votre `GlobalExceptionHandler` avec une 404
+- [X] Idem pour le GET /communes/CODEINSEE/delete
 - [ ] Dans l'affichage de la liste des communes, contrôler la valeur des paramètres `page`, `size`, `sortProperty` et `sortDirection`, lever une `IllegalArgumentException` lorqu'un des paramètres est incorrect et la gérer dans votre `GlobalExceptionHandler` avec une 400
 - [ ] Bonus : Gérer d'autres erreurs à travers votre application
 
@@ -43,6 +43,35 @@
 - [X] Afficher un message de succès lors de la sauvegarde d'une commune
 - [X] Afficher un message de succès suite à la suppression d'une commune
 - [X] Afficher un message de succès suite à la création d'une commune
-- [ ] Afficher un message d'erreur si on souhaite afficher les villes dans un périmètre supérieur à 20 km (cela n'utilise pas forcément les flash attributes)
+- [X] Afficher un message d'erreur si on souhaite afficher les villes dans un périmètre supérieur à 20 km (cela n'utilise pas forcément les flash attributes)
 
 # Validation
+- [X] Mettre en place la validation avec les règles adéquates sur les champs code Insee (obligatoire, 5 chiffres et le deuxième caractère peut être A ou B), code postal (obligatoire, 5 chiffres), nom (obligatoire, taille max 50, regex `^[A-Za-z-' ]+[0-9]{0,2}$`, latitude et longitude (facultatives, mais lorsqu'elles sont renseignées, elles doivent être valides)
+- [X] Faire en sorte que les fomulaires affichent les messages d'erreurs pour chaque champs en cas d'erreur de validation (classe CSS is-valid ou is-invalid, + div de la classe invalid-feedback pour l'affichage des erreurs)
+- [ ] Bonus : Gérer correctement le formulaire de création (pas de coche verte ou de warning rouge à la création mais en cas d'erreur de création on réaffiche bien le formulaire avec les warnings pour les champs à problèmes).
+
+# Spring Security
+- [X] Créer une entité User : 
+  - id (clé primaire)
+  - userName 
+  - email
+  - password
+  - name
+  - lastName
+  - active (booléen)
+  - Constructeurs, toString.... + règles de validation auxquelles vous pensez (sauf pour le mot de passe)
+- [X] Créer une entité Role : 
+  - id (clé primaire)
+  - role (String)
+- [X] Mettre en place un ManyToMany entre User et Role
+- [X] Mettre en place le paramétrage de sécurité avec authentification par formulaire
+- [X] Mettre en place la page de connexion
+- [X] Restreindre l'accès aux pages suivantes : 
+  - Liste des communes et recherche accessible à tous
+  - Détails des communes accessible uniquement aux utilisateurs connectés
+  - Création, Modification et suppression d'une commune accessible uniquement aux utilisateurs ADMIN
+- [X] Affiner l'affichage au niveau du template pour : 
+  - Ne pas afficher le bouton Créer une nouvelle commune pour les utilisateurs non admin
+  - Ne pas afficher le bouton Supprimer et le bouton Enregistrer la commune pour les utilisateurs non admin 
+  - Afficher un lien Se connecter dans le menu lorsqu'on n'est pas connecté, un bouton Se déconnecter lorsqu'on est connecté
+- [X] Gérer les messages de connexion réussie et de connexion échouée

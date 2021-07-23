@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head('Gestion des communes')"></head>
+<head th:replace="fragments/header :: head('Gestion des communes')"></head> <!-- On appelle les fragments du template "header" -->
 <body>
-<div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>
+<div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div> <!-- On appelle les fragments du template "header" -->
 
 <div class="container">
     <div th:if="${param.error}">

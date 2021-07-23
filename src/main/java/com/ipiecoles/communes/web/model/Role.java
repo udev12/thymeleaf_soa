@@ -1,10 +1,12 @@
 package com.ipiecoles.communes.web.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
- *
+ * Classe qui représente l'entité "Role"
  */
 @Entity
 public class Role {

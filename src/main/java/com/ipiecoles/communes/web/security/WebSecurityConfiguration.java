@@ -11,12 +11,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * C'est ici, qu'on va configurer la sécurité de notre application (page d'authentification, pages accessibles avec ou sans authentification, ...).
+ * C'est ici, qu'on va configurer la sécurité de notre application (page d'authentification, pages accessibles avec ou sans authentification, ...)
  */
 // Annotation pour que Spring prenne en compte les éléments de configuration définis
 @Configuration
@@ -35,6 +34,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
      * On redéfinit AuthenticationManagerBuilder
+     *
      * @param auth : variable de type "AuthenticationManagerBuilder"
      * @throws Exception en cas d'erreur avec la méthode "userDetailsService"
      */
@@ -50,6 +50,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
      * Méthode qui permet de hacher les mots de passe
+     *
      * @return un objet de type "BCryptPasswordEncoder"
      */
     @Bean
@@ -60,6 +61,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
      * C'est dans cette redéfinition, qu'on a les principaux paramètres de sécurité
+     *
      * @param http : variable de type "HttpSecurity"
      * @throws Exception en cas d'erreur avec la méthode "authorizeRequests"
      */
@@ -80,26 +82,25 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 //Activation de la connexion par formulaire HTML
                 .and().formLogin()
-                    //Lorsque l'on va accéder à une page protégée, vers où on redirige
-                    //l'utilisateur pour qu'il puisse se connecter
-                    .loginPage("/login") //Défaut : /login
-                    //Autoriser la page de login à tous
-                    .permitAll() // à commenter avec la deuxième façon de configurer le login
-                    //Où va-t-on si la connexion échoue ?
-                    .failureUrl("/login?error=true") //Défaut : /login?error
-                    //Où va-t-on lorsque la connexion réussit ?
-                    .defaultSuccessUrl("/?successfulConnection=true")// Pas de valeur par défaut
-                    //Définir le nom du paramètre contenant le nom d'utilisateur
-                    .usernameParameter("username")//Défaut : username
-                    //Définir le nom du paramètre contenant le password
-                    .passwordParameter("password")//Défaut : password
+                //Lorsque l'on va accéder à une page protégée, vers où on redirige
+                //l'utilisateur pour qu'il puisse se connecter
+                .loginPage("/login") //Défaut : /login
+                //Autoriser la page de login à tous
+                .permitAll() // à commenter avec la deuxième façon de configurer le login
+                //Où va-t-on si la connexion échoue ?
+                .failureUrl("/login?error=true") //Défaut : /login?error
+                //Où va-t-on lorsque la connexion réussit ?
+                .defaultSuccessUrl("/?successfulConnection=true")// Pas de valeur par défaut
+                //Définir le nom du paramètre contenant le nom d'utilisateur
+                .usernameParameter("username")//Défaut : username
+                //Définir le nom du paramètre contenant le password
+                .passwordParameter("password")//Défaut : password
                 .and().logout() // déconnexion
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/") // on est redirigé vers la page d'accueil après la déconnexion
-                    .invalidateHttpSession(true) // on invalide la session http
-                    .deleteCookies("JSESSIONID"); // on supprime les cookies
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/") // on est redirigé vers la page d'accueil après la déconnexion
+                .invalidateHttpSession(true) // on invalide la session http
+                .deleteCookies("JSESSIONID"); // on supprime les cookies
     }
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {

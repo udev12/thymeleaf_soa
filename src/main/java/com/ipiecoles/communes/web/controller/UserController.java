@@ -4,6 +4,8 @@ import com.ipiecoles.communes.web.model.Role;
 import com.ipiecoles.communes.web.model.User;
 import com.ipiecoles.communes.web.repository.RoleRepository;
 import com.ipiecoles.communes.web.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +27,8 @@ import java.util.HashSet;
 @Controller
 public class UserController {
 
+    static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -36,7 +40,8 @@ public class UserController {
 
     /**
      * Cet endpoint permet d'afficher la page "login"
-     * @return la vue login
+     *
+     * @return la vue "login"
      */
     @GetMapping("/login")
     public String login() {
@@ -45,7 +50,8 @@ public class UserController {
 
     /**
      * Méthode qui gère la redirection après la saisie du nom d'utilisateur et du mot de passe
-     * @param model : variable de type "ModelMap"
+     *
+     * @param model      : variable de type "ModelMap"
      * @param attributes : paramètre qui permet la redirection
      * @return le template "login.html" ou le template "list.html"
      */
@@ -58,16 +64,19 @@ public class UserController {
         if (!auth.isAuthenticated()) {
             attributes.addFlashAttribute("type", "danger");
             attributes.addFlashAttribute("message", "Echec de la connexion !");
+            logger.info("Redirection vers '/login'");
             return "redirect:/login?error=true";
         }
         // En cas de succès, on est redirigé vers la liste des communes
         attributes.addFlashAttribute("type", "success");
         attributes.addFlashAttribute("message", "Connexion réussie !");
+        logger.info("Redirection vers template  'list.html'");
         return "redirect:/?successfulConnection=true";
     }
 
     /**
      * Méthode pour l'affichage du template d'inscription
+     *
      * @param model : variable de type "ModelMap"
      * @return le template "register.html"
      */
@@ -79,11 +88,12 @@ public class UserController {
 
     /**
      * Permet de créer un nouvel utilisateur
-     * @param user : l'utilisateur
+     *
+     * @param user          : l'utilisateur
      * @param bindingResult : pour la validation
-     * @param model : variable de type "ModelMap"
-     * @param attributes : paramètre pour le return sur le template
-     * @return : le template "register.html"
+     * @param model         : variable de type "ModelMap"
+     * @param attributes    : paramètre pour le return sur le template
+     * @return le template "register.html"
      */
     // NB : AddAttribute : return / AddFlashAttribute : redirect
     @PostMapping("/register") // endpoint inscription
@@ -91,23 +101,25 @@ public class UserController {
                                 BindingResult bindingResult,
                                 final ModelMap model,
                                 RedirectAttributes attributes) {
-        //Vérifier si un User existe déjà avec le même nom
+        // Vérifier si un User existe déjà avec le même nom
         User userExists = userRepository.findByUserName(user.getUserName());
         if (userExists != null) {
+            logger.error("L'utilisateur existe déjà");
             bindingResult.rejectValue("userName", "error.username",
                     "Nom d'utilisateur déjà pris");
         }
 
-        //Gérer les erreurs de validation
+        // Gérer les erreurs de validation
         if (bindingResult.hasErrors()) {
             //Si pas OK je reste sur la page d'inscription
             // en indiquant les erreurs pour chaque champ
             model.addAttribute("type", "danger");
-            model.addAttribute("message", "Erreur lors de l'inscription de l'utilisateur");
+            model.addAttribute("message", "Erreur lors de l'inscription de l'utilisateur!");
+            logger.error("Erreur lors de l'inscription de l'utilisateur!");
             return "register";
         }
 
-        //Si OK je sauvegarde le User en hâchant son mot de passe
+        //Si OK je sauvegarde le User en hachant son mot de passe
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         //Affecter le rôle USER...
         Role userRole = roleRepository.findByRole("ROLE_USER");
@@ -119,7 +131,8 @@ public class UserController {
 
         //Redirige vers Login avec un message de succès
         attributes.addFlashAttribute("type", "success");
-        attributes.addFlashAttribute("message", "Inscription réussie, vous pouvez vous connecter");
+        attributes.addFlashAttribute("message", "Inscription réussie, vous pouvez vous connecter!");
+        logger.info("Inscription réussie, vous pouvez vous connecter!");
         return "redirect:/login";
     }
 

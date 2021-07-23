@@ -4,13 +4,13 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
-<head th:replace="fragments/header :: head('Gestion des communes')"></head>
+<head th:replace="fragments/header :: head('Gestion des communes')"></head> <!-- On appelle les fragments du template "header" -->
 <body>
-
-<div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>
+<div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div> <!-- On appelle les fragments du template "header" -->
 
 <div class="container">
 
+    <!-- On affiche less messages de succès ou d'échec -->
     <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">
         <span th:utext="${message}"></span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -21,6 +21,7 @@
     <h2>Liste des communes </h2>
     <div class="row">
         <div class="col-lg-12">
+            <!-- Seul l'administrateur peut créer une nouvelle commune -->
             <div sec:authorize="hasRole('ADMIN')" class="btn-group">
                 <a href="/communes/new" class="btn btn-primary">Nouvelle commune</a>
             </div>
@@ -28,70 +29,26 @@
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
+                    <!-- On appelle les fragments du template "tables" -->
                     <th th:replace="fragments/tables :: colCodeInsee"></th>
-
                     <th th:replace="fragments/tables :: colCodePostal"></th>
-
                     <th th:replace="fragments/tables :: colNom"></th>
-
                     <th th:replace="fragments/tables :: colLatitude"></th>
-
                     <th th:replace="fragments/tables :: colLongitude"></th>
-
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-
                 <!-- Liste des communes-->
-
-                <tr th:replace="fragments/tables :: listeCommunes"></tr>
-
+                <tr th:replace="fragments/tables :: listeCommunes"></tr> <!-- On appelle les fragments du template "tables" -->
                 </tbody>
             </table>
 
-
             <div class="row">
-
-                <!-- Combobox des sizes -->
-
-                <!-- modif page-->
-                <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
-
-                <!-- modif size-->
-                <!-- http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 -->
-
-                <!-- bouton suivant/précédent -->
-                <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
-
+                <!-- On appelle les fragments du template "pagination" -->
                 <div th:replace="fragments/pagination :: pageSize"></div>
-
                 <div th:replace="fragments/pagination :: pageNav"></div>
-
-                            <!-- modif page depuis combo -->
-                            <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
-
-                            <!-- modif size depuis combo -->
-                            <!-- http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 -->
-
-                            <!-- bouton suivant/précédent -->
-                            <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
-
-
-                            <!-- Combobox des pages -->
-
-                            <!-- modif page-->
-                            <!-- http://localhost:8080/?page=3&sortDirection=&sortProperty=&size=&search= -->
-
-                            <!-- modif size-->
-                            <!-- http://localhost:8080/?size=10&sortDirection=&sortProperty=&search=&page=0 -->
-
-                            <!-- bouton suivant/précédent -->
-                            <!-- http://localhost:8080/?page=1&;search=&;10&;sortDirection=&;sortProperty= -->
-
-
                 <div th:replace="fragments/pagination :: nbCommunes"></div>
-
             </div>
         </div>
     </div>

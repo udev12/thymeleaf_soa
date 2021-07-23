@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 /**
- *
+ * Classe qui représente l'entité "Commune"
  */
 @Entity
 public class Commune {
@@ -39,13 +39,25 @@ public class Commune {
     @Max(value = 90, message = "doit être inférieure ou égale à 90")
     private Double latitude;
 
-    @Min(value = -179, message = "doit être supérieure ou égale à -180")
-    @Max(value = 168, message = "doit être inférieure ou égale à 180")
+    @Min(value = -180, message = "doit être supérieure ou égale à -180")
+    @Max(value = 180, message = "doit être inférieure ou égale à 180")
     private Double longitude;
 
+    /**
+     * Constructeur par défaut
+     */
     public Commune() {
     }
 
+    /**
+     * Constructeur surchargé avec tous les attributs
+     *
+     * @param codeInsee  : le code INSEE
+     * @param nom        : le nom de la commune
+     * @param codePostal : le code postal de la commune
+     * @param latitude   : la latitude de la commune
+     * @param longitude  : la longitude de la commune
+     */
     // Attention, créer le constructeur avant les annotations des attributs, donc pas de "@NotBlanl" das le constructeur
     public Commune(String codeInsee, String nom, String codePostal, Double latitude, Double longitude) {
         this.codeInsee = codeInsee;
@@ -95,6 +107,13 @@ public class Commune {
         this.longitude = longitude;
     }
 
+    /**
+     * Méthode de calcul de distance
+     *
+     * @param latitude  : la latitude
+     * @param longitude : la longitude
+     * @return la distance
+     */
     public Long getDistance(Double latitude, Double longitude) {
         Double lat1 = Math.toRadians(latitude);
         Double lng1 = Math.toRadians(longitude);

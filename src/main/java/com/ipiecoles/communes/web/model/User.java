@@ -3,15 +3,13 @@ package com.ipiecoles.communes.web.model;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-//import javax.validation.constraints.Email;
-//import javax.validation.constraints.NotBlank;
-//import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.Set;
-import javax.validation.constraints.*;
 
 /**
- *
+ * Classe qui représente l'entité "User"
  */
 @Entity
 public class User {
@@ -20,25 +18,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
-    @Length(max = 50)
+    @NotBlank // ne doit pas être vide
+    @Length(max = 50) // 50 caractères maximum
     private String name;
 
-    @Length(max = 50)
-    @NotBlank
+
+    @NotBlank // ne doit pas être vide
+    @Length(max = 50) // 50 caractères maximum
     private String lastName;
 
     @Email
-    @NotBlank
+    @NotBlank // ne doit pas être vide
     private String email;
 
+    @NotBlank // ne doit pas être vide
     @Column(nullable = false, unique = true)
-    @Length(min = 5, max = 50)
-    @NotBlank
+    @Length(min = 5, max = 50) // entre 5 et 50 caractères
     private String userName;
 
-    @Length(min = 8)
-    @NotBlank
+    @NotBlank // ne doit pas être vide
+    @Length(min = 8) // 8 caractères maximum
     private String password;
 
     private Boolean active;
@@ -51,9 +50,24 @@ public class User {
     )
     private Set<Role> roles;
 
+    /**
+     * Constructeur par défaut
+     */
     public User() {
     }
 
+    /**
+     * Constructeur surchargé avec tous les attributs
+     *
+     * @param id       : identifiant
+     * @param name     : prénom de l'utilisateur
+     * @param lastName : nom de l'utilisateur
+     * @param email    : adresse électronique de l'utilisateur
+     * @param userName : nom d'utilisateur
+     * @param password : mot de passe de l'utilisateur
+     * @param active   : si utilisateur actif ou pas
+     * @param roles    : rôle de l'utilisateur
+     */
     public User(Integer id, String name, String lastName, String email, String userName, String password, Boolean active, Set<Role> roles) {
         this.id = id;
         this.name = name;
@@ -129,6 +143,11 @@ public class User {
         this.roles = roles;
     }
 
+    /**
+     * On reféniti la méthode "equals"
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+    <!-- Fragment colonne "code INSEE" -->
     <th th:fragment="colCodeInsee" scope="col">
         <div th:switch="${sortDirection}">
             <!-- Tri par code Insee ascendant  -->
@@ -22,6 +23,7 @@
         </div>
     </th>
 
+    <!-- Fragment colonne "code postal" -->
     <th th:fragment="colCodePostal" scope="col">
         <div th:switch="${sortDirection}">
             <!-- Tri par code postal ascendant  -->
@@ -39,6 +41,7 @@
         </div>
     </th>
 
+    <!-- Fragment code colonne "nom" -->
     <th th:fragment="colNom" scope="col">
         <div th:switch="${sortDirection}">
             <!-- Tri par nom ascendant  -->
@@ -56,6 +59,7 @@
         </div>
     </th>
 
+    <!-- Fragment code colonne "latitude" -->
     <th th:fragment="colLatitude" scope="col">
         <div th:switch="${sortDirection}">
             <!-- Tri par latitude ascendante  -->
@@ -73,6 +77,7 @@
         </div>
     </th>
 
+    <!-- Fragment code colonne "longitude" -->
     <th th:fragment="colLongitude" scope="col">
         <div th:switch="${sortDirection}">
             <!-- Tri par longitude ascendante  -->
@@ -90,6 +95,7 @@
         </div>
     </th>
 
+    <!-- Fragment détail commune -->
     <tr th:fragment="listeCommunes" th:each="commune : ${communes}">
         <th scope="row" th:text="${commune.codeInsee}">01009</th>
         <td th:text="${commune.codePostal}">01300</td>

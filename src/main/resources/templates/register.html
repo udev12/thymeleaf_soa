@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head('Inscription')"></head>
+<head th:replace="fragments/header :: head('Inscription')"></head> <!-- On appelle les fragments du template "header" -->
 <body>
-
-<div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div>
+<div th:replace="fragments/header :: navbar('Gestion des communes', 'Liste des communes')"></div> <!-- On appelle les fragments du template "header" -->
 
 <div>
     <div class="container">
         <div class="mt-2">
 
+            <!-- On affiche les messages de succès ou d'achec -->
             <div th:if="${type}" th:class="|mt-1 alert alert-dismissible fade show alert-${type}|" role="alert">
                 <span th:utext="${message}"></span>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -33,7 +33,7 @@
                     >
                     <div class="invalid-feedback">
                         <ul>
-                            <li th:errors="${user.name}"></li>
+                            <li th:errors="${user.name}"></li> <!-- Message d'erreur de validation -->
                         </ul>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     >
                     <div class="invalid-feedback">
                         <ul>
-                            <li th:errors="${user.lastName}"></li>
+                            <li th:errors="${user.lastName}"></li> <!-- Message d'erreur de validation -->
                         </ul>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     >
                     <div class="invalid-feedback">
                         <ul>
-                            <li th:errors="${user.email}"></li>
+                            <li th:errors="${user.email}"></li> <!-- Message d'erreur de validation -->
                         </ul>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     >
                     <div class="invalid-feedback">
                         <ul>
-                            <li th:errors="${user.userName}"></li>
+                            <li th:errors="${user.userName}"></li> <!-- Message d'erreur de validation -->
                         </ul>
                     </div>
                 </div>
@@ -110,6 +110,7 @@
                     </div>
                 </div>
 
+                <!-- Bouton de validation -->
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Inscription</button>
 
             </form>
