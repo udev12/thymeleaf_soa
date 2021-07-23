@@ -34,6 +34,15 @@ public class IndexController {
      * La solution, c'est la variable "init", qui va permettre de différencier le premier lancement de l'appli,
      * des autres instants d'utilisation. On conserve ainsi la sélection par défaut (ex : 10 lignes par page), lorsqu'on
      * trie les colonnes, ou lorsqu'on clique sur le bouton "page suivante"
+     *
+     * @param page          : le numéro de page
+     * @param size          : la taille de la page
+     * @param sortProperty  : la colonne qui est triée
+     * @param sortDirection : le sens du tri
+     * @param search        : commune recherchée
+     * @param model         : objet de type "ModelMap"
+     * @return le template "list.html"
+     * @throws IllegalArgumentException lorsque les paramètres (page, size, sortProperty et sortDirection) sont incorrect
      */
     @GetMapping(value = "/") // endpoint par défaut
     public String index(

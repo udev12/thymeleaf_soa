@@ -1,0 +1,6 @@
+com.ipiecoles.communes.web
+com.ipiecoles.communes.web.controller
+com.ipiecoles.communes.web.model
+com.ipiecoles.communes.web.repository
+com.ipiecoles.communes.web.security
+com.ipiecoles.communes.web.service

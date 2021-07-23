@@ -144,9 +144,10 @@ public class User {
     }
 
     /**
-     * On reféniti la méthode "equals"
-     * @param o
-     * @return
+     * On redéfnit la méthode "equals"
+     *
+     * @param o : objet
+     * @return un booléen
      */
     @Override
     public boolean equals(Object o) {

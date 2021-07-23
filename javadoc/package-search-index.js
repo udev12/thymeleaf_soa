@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.ipiecoles.communes.web"},{"l":"com.ipiecoles.communes.web.controller"},{"l":"com.ipiecoles.communes.web.model"},{"l":"com.ipiecoles.communes.web.repository"},{"l":"com.ipiecoles.communes.web.security"},{"l":"com.ipiecoles.communes.web.service"}]

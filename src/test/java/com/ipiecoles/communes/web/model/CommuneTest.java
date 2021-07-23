@@ -1,10 +1,3 @@
-////package com.ipiecoles.communes.web.model;
-////
-////public class CommuneTest {
-////
-////
-////}
-//
 //package com.ipiecoles.communes.web.model;
 //
 //import org.assertj.core.api.Assertions;
@@ -19,11 +12,13 @@
 //import java.util.Set;
 //
 ///**
-// *
+// * On va ici, tester les validations de la classe "Commune"
 // */
 //public class CommuneTest {
 //
-//
+//    /**
+//     * On test la validation de la commune
+//     */
 //    @Test
 //    public void testCommuneOK() {
 //        //Given
@@ -38,6 +33,16 @@
 //        Assertions.assertThat(violations).isEmpty();
 //    }
 //
+//    /**
+//     * On teste la validation du code INSEE
+//     *
+//     * @param codeInsee  : le code INSEE
+//     * @param nom        : le nom de la commune
+//     * @param codePostal : le code postal
+//     * @param latitude   : la latitude
+//     * @param longitude  : la longitude
+//     * @param error      : l'erreur lors de la saisie
+//     */
 //    @ParameterizedTest
 //    @CsvSource({
 //            "'XXX', 'Apremont', '01100', 46.2054981558, 5.65781475272, 'Le code INSEE doit contenir 5 chiffres (Le deuxième caractère peut être A ou B pour les communes de Corse)'",
@@ -63,6 +68,16 @@
 //        Assertions.assertThat(violations.stream().map(ConstraintViolation::getMessage).toArray()).contains(error);
 //    }
 //
+//    /**
+//     * On teste la validation du nom de la commune
+//     *
+//     * @param codeInsee  : le code INSEE
+//     * @param nom        : le nom de la commune
+//     * @param codePostal : le code postal
+//     * @param latitude   : la latitude
+//     * @param longitude  : la longitude
+//     * @param error      : l'erreur lors de la saisie
+//     */
 //    @ParameterizedTest
 //    @CsvSource({
 //            "'01011', 'Apremont?', '01100', 46.2054981558, 5.65781475272, 'Le nom de la commune ne peut contenir que des lettres, des tirets, des espaces et éventuellement le numéro d'arrondissement'",
@@ -89,6 +104,16 @@
 //        }
 //    }
 //
+//    /**
+//     * On teste la validation du code postal
+//     *
+//     * @param codeInsee  : le code INSEE
+//     * @param nom        : le nom de la commune
+//     * @param codePostal : le code postal
+//     * @param latitude   : la latitude
+//     * @param longitude  : la longitude
+//     * @param error      : l'erreur lors de la saisie
+//     */
 //    @ParameterizedTest
 //    @CsvSource({
 //            "'01011', 'Apremont', 'XXX', 46.2054981558, 5.65781475272, 'Le code postal doit contenir 5 chiffres'",
@@ -118,6 +143,16 @@
 //        }
 //    }
 //
+//    /**
+//     * On teste la validation de la latitude et de la longitude
+//     *
+//     * @param codeInsee  : le code INSEE
+//     * @param nom        : le nom de la commune
+//     * @param codePostal le code postal
+//     * @param latitude   : la latitude
+//     * @param longitude  : la longitude
+//     * @param error      : l'erreur lors de la saisie
+//     */
 //    @ParameterizedTest
 //    @CsvSource({
 //            "'01011', 'Apremont', '01100', -91, 5.65781475272, 'doit être supérieure ou égale à -90'",
