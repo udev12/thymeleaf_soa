@@ -118,52 +118,20 @@ public class IndexController {
         // de 10 à 20 => page = page / 2
         // de 20 à 5 => 5/20=0.25 => page = page * 0.25
         // de 5 à 20 => 20/5=4 => page = page * 4
+        // page 1 => plage de 1 à 5
+        // page 2 => plage de 6 à 10
+        // page 3 => plage de 11 à 15
+        // page 4 => plage de 16 à 20
+        // page 5 => plage de 21 à 25
+        // page 6 => plage de 26 à 30
+        // page 7 => plage de 31 à 35
+        // page 8 => plage de 36 à 40
+        // d'où formule : end = n° page * 5 / start = end - 4
         int end = 0;
         int start = 0;
-        switch (intSize) {
-            case 5:
-                // page 1 => plage de 1 à 5
-                // page 2 => plage de 6 à 10
-                // page 3 => plage de 11 à 15
-                // page 4 => plage de 16 à 20
-                // page 5 => plage de 21 à 25
-                // page 6 => plage de 26 à 30
-                // page 7 => plage de 31 à 35
-                // page 8 => plage de 36 à 40
-                // d'où formule : end = n° page * 5 / start = end - 4
-                end = (intPage + 1) * 5;
-                start = end - 4;
-                lastPage = nbCommunes / 5; // size=5 => lastPage=5991 => lastPage=nbCommunes/size => 29959/5=5991
-                break;
-            case 10:
-                // page 1 => plage de 1 à 10
-                // page 2 => plage de 11 à 20
-                // page 3 => plage de 21 à 30
-                // page 4 => plage de 31 à 40
-                // page 5 => plage de 41 à 50
-                // page 6 => plage de 51 à 60
-                // page 7 => plage de 61 à 70
-                // d'où formule : end = n° page * 10 / start = end - 9 => end = n° page * size / start = end - (size - 1)
-                end = (intPage + 1) * 10;
-                start = end - 9;
-                lastPage = nbCommunes / 10; // size=10 => lastPage=2995 => lastPage=nbCommunes/size => 29959/10=2995
-                break;
-            case 20:
-                end = (intPage + 1) * 20;
-                start = end - 19;
-                lastPage = nbCommunes / 20; // size=20 => lastPage=1497 => lastPage=nbCommunes/size => 29959/20=1497
-                break;
-            case 50:
-                end = (intPage + 1) * 50;
-                start = end - 49;
-                lastPage = nbCommunes / 50; // size=50 => lastPage=599 => lastPage=nbCommunes/size => 29959/20=599
-                break;
-            case 100:
-                end = (intPage + 1) * 100;
-                start = end - 99;
-                lastPage = nbCommunes / 100; // size=100 => lastPage=299 => lastPage=nbCommunes/size => 29959/20=299
-                break;
-        }
+        end = (intPage + 1) * intSize;
+        start = end - (intSize - 1);
+        lastPage = nbCommunes / intSize; // size=100 => lastPage=299 => lastPage=nbCommunes/size => 29959/20=299
 
         // Contrôle aux limites de la valeur du paramètre "page", puis levée d'une exception le cas échéant
         if (intPage < 0 || intPage > lastPage) {

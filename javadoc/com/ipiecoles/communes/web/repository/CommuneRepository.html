@@ -195,12 +195,12 @@ extends org.springframework.data.repository.PagingAndSortingRepository&lt;<a hre
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="../model/Commune.html" title="class in com.ipiecoles.communes.web.model">Commune</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findCommuneByCodeInsee(java.lang.String)">findCommuneByCodeInsee</a></span>&#8203;(java.lang.String&nbsp;search)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findByCodeInsee(java.lang.String)">findByCodeInsee</a></span>&#8203;(java.lang.String&nbsp;search)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="../model/Commune.html" title="class in com.ipiecoles.communes.web.model">Commune</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findCommuneByNom(java.lang.String)">findCommuneByNom</a></span>&#8203;(java.lang.String&nbsp;search)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findByNom(java.lang.String)">findByNom</a></span>&#8203;(java.lang.String&nbsp;search)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -309,24 +309,24 @@ long&nbsp;countDistinctNom()</pre>
                                                                   org.springframework.data.domain.Pageable&nbsp;pageable)</pre>
 </li>
 </ul>
-<a id="findCommuneByNom(java.lang.String)">
+<a id="findByNom(java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>findCommuneByNom</h4>
+<h4>findByNom</h4>
 <pre class="methodSignature">@Query("SELECT c FROM Commune c WHERE c.nom = ?1")
-<a href="../model/Commune.html" title="class in com.ipiecoles.communes.web.model">Commune</a>&nbsp;findCommuneByNom&#8203;(java.lang.String&nbsp;search)</pre>
+<a href="../model/Commune.html" title="class in com.ipiecoles.communes.web.model">Commune</a>&nbsp;findByNom&#8203;(java.lang.String&nbsp;search)</pre>
 </li>
 </ul>
-<a id="findCommuneByCodeInsee(java.lang.String)">
+<a id="findByCodeInsee(java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>findCommuneByCodeInsee</h4>
+<h4>findByCodeInsee</h4>
 <pre class="methodSignature">@Query("SELECT c FROM Commune c WHERE c.codeInsee = ?1")
-<a href="../model/Commune.html" title="class in com.ipiecoles.communes.web.model">Commune</a>&nbsp;findCommuneByCodeInsee&#8203;(java.lang.String&nbsp;search)</pre>
+<a href="../model/Commune.html" title="class in com.ipiecoles.communes.web.model">Commune</a>&nbsp;findByCodeInsee&#8203;(java.lang.String&nbsp;search)</pre>
 </li>
 </ul>
 </li>

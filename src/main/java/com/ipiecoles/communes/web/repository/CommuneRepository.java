@@ -21,9 +21,6 @@ public interface CommuneRepository extends PagingAndSortingRepository<Commune, S
     @Query("select count(distinct c.nom) from Commune c")
     long countDistinctNom();
 
-    @Override
-    Page<Commune> findAll(Pageable pageable);
-
     Page<Commune> findAllByNomLike(String nom, Pageable pageable);
 
     List<Commune> findByLatitudeBetweenAndLongitudeBetween(Double latMin, Double latMax, Double longMin, Double longMax);
@@ -32,10 +29,14 @@ public interface CommuneRepository extends PagingAndSortingRepository<Commune, S
 
     Page<Commune> findByNomIgnoreCase(String search, Pageable pageable);
 
-    @Query("SELECT c FROM Commune c WHERE c.nom = ?1")
-    Commune findCommuneByNom(String search);
+//    @Query("SELECT c FROM Commune c WHERE c.nom = ?1")
+//    Commune findCommuneByNom(String search);
+//
+//    @Query("SELECT c FROM Commune c WHERE c.codeInsee = ?1")
+//    Commune findCommuneByCodeInsee(String search);
 
-    @Query("SELECT c FROM Commune c WHERE c.codeInsee = ?1")
-    Commune findCommuneByCodeInsee(String search);
+    Commune findByNom(String search);
+
+    Commune findByCodeInsee(String search);
 
 }
